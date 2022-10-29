@@ -9,36 +9,52 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController {
-
+    
     
     //MARK: - IBOutlet
+    
     @IBOutlet weak var mapView: MKMapView! {
         didSet {
             mapView.showsUserLocation = true
         }
     }
-    @IBOutlet weak var userLocation: UIButton!
+    
     
     //MARK: - viewDidLoad
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        mapView.delegate = self
-    }
 
+        
+        let button = MKUserTrackingButton(mapView: mapView)
+        button.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(button)
+        
+        let scale = MKScaleView(mapView: mapView)
+        scale.legendAlignment = .trailing
+        scale.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scale)
+        
+        NSLayoutConstraint.activate([
+            button.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 120),
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            scale.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -10),
+            scale.centerYAnchor.constraint(equalTo: button.centerYAnchor)])
+    }
+    
+    
+    //MARK: - viewDidAppear
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showUserLocation()
     }
     
     //MARK: - Function
-    @IBAction func showUserLocation(_ sender: UIButton) {
-        showUserLocation()
-        
-        //Show pin as user location
-//        let pin = MKPointAnnotation()
-//        pin.coordinate = location.coordinate
-//        mapView.addAnnotation(pin)
-    }
     
     func showUserLocation() {
         let location = mapView.userLocation
@@ -48,9 +64,5 @@ class MapViewController: UIViewController {
     
 }
 
-//extension MapViewController: MKMapViewDelegate {
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        <#code#>
-//    }
-//}
+
 

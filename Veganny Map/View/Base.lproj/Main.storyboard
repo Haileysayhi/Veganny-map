@@ -20,30 +20,18 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AFl-u5-SKj">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DE-Sz-Jys">
-                                <rect key="frame" x="373" y="84" width="21" height="48"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="paperplane.fill" catalog="system"/>
-                                <connections>
-                                    <action selector="showUserLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eAi-Iv-x05"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="AFl-u5-SKj" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="6bj-Ag-9oZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="AFl-u5-SKj" secondAttribute="bottom" id="A02-I2-dxJ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6DE-Sz-Jys" secondAttribute="trailing" constant="20" id="LKF-A2-5a0"/>
-                            <constraint firstItem="6DE-Sz-Jys" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="nS9-TW-NC4"/>
                             <constraint firstItem="AFl-u5-SKj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xRs-QA-oEj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="AFl-u5-SKj" secondAttribute="trailing" id="yqq-b5-Xij"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="AFl-u5-SKj" id="g9c-RP-cnJ"/>
-                        <outlet property="userLocation" destination="6DE-Sz-Jys" id="1zC-Wl-anH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -52,7 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="paperplane.fill" catalog="system" width="128" height="118"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

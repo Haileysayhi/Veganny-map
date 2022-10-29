@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		D28A5BE8290BE379005F5D50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BE7290BE379005F5D50 /* AppDelegate.swift */; };
 		D28A5BEA290BE379005F5D50 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BE9290BE379005F5D50 /* SceneDelegate.swift */; };
-		D28A5BEC290BE379005F5D50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BEB290BE379005F5D50 /* ViewController.swift */; };
+		D28A5BEC290BE379005F5D50 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BEB290BE379005F5D50 /* MapViewController.swift */; };
 		D28A5BEF290BE379005F5D50 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D28A5BED290BE379005F5D50 /* Main.storyboard */; };
 		D28A5BF1290BE37B005F5D50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D28A5BF0290BE37B005F5D50 /* Assets.xcassets */; };
 		D28A5BF4290BE37B005F5D50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 		D28A5BE4290BE379005F5D50 /* Veganny Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Veganny Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D28A5BE7290BE379005F5D50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D28A5BE9290BE379005F5D50 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D28A5BEB290BE379005F5D50 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D28A5BEB290BE379005F5D50 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D28A5BEE290BE379005F5D50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D28A5BF0290BE37B005F5D50 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D28A5BF3290BE37B005F5D50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -56,15 +56,39 @@
 		D28A5BE6290BE379005F5D50 /* Veganny Map */ = {
 			isa = PBXGroup;
 			children = (
+				D28A5BFB290D1616005F5D50 /* Resource */,
+				D28A5BFD290D16A0005F5D50 /* View */,
+				D28A5BFC290D1632005F5D50 /* Controller */,
 				D28A5BE7290BE379005F5D50 /* AppDelegate.swift */,
 				D28A5BE9290BE379005F5D50 /* SceneDelegate.swift */,
-				D28A5BEB290BE379005F5D50 /* ViewController.swift */,
-				D28A5BED290BE379005F5D50 /* Main.storyboard */,
-				D28A5BF0290BE37B005F5D50 /* Assets.xcassets */,
-				D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */,
 				D28A5BF5290BE37B005F5D50 /* Info.plist */,
 			);
 			path = "Veganny Map";
+			sourceTree = "<group>";
+		};
+		D28A5BFB290D1616005F5D50 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				D28A5BF0290BE37B005F5D50 /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		D28A5BFC290D1632005F5D50 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D28A5BEB290BE379005F5D50 /* MapViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D28A5BFD290D16A0005F5D50 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D28A5BED290BE379005F5D50 /* Main.storyboard */,
+				D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D28A5BEC290BE379005F5D50 /* ViewController.swift in Sources */,
+				D28A5BEC290BE379005F5D50 /* MapViewController.swift in Sources */,
 				D28A5BE8290BE379005F5D50 /* AppDelegate.swift in Sources */,
 				D28A5BEA290BE379005F5D50 /* SceneDelegate.swift in Sources */,
 			);
@@ -287,8 +311,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B683C2644L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Veganny Map/Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "是否同意使用您的位置資訊？";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -314,8 +340,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B683C2644L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Veganny Map/Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "是否同意使用您的位置資訊？";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

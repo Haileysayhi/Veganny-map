@@ -6,16 +6,17 @@
 //
 
 import UIKit
-import CoreLocation
+import GoogleMaps
+import GooglePlaces
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    let locationManager = CLLocationManager()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        locationManager.requestWhenInUseAuthorization()
+        GMSServices.provideAPIKey("AIzaSyC8IQNR378ak19gj7fEHbuQoU4txNS6jic")
+        GMSPlacesClient.provideAPIKey("AIzaSyC8IQNR378ak19gj7fEHbuQoU4txNS6jic")
+        
         return true
     }
     

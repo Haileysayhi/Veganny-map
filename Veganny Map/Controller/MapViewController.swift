@@ -6,62 +6,73 @@
 //
 
 import UIKit
-import MapKit
+import GoogleMaps
+import GooglePlaces
+import CoreLocation
 
 class MapViewController: UIViewController {
     
     
     //MARK: - IBOutlet
+
+    @IBOutlet weak var mapView: GMSMapView!
     
-    @IBOutlet weak var mapView: MKMapView! {
-        didSet {
-            mapView.showsUserLocation = true
-        }
-    }
+    //MARK: - Properies
+    
+    let manager = CLLocationManager()
     
     
     //MARK: - viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        manager.delegate = self
+        manager.requestWhenInUseAuthorization() // request user authorize
+        manager.distanceFilter = kCLLocationAccuracyNearestTenMeters // update data after move ten meters
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        // Create a GMSCameraPosition that tells the map to display the
+        // coordinate -33.86,151.20 at zoom level 6.
+        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 15.0)
+        mapView.camera = camera
 
         
-        let button = MKUserTrackingButton(mapView: mapView)
-        button.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
-        button.layer.borderColor = UIColor.white.cgColor
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 5
-        button.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(button)
+        print("License:\(GMSServices.openSourceLicenseInfo())") //TODO
         
-        let scale = MKScaleView(mapView: mapView)
-        scale.legendAlignment = .trailing
-        scale.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(scale)
-        
-        NSLayoutConstraint.activate([
-            button.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 120),
-            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            scale.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -10),
-            scale.centerYAnchor.constraint(equalTo: button.centerYAnchor)])
     }
     
+}
+
+//MARK: - extension
+
+extension MapViewController: CLLocationManagerDelegate {
     
-    //MARK: - viewDidAppear
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        showUserLocation()
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let currentLocation: CLLocation = locations[0] as CLLocation
+        if let location = locations.first {
+            mapView.animate(toLocation: location.coordinate)
+            mapView.animate(toZoom: 15)
+            manager.stopUpdatingLocation()
+        }
     }
     
-    //MARK: - Function
-    
-    func showUserLocation() {
-        let location = mapView.userLocation
-        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 300, longitudinalMeters: 300)
-        mapView.setRegion(region, animated: true)
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        // Get user author
+        switch status {
+        case .authorizedWhenInUse:
+            manager.startUpdatingLocation() // Start location
+            mapView.isMyLocationEnabled = true
+            mapView.settings.myLocationButton = true
+        case .denied:
+            let alertController = UIAlertController(title: "定位權限已關閉", message:"如要變更權限，請至 設定 > 隱私權 > 定位服務 開啟", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "確認", style: .default, handler:nil)
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        default:
+            break
+        }
     }
-    
 }
 
 

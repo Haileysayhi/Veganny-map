@@ -17,21 +17,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AFl-u5-SKj">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FA7-ad-u1t" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                            </mapView>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="AFl-u5-SKj" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="6bj-Ag-9oZ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="AFl-u5-SKj" secondAttribute="bottom" id="A02-I2-dxJ"/>
-                            <constraint firstItem="AFl-u5-SKj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xRs-QA-oEj"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="AFl-u5-SKj" secondAttribute="trailing" id="yqq-b5-Xij"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FA7-ad-u1t" secondAttribute="trailing" id="0ic-a1-cUn"/>
+                            <constraint firstItem="FA7-ad-u1t" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="6zL-LN-lvW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FA7-ad-u1t" secondAttribute="bottom" id="NLs-0z-UrN"/>
+                            <constraint firstItem="FA7-ad-u1t" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="g4a-Bb-4gQ"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mapView" destination="AFl-u5-SKj" id="g9c-RP-cnJ"/>
+                        <outlet property="mapView" destination="FA7-ad-u1t" id="glI-SI-LNF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -48,7 +48,6 @@
 				7154E386B18B67A32248E8D7 /* Pods-Veganny Map.debug.xcconfig */,
 				0F65300785C72F81C38D5308 /* Pods-Veganny Map.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -128,6 +127,7 @@
 				D28A5BE1290BE379005F5D50 /* Frameworks */,
 				D28A5BE2290BE379005F5D50 /* Resources */,
 				46B403BD2094E60C53154FAE /* [CP] Copy Pods Resources */,
+				D2A0677B290F5C0200988C56 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -223,6 +223,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Veganny Map/Pods-Veganny Map-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D2A0677B290F5C0200988C56 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

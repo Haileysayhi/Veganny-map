@@ -10,4 +10,6 @@ target 'Veganny Map' do
 pod 'GoogleMaps'
 pod 'GooglePlaces'  
 
+pod 'SwiftLint'
+
 end

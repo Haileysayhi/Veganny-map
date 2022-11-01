@@ -4,6 +4,8 @@ excluded:
   - ${PWD}/DerivedData
 
 disabled_rules:
+  - vertical_whitespace_opening_braces
+  - trailing_whitespace
   - discarded_notification_center_observer
   - notification_center_detachment
   - orphaned_doc_comment
@@ -48,7 +50,6 @@ opt_in_rules:
   - unneeded_parentheses_in_closure_argument
   - unused_import
   - vertical_whitespace_closing_braces
-  - vertical_whitespace_opening_braces
   - yoda_condition
 
 
@@ -98,9 +99,9 @@ multiline_arguments:
 private_over_fileprivate:
   validate_extensions: true
 
-trailing_whitespace:
-  ignores_empty_lines: false
-  ignores_comments: true
+#trailing_whitespace:
+#  ignores_empty_lines: false
+#  ignores_comments: true
 
 vertical_whitespace:
   max_empty_lines: 2

@@ -11,10 +11,17 @@ import GooglePlaces
 import CoreLocation
 
 class MapViewController: UIViewController {
+    
     // MARK: - IBOutlet
     @IBOutlet weak var mapView: GMSMapView!
+    
     // MARK: - Properies
     let manager = CLLocationManager()
+    var camera = GMSCameraPosition()
+    var listResponse: ListResponse?
+    // MARK: - TODO Set user location or Just show all of vegan
+    var location = "25.038456876465034,121.53288929543649" // 座標預設為台北市
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +31,20 @@ class MapViewController: UIViewController {
         manager.desiredAccuracy = kCLLocationAccuracyBest
         // Create a GMSCameraPosition that tells the map to display the
         // coordinate -33.86,151.20 at zoom level 6.
-        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+        camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
         mapView.camera = camera
-        print("License:\(GMSServices.openSourceLicenseInfo())") // TODO
+//        print("License:\(GMSServices.openSourceLicenseInfo())") // TODO
+        
+        GoogleMapListController.shared.fetchNearbySearch(location: location, keyword: "vegan") { listresponse in
+            self.listResponse = listresponse
+            print("==>\(listresponse)")
+            listresponse?.results.forEach({ result in
+                let marker = GMSMarker()
+                marker.position = CLLocationCoordinate2D(latitude: result.geometry.location.lat, longitude: result.geometry.location.lng)
+                marker.icon = GMSMarker.markerImage(with: .purple)
+                marker.map = self.mapView
+            })
+        }
     }
 }
 

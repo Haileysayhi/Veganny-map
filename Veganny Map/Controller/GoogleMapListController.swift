@@ -20,7 +20,7 @@ class GoogleMapListController {
      key：個人的api key */
     
     func fetchNearbySearch(location: String, keyword: String, completion: @escaping (ListResponse?) -> Void) {
-        if let url = URL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(location)&radius=1000&keyword=\(keyword)&language=zh-TW&key=\(GoogleMapListController.key)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
+        if let url = URL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(location)&radius=3000&keyword=\(keyword)&language=zh-TW&key=\(GoogleMapListController.key)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data,
                 let response = response as? HTTPURLResponse,

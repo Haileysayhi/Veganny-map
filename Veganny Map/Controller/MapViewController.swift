@@ -41,7 +41,8 @@ class MapViewController: UIViewController {
             listresponse?.results.forEach({ result in
                 let marker = GMSMarker()
                 marker.position = CLLocationCoordinate2D(latitude: result.geometry.location.lat, longitude: result.geometry.location.lng)
-                marker.icon = GMSMarker.markerImage(with: .purple)
+                marker.title = result.name
+                marker.icon = GMSMarker.markerImage(with: .green)
                 marker.map = self.mapView
             })
         }

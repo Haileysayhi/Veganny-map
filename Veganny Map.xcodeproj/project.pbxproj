@@ -17,6 +17,8 @@
 		D2A0677E290F96CF00988C56 /* PlaceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0677D290F96CF00988C56 /* PlaceSearch.swift */; };
 		D2A06780290F970700988C56 /* PlaceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0677F290F970700988C56 /* PlaceDetails.swift */; };
 		D2A06782290FCD6A00988C56 /* GoogleMapListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A06781290FCD6A00988C56 /* GoogleMapListController.swift */; };
+		D2A0678429113BEE00988C56 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0678329113BEE00988C56 /* DetailViewController.swift */; };
+		D2A0678629113CCE00988C56 /* DeatilTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0678529113CCE00988C56 /* DeatilTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		D2A0677D290F96CF00988C56 /* PlaceSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearch.swift; sourceTree = "<group>"; };
 		D2A0677F290F970700988C56 /* PlaceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetails.swift; sourceTree = "<group>"; };
 		D2A06781290FCD6A00988C56 /* GoogleMapListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapListController.swift; sourceTree = "<group>"; };
+		D2A0678329113BEE00988C56 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		D2A0678529113CCE00988C56 /* DeatilTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeatilTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,8 +104,9 @@
 		D28A5BFC290D1632005F5D50 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D28A5BEB290BE379005F5D50 /* MapViewController.swift */,
 				D2A06781290FCD6A00988C56 /* GoogleMapListController.swift */,
+				D28A5BEB290BE379005F5D50 /* MapViewController.swift */,
+				D2A0678329113BEE00988C56 /* DetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -109,6 +114,7 @@
 		D28A5BFD290D16A0005F5D50 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D2A0678529113CCE00988C56 /* DeatilTableViewCell.swift */,
 				D28A5BED290BE379005F5D50 /* Main.storyboard */,
 				D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */,
 			);
@@ -145,6 +151,7 @@
 				D28A5BE2290BE379005F5D50 /* Resources */,
 				46B403BD2094E60C53154FAE /* [CP] Copy Pods Resources */,
 				D2A0677B290F5C0200988C56 /* ShellScript */,
+				FA5365BE82D801F5C863084F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -258,6 +265,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
+		FA5365BE82D801F5C863084F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Veganny Map/Pods-Veganny Map-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Veganny Map/Pods-Veganny Map-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Veganny Map/Pods-Veganny Map-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -267,8 +291,10 @@
 			files = (
 				D2A06780290F970700988C56 /* PlaceDetails.swift in Sources */,
 				D28A5BEC290BE379005F5D50 /* MapViewController.swift in Sources */,
+				D2A0678629113CCE00988C56 /* DeatilTableViewCell.swift in Sources */,
 				D28A5BE8290BE379005F5D50 /* AppDelegate.swift in Sources */,
 				D28A5BEA290BE379005F5D50 /* SceneDelegate.swift in Sources */,
+				D2A0678429113BEE00988C56 /* DetailViewController.swift in Sources */,
 				D2A0677E290F96CF00988C56 /* PlaceSearch.swift in Sources */,
 				D2A06782290FCD6A00988C56 /* GoogleMapListController.swift in Sources */,
 			);
@@ -346,7 +372,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -400,7 +426,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

@@ -5,11 +5,15 @@ target 'Veganny Map' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Veganny Map
-
+  # Pods for GoogleMaps
 pod 'GoogleMaps'
-pod 'GooglePlaces'  
+pod 'GooglePlaces' 
+pod 'Google-Maps-iOS-Utils' 
 
+  # Pods for SwiftLint
 pod 'SwiftLint'
+ 
+  # Pods for FloatingPanel
+pod 'FloatingPanel'
 
 end

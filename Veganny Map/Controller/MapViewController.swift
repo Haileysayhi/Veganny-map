@@ -11,6 +11,11 @@ import GooglePlaces
 import GoogleMapsUtils
 import CoreLocation
 
+protocol MapViewControllerDelegate: AnyObject {
+    func manager(_ mapVC: MapViewController, didGet restaurants: [ItemResult])
+
+}
+
 class MapViewController: UIViewController, GMSMapViewDelegate {
     
     // MARK: - IBOutlet
@@ -21,6 +26,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     var listResponse: ListResponse?
     var clusterManager: GMUClusterManager!
     var userLocation = ""
+    weak var delegate: MapViewControllerDelegate!
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -48,8 +54,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         
         GoogleMapListController.shared.fetchNearbySearch(location: userLocation, keyword: "vegan") { listresponse in
             self.listResponse = listresponse
-            print("==>位置有沒有吃到\(self.userLocation)")
-            print("==>\(listresponse)")
+            print("==位置<MapViewController>有沒有吃到\(self.userLocation)")
+            print("==<MapViewController>\(listresponse)")
+            self.delegate.manager(self, didGet: listresponse!.results)
             listresponse?.results.forEach({ result in
                 let marker = GMSMarker()
                 marker.position = CLLocationCoordinate2D(
@@ -68,7 +75,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     // MARK: - Function
     func showTableView() {
-        let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController")
+        let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
+        self.delegate = tableVC!// 幫MapViewController做事的人是tableVC
         if let sheet = tableVC?.sheetPresentationController {
             sheet.detents = [.medium(), .large()]
             sheet.prefersScrollingExpandsWhenScrolledToEdge = false

@@ -47,17 +47,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ikV-8z-fzJ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1Ax-AF-b7b">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="95" width="414" height="767"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeatilTableViewCell" id="417-KO-RTU" customClass="DeatilTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="109.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="417-KO-RTU" id="BqJ-gk-eP3">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="109.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-4T-k3w">
+                                                    <rect key="frame" x="30" y="21" width="42.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYk-YW-DCX">
+                                                    <rect key="frame" x="30" y="72" width="61" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="NYk-YW-DCX" secondAttribute="bottom" constant="5" id="3Vy-aD-4So"/>
+                                                <constraint firstItem="NYk-YW-DCX" firstAttribute="top" secondItem="GS3-4T-k3w" secondAttribute="bottom" constant="30" id="8W8-rp-545"/>
+                                                <constraint firstItem="GS3-4T-k3w" firstAttribute="top" secondItem="BqJ-gk-eP3" secondAttribute="topMargin" constant="10" id="Zyn-Io-E6e"/>
+                                                <constraint firstItem="NYk-YW-DCX" firstAttribute="leading" secondItem="BqJ-gk-eP3" secondAttribute="leadingMargin" constant="10" id="otg-8w-FIJ"/>
+                                                <constraint firstItem="GS3-4T-k3w" firstAttribute="leading" secondItem="BqJ-gk-eP3" secondAttribute="leadingMargin" constant="10" id="swX-Xm-Ezr"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addressLable" destination="NYk-YW-DCX" id="Pzl-0U-Ltm"/>
+                                            <outlet property="nameLabel" destination="GS3-4T-k3w" id="dA6-GB-9Zy"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -67,8 +96,11 @@
                         <constraints>
                             <constraint firstItem="6XC-Sy-Ewx" firstAttribute="trailing" secondItem="1Ax-AF-b7b" secondAttribute="trailing" id="0WI-13-owS"/>
                             <constraint firstItem="6XC-Sy-Ewx" firstAttribute="bottom" secondItem="1Ax-AF-b7b" secondAttribute="bottom" id="1vJ-yS-iof"/>
+                            <constraint firstItem="ikV-8z-fzJ" firstAttribute="top" secondItem="6XC-Sy-Ewx" secondAttribute="top" id="NR2-r5-tSK"/>
                             <constraint firstItem="1Ax-AF-b7b" firstAttribute="leading" secondItem="6XC-Sy-Ewx" secondAttribute="leading" id="btU-TX-eWi"/>
-                            <constraint firstItem="1Ax-AF-b7b" firstAttribute="top" secondItem="6XC-Sy-Ewx" secondAttribute="top" id="mDs-Fj-hXT"/>
+                            <constraint firstItem="ikV-8z-fzJ" firstAttribute="trailing" secondItem="6XC-Sy-Ewx" secondAttribute="trailing" id="gCV-sF-rCn"/>
+                            <constraint firstItem="1Ax-AF-b7b" firstAttribute="top" secondItem="6XC-Sy-Ewx" secondAttribute="top" constant="51" id="mDs-Fj-hXT"/>
+                            <constraint firstItem="ikV-8z-fzJ" firstAttribute="leading" secondItem="6XC-Sy-Ewx" secondAttribute="leading" id="w2T-xA-5IW"/>
                         </constraints>
                     </view>
                     <connections>
@@ -77,7 +109,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CnV-mX-dxx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1782" y="-243"/>
+            <point key="canvasLocation" x="1781.1594202898552" y="-243.08035714285714"/>
         </scene>
         <!--Social-->
         <scene sceneID="7nJ-CN-VGN">
@@ -118,6 +150,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="xH4-W3-RHh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IiR-3d-TE9">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>

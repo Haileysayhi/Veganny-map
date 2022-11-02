@@ -10,16 +10,17 @@ import GoogleMaps
 import GooglePlaces
 import GoogleMapsUtils
 import CoreLocation
+import FloatingPanel
 
 protocol MapViewControllerDelegate: AnyObject {
     func manager(_ mapVC: MapViewController, didGet restaurants: [ItemResult])
-
 }
 
-class MapViewController: UIViewController, GMSMapViewDelegate {
+class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelControllerDelegate {
     
     // MARK: - IBOutlet
     @IBOutlet weak var mapView: GMSMapView!
+    
     
     // MARK: - Properies
     let manager = CLLocationManager()
@@ -27,11 +28,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     var clusterManager: GMUClusterManager!
     var userLocation = ""
     weak var delegate: MapViewControllerDelegate!
+    var fpc: FloatingPanelController!
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        showTableView()
+
         manager.delegate = self
         manager.requestWhenInUseAuthorization() // request user authorize
         manager.distanceFilter = kCLLocationAccuracyNearestTenMeters // update data after move ten meters
@@ -49,9 +52,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     // MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        showTableView()
-        
+
         GoogleMapListController.shared.fetchNearbySearch(location: userLocation, keyword: "vegan") { listresponse in
             self.listResponse = listresponse
             print("==位置<MapViewController>有沒有吃到\(self.userLocation)")
@@ -75,17 +76,28 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     // MARK: - Function
     func showTableView() {
-        let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
-        self.delegate = tableVC!// 幫MapViewController做事的人是tableVC
-        if let sheet = tableVC?.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            sheet.prefersGrabberVisible = true
-            sheet.largestUndimmedDetentIdentifier = .medium
-            sheet.preferredCornerRadius = 20
-            sheet.prefersEdgeAttachedInCompactHeight = true
-        }
-        present(tableVC!, animated: true)
+        
+        fpc = FloatingPanelController()
+        fpc.delegate = self // Optional
+        guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as?
+        DetailViewController else { return }
+        
+        self.delegate = tableVC// 幫MapViewController做事的人是tableVC
+        fpc.set(contentViewController: tableVC)
+        fpc.track(scrollView: tableVC.tableView)
+        fpc.addPanel(toParent: self)
+        
+        
+//        let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
+//        if let sheet = tableVC?.sheetPresentationController {
+//            sheet.detents = [.medium(), .large()]
+//            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+//            sheet.prefersGrabberVisible = true
+//            sheet.largestUndimmedDetentIdentifier = .medium
+//            sheet.preferredCornerRadius = 20
+//            sheet.prefersEdgeAttachedInCompactHeight = true
+//        }
+//        present(tableVC!, animated: true)
     }
 }
 
@@ -115,7 +127,7 @@ extension MapViewController: CLLocationManagerDelegate {
             mapView.settings.compassButton = true
             mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 400, right: 0)
             
-
+            
         case .denied:
             let alertController = UIAlertController(
                 title: "定位權限已關閉",

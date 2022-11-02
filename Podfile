@@ -12,5 +12,8 @@ pod 'Google-Maps-iOS-Utils'
 
   # Pods for SwiftLint
 pod 'SwiftLint'
+ 
+  # Pods for FloatingPanel
+pod 'FloatingPanel'
 
 end

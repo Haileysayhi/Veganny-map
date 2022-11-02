@@ -1,4 +1,5 @@
 PODS:
+  - FloatingPanel (2.5.5)
   - Google-Maps-iOS-Utils (4.1.0):
     - Google-Maps-iOS-Utils/Clustering (= 4.1.0)
     - Google-Maps-iOS-Utils/Geometry (= 4.1.0)
@@ -27,6 +28,7 @@ PODS:
   - SwiftLint (0.49.1)
 
 DEPENDENCIES:
+  - FloatingPanel
   - Google-Maps-iOS-Utils
   - GoogleMaps
   - GooglePlaces
@@ -34,17 +36,19 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - FloatingPanel
     - Google-Maps-iOS-Utils
     - GoogleMaps
     - GooglePlaces
     - SwiftLint
 
 SPEC CHECKSUMS:
+  FloatingPanel: a27e7827e0f710fa6236fe2596dd1b5484cb4fc1
   Google-Maps-iOS-Utils: 3343332b18dfd5be8f1f44edd7d481ace3da4d9a
   GoogleMaps: bc56ffb0324e345a2d91bac1a64a920f9c8f1b20
   GooglePlaces: 187946335ec3dc624de71c0a9ddcc712f19b0ee1
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: fa7c9fa155eed93ab4ad0841c7d853a22549a126
+PODFILE CHECKSUM: 361f1cf98b4c834bd7f9d039a1ed35525e0752d2
 
 COCOAPODS: 1.11.3

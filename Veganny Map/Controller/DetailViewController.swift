@@ -15,6 +15,7 @@ class DetailViewController: UIViewController, MapViewControllerDelegate {
     
     // MARK: - IBOutlet
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     // MARK: - Properties
     var itemResults: [ItemResult] = [] {
@@ -26,11 +27,15 @@ class DetailViewController: UIViewController, MapViewControllerDelegate {
         }
     }
     
+    var searching = false
+    var searchedRestaurants = [ItemResult]()
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView?.delegate = self
         tableView?.dataSource = self
+        self.searchBar.delegate = self
     }
 }
 
@@ -38,14 +43,39 @@ class DetailViewController: UIViewController, MapViewControllerDelegate {
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        itemResults.count
+        if searching {
+            return searchedRestaurants.count
+        } else {
+            return itemResults.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "DeatilTableViewCell",
             for: indexPath) as? DeatilTableViewCell else { fatalError("Could not create Cell") }
-        cell.layoutCell(result: itemResults[indexPath.row])
+        
+        if searching {
+            cell.layoutCell(result: searchedRestaurants[indexPath.row])
+        } else {
+            cell.layoutCell(result: itemResults[indexPath.row])
+        }
         return cell
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension DetailViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchedRestaurants = itemResults.filter { $0.name.lowercased().prefix(searchText.count) == searchText.lowercased() }
+        searching = true
+        tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searching = false
+        searchBar.text = ""
+        tableView.reloadData()
     }
 }

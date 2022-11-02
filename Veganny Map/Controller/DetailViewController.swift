@@ -8,7 +8,7 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
+    
     // MARK: - IBOutlet
     @IBOutlet weak var tableView: UITableView!
     
@@ -18,6 +18,8 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         tableView?.delegate = self
         tableView?.dataSource = self
+        
+        configureSearchController()
     }
 }
 
@@ -29,9 +31,17 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DeatilTableViewCell", for: indexPath) as? DeatilTableViewCell else { fatalError("Could not create Cell") }
-        
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: "DeatilTableViewCell",
+            for: indexPath) as? DeatilTableViewCell else { fatalError("Could not create Cell") }
         
         return cell
-    }    
+    }
+    
+    // MARK: - Set up search bar
+    func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchBar.sizeToFit()
+        tableView.tableHeaderView = searchController.searchBar
+    }
 }

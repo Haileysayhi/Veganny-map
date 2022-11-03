@@ -7,6 +7,10 @@
 
 import UIKit
 
+//protocol RestaurantTableViewCellDelegate : AnyObject {
+//    func presentVC(_ tableViewCell: RestaurantTableViewCell)
+//}
+
 class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     
     // MARK: - IBOutlet
@@ -14,16 +18,17 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
         didSet {
             collectionView.dataSource = self
             collectionView.delegate = self
+            collectionView.collectionViewLayout = generateLayout()
         }
     }
     
     // MARK: - Properties
     var detail: DetailResponse?
+//    weak var delegate: RestaurantTableViewCellDelegate?
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
-        collectionView.collectionViewLayout = generateLayout()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -78,6 +83,10 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
         
         return headerView
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        self.delegate?.presentVC(self)
+//    }
     
     // MARK: - Compositional Layout
     var photoSection: NSCollectionLayoutSection {

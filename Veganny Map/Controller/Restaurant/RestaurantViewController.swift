@@ -14,7 +14,12 @@ class RestaurantViewController: UIViewController, MapViewControllerDelegate {
     }
     
     // MARK: - IBOutlet
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView?.delegate = self
+            tableView?.dataSource = self
+        }
+    }
     @IBOutlet weak var searchBar: UISearchBar!
     
     // MARK: - Properties
@@ -33,8 +38,6 @@ class RestaurantViewController: UIViewController, MapViewControllerDelegate {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView?.delegate = self
-        tableView?.dataSource = self
         self.searchBar.delegate = self
     }
 }
@@ -63,6 +66,20 @@ extension RestaurantViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
+    
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+            let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
+            if let sheet = tableVC?.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+                sheet.prefersGrabberVisible = true
+                sheet.largestUndimmedDetentIdentifier = .medium
+                sheet.preferredCornerRadius = 20
+                sheet.prefersEdgeAttachedInCompactHeight = true
+            }
+            present(tableVC!, animated: true)
+        }
 }
 
 // MARK: - UISearchBarDelegate

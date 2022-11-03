@@ -196,6 +196,115 @@
             </objects>
             <point key="canvasLocation" x="590" y="492"/>
         </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="Ku6-J1-Dvg">
+            <objects>
+                <viewController storyboardIdentifier="DetailViewController" id="JYT-Eo-LCm" customClass="DetailViewController" customModule="Veganny_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fvr-bT-mDJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Hvv-Ts-vdx">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PhotoTableViewCell" rowHeight="177" id="riD-cd-rOd" customClass="PhotoTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="177"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="riD-cd-rOd" id="uIe-nQ-bdP">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="177"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="plD-vU-inM">
+                                                    <rect key="frame" x="20" y="11" width="374" height="155"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="180" id="xPf-yu-xJh"/>
+                                                    </constraints>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xvf-iP-b3t">
+                                                        <size key="itemSize" width="120" height="180"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCollectionViewCell" id="gKi-nv-Ppx" customClass="PhotoCollectionViewCell" customModule="Veganny_Map" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2jC-A1-CFr">
+                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7TO-WD-BBF">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="7TO-WD-BBF" secondAttribute="height" multiplier="1:1" id="EDr-IA-rqY"/>
+                                                                            <constraint firstAttribute="width" constant="120" id="i7K-ur-Bze"/>
+                                                                            <constraint firstAttribute="height" constant="120" id="yzJ-Lg-hSw"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="7TO-WD-BBF" firstAttribute="leading" secondItem="2jC-A1-CFr" secondAttribute="leading" id="OGa-xq-9UC"/>
+                                                                    <constraint firstItem="7TO-WD-BBF" firstAttribute="top" secondItem="2jC-A1-CFr" secondAttribute="top" id="dkW-LM-SYI"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="7TO-WD-BBF" secondAttribute="bottom" id="fnz-5b-sa6"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="7TO-WD-BBF" secondAttribute="trailing" id="ool-hU-TjU"/>
+                                                                </constraints>
+                                                            </collectionViewCellContentView>
+                                                            <connections>
+                                                                <outlet property="photoIngView" destination="7TO-WD-BBF" id="k1m-SW-6mj"/>
+                                                            </connections>
+                                                        </collectionViewCell>
+                                                    </cells>
+                                                </collectionView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="plD-vU-inM" firstAttribute="leading" secondItem="uIe-nQ-bdP" secondAttribute="leadingMargin" id="AsV-4O-Jz7"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="plD-vU-inM" secondAttribute="bottom" id="T5c-0q-kZX"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="plD-vU-inM" secondAttribute="trailing" id="m3c-vX-cLK"/>
+                                                <constraint firstItem="plD-vU-inM" firstAttribute="top" secondItem="uIe-nQ-bdP" secondAttribute="topMargin" id="vcn-Z6-1x3"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="collectionView" destination="plD-vU-inM" id="U3L-lp-lBA"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InfoTableViewCell" rowHeight="315" id="iiO-Rt-Sua" customClass="InfoTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="221.5" width="414" height="315"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iiO-Rt-Sua" id="5sv-fT-QAK">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="315"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReviewTableViewCell" rowHeight="205" id="O9x-MZ-ssZ" customClass="ReviewTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="536.5" width="414" height="205"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O9x-MZ-ssZ" id="bxb-z1-4dO">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="205"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="e5Z-cM-qHT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Hvv-Ts-vdx" firstAttribute="leading" secondItem="e5Z-cM-qHT" secondAttribute="leading" id="AGI-Ub-ik5"/>
+                            <constraint firstItem="e5Z-cM-qHT" firstAttribute="bottom" secondItem="Hvv-Ts-vdx" secondAttribute="bottom" id="GUc-ZC-JMC"/>
+                            <constraint firstItem="e5Z-cM-qHT" firstAttribute="trailing" secondItem="Hvv-Ts-vdx" secondAttribute="trailing" id="MrM-3x-Htd"/>
+                            <constraint firstItem="Hvv-Ts-vdx" firstAttribute="top" secondItem="e5Z-cM-qHT" secondAttribute="top" id="TwU-vI-WL4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="Hvv-Ts-vdx" id="aI4-cy-NCy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="13X-KE-du9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1792.753623188406" y="461.38392857142856"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="pIW-BA-wx8">
             <objects>

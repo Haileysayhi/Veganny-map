@@ -13,7 +13,7 @@ struct ListResponse: Decodable {
     var status: String
 }
 
-// 裏層
+// 裡層
 struct ItemResult: Decodable {
     var name: String        // 地標名稱
     var placeId: String     // id （for 抓詳細資料使用）

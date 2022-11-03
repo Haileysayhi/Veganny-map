@@ -79,8 +79,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
         
         fpc = FloatingPanelController()
         fpc.delegate = self // Optional
-        guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as?
-        DetailViewController else { return }
+        guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "RestaurantViewController") as?
+        RestaurantViewController else { return }
         
         self.delegate = tableVC// 幫MapViewController做事的人是tableVC
         fpc.set(contentViewController: tableVC)

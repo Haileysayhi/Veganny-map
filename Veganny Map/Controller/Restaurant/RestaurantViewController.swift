@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  RestaurantViewController.swift
 //  Veganny Map
 //
 //  Created by Hailey on 2022/11/1.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, MapViewControllerDelegate {
+class RestaurantViewController: UIViewController, MapViewControllerDelegate {
     
     func manager(_ mapVC: MapViewController, didGet restaurants: [ItemResult]) {
         self.itemResults = restaurants
@@ -20,7 +20,7 @@ class DetailViewController: UIViewController, MapViewControllerDelegate {
     // MARK: - Properties
     var itemResults: [ItemResult] = [] {
         didSet {
-            print("===>DetailViewController拿到的資料\(itemResults)")
+            print("===>RestaurantViewController拿到的資料\(itemResults)")
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -40,7 +40,7 @@ class DetailViewController: UIViewController, MapViewControllerDelegate {
 }
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
-extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
+extension RestaurantViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searching {
@@ -48,12 +48,13 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return itemResults.count
         }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: "DeatilTableViewCell",
-            for: indexPath) as? DeatilTableViewCell else { fatalError("Could not create Cell") }
+            withIdentifier: "RestaurantTableViewCell",
+            for: indexPath) as? RestaurantTableViewCell else { fatalError("Could not create Cell") }
         
         if searching {
             cell.layoutCell(result: searchedRestaurants[indexPath.row])
@@ -65,7 +66,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: - UISearchBarDelegate
-extension DetailViewController: UISearchBarDelegate {
+extension RestaurantViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchedRestaurants = itemResults.filter { $0.name.lowercased().prefix(searchText.count) == searchText.lowercased() }

@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -39,10 +40,10 @@
             </objects>
             <point key="canvasLocation" x="561" y="-246"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Restaurant View Controller-->
         <scene sceneID="5V2-6A-CCf">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" id="7hZ-JK-gpx" customClass="DetailViewController" customModule="Veganny_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RestaurantViewController" id="7hZ-JK-gpx" customClass="RestaurantViewController" customModule="Veganny_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hdd-mP-eAV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -55,37 +56,87 @@
                                 <rect key="frame" x="0.0" y="95" width="414" height="767"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeatilTableViewCell" id="417-KO-RTU" customClass="DeatilTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="109.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RestaurantTableViewCell" id="417-KO-RTU" customClass="RestaurantTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="202.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="417-KO-RTU" id="BqJ-gk-eP3">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="109.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="202.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-4T-k3w">
-                                                    <rect key="frame" x="30" y="21" width="42.5" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYk-YW-DCX">
-                                                    <rect key="frame" x="30" y="72" width="61" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gTE-PP-oXo">
+                                                    <rect key="frame" x="20" y="11" width="374" height="180.5"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="180" id="ncX-Be-mFy"/>
+                                                    </constraints>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="O4V-2g-iQ0">
+                                                        <size key="itemSize" width="120" height="180"/>
+                                                        <size key="headerReferenceSize" width="50" height="50"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RestaurantCollectionViewCell" id="IYA-EG-jyn" customClass="RestaurantCollectionViewCell" customModule="Veganny_Map" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="50" width="180" height="180"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="W19-dF-moB">
+                                                                <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xGZ-Ep-CPO">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="120" id="Bdo-Nr-Yt9"/>
+                                                                            <constraint firstAttribute="height" constant="180" id="PJs-zu-5Sx"/>
+                                                                            <constraint firstAttribute="width" secondItem="xGZ-Ep-CPO" secondAttribute="height" multiplier="1:1" id="n63-AW-sRc"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="bottom" secondItem="xGZ-Ep-CPO" secondAttribute="bottom" id="QhC-Hw-Cd2"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="xGZ-Ep-CPO" secondAttribute="trailing" id="WSJ-7L-RZA"/>
+                                                                    <constraint firstItem="xGZ-Ep-CPO" firstAttribute="leading" secondItem="W19-dF-moB" secondAttribute="leading" id="eP7-d2-zkt"/>
+                                                                    <constraint firstItem="xGZ-Ep-CPO" firstAttribute="top" secondItem="W19-dF-moB" secondAttribute="top" id="g6g-uj-kCb"/>
+                                                                </constraints>
+                                                            </collectionViewCellContentView>
+                                                            <connections>
+                                                                <outlet property="restaurantImgView" destination="xGZ-Ep-CPO" id="bS8-TS-y8C"/>
+                                                            </connections>
+                                                        </collectionViewCell>
+                                                    </cells>
+                                                    <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="HeaderView" id="fNF-zs-8pu" customClass="HeaderView" customModule="Veganny_Map" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zbr-Nw-dcy">
+                                                                <rect key="frame" x="8" y="10" width="295" height="24"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <attributedString key="attributedText">
+                                                                    <fragment content="Label">
+                                                                        <attributes>
+                                                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                            <font key="NSFont" size="16" name="PingFangTC-Medium"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                </attributedString>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <connections>
+                                                            <outlet property="header" destination="zbr-Nw-dcy" id="jcu-81-VGI"/>
+                                                        </connections>
+                                                    </collectionReusableView>
+                                                </collectionView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="NYk-YW-DCX" secondAttribute="bottom" constant="5" id="3Vy-aD-4So"/>
-                                                <constraint firstItem="NYk-YW-DCX" firstAttribute="top" secondItem="GS3-4T-k3w" secondAttribute="bottom" constant="30" id="8W8-rp-545"/>
-                                                <constraint firstItem="GS3-4T-k3w" firstAttribute="top" secondItem="BqJ-gk-eP3" secondAttribute="topMargin" constant="10" id="Zyn-Io-E6e"/>
-                                                <constraint firstItem="NYk-YW-DCX" firstAttribute="leading" secondItem="BqJ-gk-eP3" secondAttribute="leadingMargin" constant="10" id="otg-8w-FIJ"/>
-                                                <constraint firstItem="GS3-4T-k3w" firstAttribute="leading" secondItem="BqJ-gk-eP3" secondAttribute="leadingMargin" constant="10" id="swX-Xm-Ezr"/>
+                                                <constraint firstItem="gTE-PP-oXo" firstAttribute="top" secondItem="BqJ-gk-eP3" secondAttribute="topMargin" id="K9g-mH-Jek"/>
+                                                <constraint firstItem="gTE-PP-oXo" firstAttribute="leading" secondItem="BqJ-gk-eP3" secondAttribute="leadingMargin" id="Vdu-Yh-foT"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="gTE-PP-oXo" secondAttribute="trailing" id="ogZ-5w-Egd"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="gTE-PP-oXo" secondAttribute="bottom" id="zx3-Qm-4mM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="addressLable" destination="NYk-YW-DCX" id="Pzl-0U-Ltm"/>
-                                            <outlet property="nameLabel" destination="GS3-4T-k3w" id="dA6-GB-9Zy"/>
+                                            <outlet property="collectionView" destination="gTE-PP-oXo" id="0cT-QM-hfe"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

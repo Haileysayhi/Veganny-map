@@ -25,6 +25,7 @@ PODS:
   - GoogleMaps/Maps (7.1.0):
     - GoogleMaps/Base
   - GooglePlaces (7.1.0)
+  - IQKeyboardManagerSwift (6.5.10)
   - SwiftLint (0.49.1)
 
 DEPENDENCIES:
@@ -32,6 +33,7 @@ DEPENDENCIES:
   - Google-Maps-iOS-Utils
   - GoogleMaps
   - GooglePlaces
+  - IQKeyboardManagerSwift
   - SwiftLint
 
 SPEC REPOS:
@@ -40,6 +42,7 @@ SPEC REPOS:
     - Google-Maps-iOS-Utils
     - GoogleMaps
     - GooglePlaces
+    - IQKeyboardManagerSwift
     - SwiftLint
 
 SPEC CHECKSUMS:
@@ -47,8 +50,9 @@ SPEC CHECKSUMS:
   Google-Maps-iOS-Utils: 3343332b18dfd5be8f1f44edd7d481ace3da4d9a
   GoogleMaps: bc56ffb0324e345a2d91bac1a64a920f9c8f1b20
   GooglePlaces: 187946335ec3dc624de71c0a9ddcc712f19b0ee1
+  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: 361f1cf98b4c834bd7f9d039a1ed35525e0752d2
+PODFILE CHECKSUM: 8808d357fdff253191ccb244f8c99b49b7e10331
 
 COCOAPODS: 1.11.3

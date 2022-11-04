@@ -10,8 +10,6 @@ import UIKit
 class PhotoTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
-
-    
     // MARK: - IBOutlet
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -22,9 +20,7 @@ class PhotoTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     }
     
     // MARK: - Properties
-
-    var simpsonsFamily = ["河馬", "霸子", "美枝", "花枝", "奶嘴"]
-    
+    var photos: [PhotosResults] = []    
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {
@@ -43,9 +39,8 @@ class PhotoTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     }
     
     // MARK: - UICollectionViewDelegate & UICollectionViewDataSource
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        simpsonsFamily.count
+        photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -54,7 +49,15 @@ class PhotoTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
             for: indexPath) as? PhotoCollectionViewCell
         else { fatalError("Could not create Cell.") }
         
-        cell.photoIngView.image = UIImage(named: simpsonsFamily[indexPath.item])
+        cell.photoIngView.image = nil
+        GoogleMapListController.shared.fetchPhotos(
+            photoReference: photos[indexPath.row].photoReference ?? ""){
+                image in DispatchQueue.main.async {
+                cell.photoIngView.image = image
+                cell.photoIngView.contentMode = .scaleAspectFill
+                cell.photoIngView.layer.cornerRadius = 5
+            }
+        }
         
         return cell
     }

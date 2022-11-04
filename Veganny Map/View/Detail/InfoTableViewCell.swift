@@ -9,15 +9,20 @@ import UIKit
 
 class InfoTableViewCell: UITableViewCell {
 
+    // MARK: - IBOutlet
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var workHourLabel: UILabel!
+    @IBOutlet weak var phoneLabel: UILabel!
+    @IBOutlet weak var reviewsLabel: UILabel!
+    
+    // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

@@ -51,14 +51,13 @@ extension RestaurantViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return itemResults.count
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "RestaurantTableViewCell",
             for: indexPath) as? RestaurantTableViewCell else { fatalError("Could not create Cell") }
-        
+        cell.viewController = self
         if searching {
             cell.layoutCell(result: searchedRestaurants[indexPath.row])
         } else {
@@ -66,20 +65,6 @@ extension RestaurantViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
-    
-        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
-            let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
-            if let sheet = tableVC?.sheetPresentationController {
-                sheet.detents = [.medium(), .large()]
-                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-                sheet.prefersGrabberVisible = true
-                sheet.largestUndimmedDetentIdentifier = .medium
-                sheet.preferredCornerRadius = 20
-                sheet.prefersEdgeAttachedInCompactHeight = true
-            }
-            present(tableVC!, animated: true)
-        }
 }
 
 // MARK: - UISearchBarDelegate
@@ -95,5 +80,10 @@ extension RestaurantViewController: UISearchBarDelegate {
         searching = false
         searchBar.text = ""
         tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searching = false
+        self.searchBar.endEditing(true)
     }
 }

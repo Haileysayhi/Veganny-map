@@ -75,28 +75,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
     
     // MARK: - Function
     func showTableView() {
-        
         fpc = FloatingPanelController()
         fpc.delegate = self // Optional
         guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "RestaurantViewController") as?
         RestaurantViewController else { return }
-        
         self.delegate = tableVC // 幫MapViewController做事的人是tableVC
         fpc.set(contentViewController: tableVC)
         fpc.track(scrollView: tableVC.tableView)
         fpc.addPanel(toParent: self)
-        
-        
-//        let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
-//        if let sheet = tableVC?.sheetPresentationController {
-//            sheet.detents = [.medium(), .large()]
-//            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-//            sheet.prefersGrabberVisible = true
-//            sheet.largestUndimmedDetentIdentifier = .medium
-//            sheet.preferredCornerRadius = 20
-//            sheet.prefersEdgeAttachedInCompactHeight = true
-//        }
-//        present(tableVC!, animated: true)
     }
 }
 

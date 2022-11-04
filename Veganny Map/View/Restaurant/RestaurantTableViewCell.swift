@@ -7,10 +7,6 @@
 
 import UIKit
 
-//protocol RestaurantTableViewCellDelegate : AnyObject {
-//    func presentVC(_ tableViewCell: RestaurantTableViewCell)
-//}
-
 class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     
     // MARK: - IBOutlet
@@ -24,7 +20,9 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     
     // MARK: - Properties
     var detail: DetailResponse?
-//    weak var delegate: RestaurantTableViewCellDelegate?
+    var itemResult: ItemResult? // 傳地址到DetailVC
+    
+    weak var viewController: UIViewController?
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {
@@ -37,9 +35,11 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     
     // MARK: - Function
     func layoutCell(result: ItemResult) {
+        self.itemResult = result
        let item = result.placeId
         GoogleMapListController.shared.fetchPlaceDetail(placeId: item) { detailResponse in
             self.detail = detailResponse
+            print("===detail\(self.detail)")
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -54,7 +54,7 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     
     // MARK: - UICollectionViewDelegate & UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        detail?.result.photos.count ?? 0
+        return detail?.result.photos.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -84,9 +84,25 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
         return headerView
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        self.delegate?.presentVC(self)
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil) // 去UIStoryboard中
+
+        guard let tableVC = mainStoryBoard.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
+                
+        if let sheet = tableVC.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.prefersGrabberVisible = true
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.preferredCornerRadius = 20
+            sheet.prefersEdgeAttachedInCompactHeight = true
+        }
+        tableVC.infoResult = self.detail?.result // 把detail資料傳到DetailVC
+        tableVC.itemResult = self.itemResult // 把地址傳到DetailVC
+        
+        viewController?.present(tableVC, animated: true)
+    }
     
     // MARK: - Compositional Layout
     var photoSection: NSCollectionLayoutSection {

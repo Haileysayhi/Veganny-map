@@ -92,8 +92,10 @@ class GoogleMapListController {
                    response.statusCode == 200,
                    error == nil{
                     let photo = UIImage(data: data)
+                    print("==success")
                     completion(photo)
                 }else{
+                    print("==failure")
                     completion(nil)
                 }
             }.resume()

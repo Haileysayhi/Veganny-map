@@ -16,4 +16,7 @@ pod 'SwiftLint'
   # Pods for FloatingPanel
 pod 'FloatingPanel'
 
+  # Pods for IQKeyboardManagerSwift
+pod 'IQKeyboardManagerSwift'
+
 end

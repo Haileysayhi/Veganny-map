@@ -21,7 +21,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
     // MARK: - IBOutlet
     @IBOutlet weak var mapView: GMSMapView!
     
-    
     // MARK: - Properies
     let manager = CLLocationManager()
     var listResponse: ListResponse?
@@ -76,28 +75,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
     
     // MARK: - Function
     func showTableView() {
-        
         fpc = FloatingPanelController()
         fpc.delegate = self // Optional
-        guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as?
-        DetailViewController else { return }
-        
-        self.delegate = tableVC// 幫MapViewController做事的人是tableVC
+        guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "RestaurantViewController") as?
+        RestaurantViewController else { return }
+        self.delegate = tableVC // 幫MapViewController做事的人是tableVC
         fpc.set(contentViewController: tableVC)
         fpc.track(scrollView: tableVC.tableView)
         fpc.addPanel(toParent: self)
-        
-        
-//        let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
-//        if let sheet = tableVC?.sheetPresentationController {
-//            sheet.detents = [.medium(), .large()]
-//            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-//            sheet.prefersGrabberVisible = true
-//            sheet.largestUndimmedDetentIdentifier = .medium
-//            sheet.preferredCornerRadius = 20
-//            sheet.prefersEdgeAttachedInCompactHeight = true
-//        }
-//        present(tableVC!, animated: true)
     }
 }
 
@@ -113,7 +98,6 @@ extension MapViewController: CLLocationManagerDelegate {
             
             print("目前位置為\n經度為\(location.coordinate.longitude)\n緯度為\(location.coordinate.latitude)")
             self.userLocation = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
-            //            self.userLocation = "37.277180, -121.984016"
         }
     }
     
@@ -127,7 +111,6 @@ extension MapViewController: CLLocationManagerDelegate {
             mapView.settings.compassButton = true
             mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 400, right: 0)
             
-            
         case .denied:
             let alertController = UIAlertController(
                 title: "定位權限已關閉",
@@ -137,6 +120,7 @@ extension MapViewController: CLLocationManagerDelegate {
             let okAction = UIAlertAction(title: "確認", style: .default, handler: nil)
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
+            
         default:
             break
         }

@@ -7,23 +7,61 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9AA29B7418E4474B76273911 /* Pods_Veganny_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D9CDEC786808BA4B9EA007 /* Pods_Veganny_Map.framework */; };
+		D242FDA929135CE200C56DCE /* RestaurantCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDA829135CE200C56DCE /* RestaurantCollectionViewCell.swift */; };
+		D242FDAD29138B5700C56DCE /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDAC29138B5700C56DCE /* HeaderView.swift */; };
+		D242FDAF2913D90B00C56DCE /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDAE2913D90B00C56DCE /* DetailViewController.swift */; };
+		D242FDB12913E21E00C56DCE /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDB02913E21E00C56DCE /* PhotoTableViewCell.swift */; };
+		D242FDB32913E26500C56DCE /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDB22913E26500C56DCE /* InfoTableViewCell.swift */; };
+		D242FDB52913E28500C56DCE /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDB42913E28500C56DCE /* ReviewTableViewCell.swift */; };
+		D242FDBA2913E46700C56DCE /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDB92913E46700C56DCE /* PhotoCollectionViewCell.swift */; };
 		D28A5BE8290BE379005F5D50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BE7290BE379005F5D50 /* AppDelegate.swift */; };
 		D28A5BEA290BE379005F5D50 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BE9290BE379005F5D50 /* SceneDelegate.swift */; };
-		D28A5BEC290BE379005F5D50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BEB290BE379005F5D50 /* ViewController.swift */; };
+		D28A5BEC290BE379005F5D50 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BEB290BE379005F5D50 /* MapViewController.swift */; };
 		D28A5BEF290BE379005F5D50 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D28A5BED290BE379005F5D50 /* Main.storyboard */; };
 		D28A5BF1290BE37B005F5D50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D28A5BF0290BE37B005F5D50 /* Assets.xcassets */; };
 		D28A5BF4290BE37B005F5D50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */; };
+		D29F59FB29160BEE00513A63 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29F59F929160BEE00513A63 /* PostTableViewCell.swift */; };
+		D29F59FC29160BEE00513A63 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D29F59FA29160BEE00513A63 /* PostTableViewCell.xib */; };
+		D29F59FE29160C6300513A63 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29F59FD29160C6300513A63 /* PostViewController.swift */; };
+		D29F5A01291627A400513A63 /* PublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29F5A00291627A400513A63 /* PublishViewController.swift */; };
+		D2A0677E290F96CF00988C56 /* PlaceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0677D290F96CF00988C56 /* PlaceSearch.swift */; };
+		D2A06780290F970700988C56 /* PlaceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0677F290F970700988C56 /* PlaceDetails.swift */; };
+		D2A06782290FCD6A00988C56 /* GoogleMapListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A06781290FCD6A00988C56 /* GoogleMapListController.swift */; };
+		D2A0678429113BEE00988C56 /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0678329113BEE00988C56 /* RestaurantViewController.swift */; };
+		D2A0678629113CCE00988C56 /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0678529113CCE00988C56 /* RestaurantTableViewCell.swift */; };
+		D2FC5F242914D66D00ADBBEB /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FC5F232914D66D00ADBBEB /* ReviewCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F65300785C72F81C38D5308 /* Pods-Veganny Map.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Veganny Map.release.xcconfig"; path = "Target Support Files/Pods-Veganny Map/Pods-Veganny Map.release.xcconfig"; sourceTree = "<group>"; };
+		7154E386B18B67A32248E8D7 /* Pods-Veganny Map.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Veganny Map.debug.xcconfig"; path = "Target Support Files/Pods-Veganny Map/Pods-Veganny Map.debug.xcconfig"; sourceTree = "<group>"; };
+		98D9CDEC786808BA4B9EA007 /* Pods_Veganny_Map.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Veganny_Map.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D242FDA829135CE200C56DCE /* RestaurantCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCollectionViewCell.swift; sourceTree = "<group>"; };
+		D242FDAC29138B5700C56DCE /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		D242FDAE2913D90B00C56DCE /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		D242FDB02913E21E00C56DCE /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
+		D242FDB22913E26500C56DCE /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
+		D242FDB42913E28500C56DCE /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
+		D242FDB92913E46700C56DCE /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D28A5BE4290BE379005F5D50 /* Veganny Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Veganny Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D28A5BE7290BE379005F5D50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D28A5BE9290BE379005F5D50 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D28A5BEB290BE379005F5D50 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D28A5BEB290BE379005F5D50 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D28A5BEE290BE379005F5D50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D28A5BF0290BE37B005F5D50 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D28A5BF3290BE37B005F5D50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D28A5BF5290BE37B005F5D50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D29F59F929160BEE00513A63 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		D29F59FA29160BEE00513A63 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
+		D29F59FD29160C6300513A63 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		D29F5A00291627A400513A63 /* PublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewController.swift; sourceTree = "<group>"; };
+		D2A0677D290F96CF00988C56 /* PlaceSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearch.swift; sourceTree = "<group>"; };
+		D2A0677F290F970700988C56 /* PlaceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetails.swift; sourceTree = "<group>"; };
+		D2A06781290FCD6A00988C56 /* GoogleMapListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapListController.swift; sourceTree = "<group>"; };
+		D2A0678329113BEE00988C56 /* RestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
+		D2A0678529113CCE00988C56 /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
+		D2FC5F232914D66D00ADBBEB /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +69,76 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AA29B7418E4474B76273911 /* Pods_Veganny_Map.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		960A9DE6DAD1D5C73FE3DEC7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7154E386B18B67A32248E8D7 /* Pods-Veganny Map.debug.xcconfig */,
+				0F65300785C72F81C38D5308 /* Pods-Veganny Map.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D242FDAA29135D7000C56DCE /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				D2A06781290FCD6A00988C56 /* GoogleMapListController.swift */,
+				D28A5BEB290BE379005F5D50 /* MapViewController.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		D242FDAB29135D8700C56DCE /* Restaurant */ = {
+			isa = PBXGroup;
+			children = (
+				D2A0678329113BEE00988C56 /* RestaurantViewController.swift */,
+			);
+			path = Restaurant;
+			sourceTree = "<group>";
+		};
+		D242FDB62913E2BD00C56DCE /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				D242FDAE2913D90B00C56DCE /* DetailViewController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		D242FDB72913E2CC00C56DCE /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				D242FDB02913E21E00C56DCE /* PhotoTableViewCell.swift */,
+				D242FDB42913E28500C56DCE /* ReviewTableViewCell.swift */,
+				D242FDB22913E26500C56DCE /* InfoTableViewCell.swift */,
+				D242FDB92913E46700C56DCE /* PhotoCollectionViewCell.swift */,
+				D2FC5F232914D66D00ADBBEB /* ReviewCollectionViewCell.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		D242FDB82913E2DE00C56DCE /* Restaurant */ = {
+			isa = PBXGroup;
+			children = (
+				D2A0678529113CCE00988C56 /* RestaurantTableViewCell.swift */,
+				D242FDA829135CE200C56DCE /* RestaurantCollectionViewCell.swift */,
+				D242FDAC29138B5700C56DCE /* HeaderView.swift */,
+			);
+			path = Restaurant;
+			sourceTree = "<group>";
+		};
 		D28A5BDB290BE379005F5D50 = {
 			isa = PBXGroup;
 			children = (
 				D28A5BE6290BE379005F5D50 /* Veganny Map */,
 				D28A5BE5290BE379005F5D50 /* Products */,
+				960A9DE6DAD1D5C73FE3DEC7 /* Pods */,
+				D97259CB2DBA56203E735308 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +153,73 @@
 		D28A5BE6290BE379005F5D50 /* Veganny Map */ = {
 			isa = PBXGroup;
 			children = (
+				D28A5BFB290D1616005F5D50 /* Resource */,
+				D2A0677C290F966600988C56 /* Model */,
+				D28A5BFD290D16A0005F5D50 /* View */,
+				D28A5BFC290D1632005F5D50 /* Controller */,
 				D28A5BE7290BE379005F5D50 /* AppDelegate.swift */,
 				D28A5BE9290BE379005F5D50 /* SceneDelegate.swift */,
-				D28A5BEB290BE379005F5D50 /* ViewController.swift */,
-				D28A5BED290BE379005F5D50 /* Main.storyboard */,
-				D28A5BF0290BE37B005F5D50 /* Assets.xcassets */,
-				D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */,
 				D28A5BF5290BE37B005F5D50 /* Info.plist */,
 			);
 			path = "Veganny Map";
+			sourceTree = "<group>";
+		};
+		D28A5BFB290D1616005F5D50 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				D28A5BF0290BE37B005F5D50 /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		D28A5BFC290D1632005F5D50 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D29F59FD29160C6300513A63 /* PostViewController.swift */,
+				D29F5A00291627A400513A63 /* PublishViewController.swift */,
+				D242FDAB29135D8700C56DCE /* Restaurant */,
+				D242FDB62913E2BD00C56DCE /* Detail */,
+				D242FDAA29135D7000C56DCE /* Map */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D28A5BFD290D16A0005F5D50 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D29F59FF2916262300513A63 /* Post */,
+				D242FDB82913E2DE00C56DCE /* Restaurant */,
+				D242FDB72913E2CC00C56DCE /* Detail */,
+				D28A5BED290BE379005F5D50 /* Main.storyboard */,
+				D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D29F59FF2916262300513A63 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				D29F59F929160BEE00513A63 /* PostTableViewCell.swift */,
+				D29F59FA29160BEE00513A63 /* PostTableViewCell.xib */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		D2A0677C290F966600988C56 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D2A0677D290F96CF00988C56 /* PlaceSearch.swift */,
+				D2A0677F290F970700988C56 /* PlaceDetails.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D97259CB2DBA56203E735308 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				98D9CDEC786808BA4B9EA007 /* Pods_Veganny_Map.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +229,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D28A5BF8290BE37B005F5D50 /* Build configuration list for PBXNativeTarget "Veganny Map" */;
 			buildPhases = (
+				13E15D57CEC78DEE72A46B55 /* [CP] Check Pods Manifest.lock */,
 				D28A5BE0290BE379005F5D50 /* Sources */,
 				D28A5BE1290BE379005F5D50 /* Frameworks */,
 				D28A5BE2290BE379005F5D50 /* Resources */,
+				46B403BD2094E60C53154FAE /* [CP] Copy Pods Resources */,
+				D2A0677B290F5C0200988C56 /* ShellScript */,
+				FA5365BE82D801F5C863084F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -128,19 +287,112 @@
 				D28A5BF4290BE37B005F5D50 /* LaunchScreen.storyboard in Resources */,
 				D28A5BF1290BE37B005F5D50 /* Assets.xcassets in Resources */,
 				D28A5BEF290BE379005F5D50 /* Main.storyboard in Resources */,
+				D29F59FC29160BEE00513A63 /* PostTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		13E15D57CEC78DEE72A46B55 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Veganny Map-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		46B403BD2094E60C53154FAE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Veganny Map/Pods-Veganny Map-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Veganny Map/Pods-Veganny Map-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Veganny Map/Pods-Veganny Map-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2A0677B290F5C0200988C56 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		FA5365BE82D801F5C863084F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Veganny Map/Pods-Veganny Map-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Veganny Map/Pods-Veganny Map-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Veganny Map/Pods-Veganny Map-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D28A5BE0290BE379005F5D50 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D28A5BEC290BE379005F5D50 /* ViewController.swift in Sources */,
+				D29F59FE29160C6300513A63 /* PostViewController.swift in Sources */,
+				D242FDB32913E26500C56DCE /* InfoTableViewCell.swift in Sources */,
+				D242FDAF2913D90B00C56DCE /* DetailViewController.swift in Sources */,
+				D29F59FB29160BEE00513A63 /* PostTableViewCell.swift in Sources */,
+				D2A06780290F970700988C56 /* PlaceDetails.swift in Sources */,
+				D242FDA929135CE200C56DCE /* RestaurantCollectionViewCell.swift in Sources */,
+				D28A5BEC290BE379005F5D50 /* MapViewController.swift in Sources */,
+				D242FDB52913E28500C56DCE /* ReviewTableViewCell.swift in Sources */,
+				D2A0678629113CCE00988C56 /* RestaurantTableViewCell.swift in Sources */,
 				D28A5BE8290BE379005F5D50 /* AppDelegate.swift in Sources */,
+				D242FDAD29138B5700C56DCE /* HeaderView.swift in Sources */,
 				D28A5BEA290BE379005F5D50 /* SceneDelegate.swift in Sources */,
+				D29F5A01291627A400513A63 /* PublishViewController.swift in Sources */,
+				D2FC5F242914D66D00ADBBEB /* ReviewCollectionViewCell.swift in Sources */,
+				D242FDB12913E21E00C56DCE /* PhotoTableViewCell.swift in Sources */,
+				D242FDBA2913E46700C56DCE /* PhotoCollectionViewCell.swift in Sources */,
+				D2A0678429113BEE00988C56 /* RestaurantViewController.swift in Sources */,
+				D2A0677E290F96CF00988C56 /* PlaceSearch.swift in Sources */,
+				D2A06782290FCD6A00988C56 /* GoogleMapListController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +468,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +522,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -282,13 +534,16 @@
 		};
 		D28A5BF9290BE37B005F5D50 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7154E386B18B67A32248E8D7 /* Pods-Veganny Map.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B683C2644L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Veganny Map/Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "是否同意使用您的位置資訊？";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -309,13 +564,16 @@
 		};
 		D28A5BFA290BE37B005F5D50 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F65300785C72F81C38D5308 /* Pods-Veganny Map.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B683C2644L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Veganny Map/Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "是否同意使用您的位置資訊？";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

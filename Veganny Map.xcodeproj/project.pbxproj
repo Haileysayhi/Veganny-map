@@ -15,6 +15,8 @@
 		D242FDB32913E26500C56DCE /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDB22913E26500C56DCE /* InfoTableViewCell.swift */; };
 		D242FDB52913E28500C56DCE /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDB42913E28500C56DCE /* ReviewTableViewCell.swift */; };
 		D242FDBA2913E46700C56DCE /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDB92913E46700C56DCE /* PhotoCollectionViewCell.swift */; };
+		D26F258B2918E11C00A8CF1B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F258A2918E11C00A8CF1B /* User.swift */; };
+		D26F258D2918F69900A8CF1B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D26F258C2918F69900A8CF1B /* GoogleService-Info.plist */; };
 		D28A5BE8290BE379005F5D50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BE7290BE379005F5D50 /* AppDelegate.swift */; };
 		D28A5BEA290BE379005F5D50 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BE9290BE379005F5D50 /* SceneDelegate.swift */; };
 		D28A5BEC290BE379005F5D50 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BEB290BE379005F5D50 /* MapViewController.swift */; };
@@ -44,6 +46,8 @@
 		D242FDB22913E26500C56DCE /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		D242FDB42913E28500C56DCE /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		D242FDB92913E46700C56DCE /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		D26F258A2918E11C00A8CF1B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D26F258C2918F69900A8CF1B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D28A5BE4290BE379005F5D50 /* Veganny Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Veganny Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D28A5BE7290BE379005F5D50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D28A5BE9290BE379005F5D50 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -159,6 +163,7 @@
 				D28A5BFC290D1632005F5D50 /* Controller */,
 				D28A5BE7290BE379005F5D50 /* AppDelegate.swift */,
 				D28A5BE9290BE379005F5D50 /* SceneDelegate.swift */,
+				D26F258C2918F69900A8CF1B /* GoogleService-Info.plist */,
 				D28A5BF5290BE37B005F5D50 /* Info.plist */,
 			);
 			path = "Veganny Map";
@@ -210,6 +215,7 @@
 			children = (
 				D2A0677D290F96CF00988C56 /* PlaceSearch.swift */,
 				D2A0677F290F970700988C56 /* PlaceDetails.swift */,
+				D26F258A2918E11C00A8CF1B /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -286,6 +292,7 @@
 			files = (
 				D28A5BF4290BE37B005F5D50 /* LaunchScreen.storyboard in Resources */,
 				D28A5BF1290BE37B005F5D50 /* Assets.xcassets in Resources */,
+				D26F258D2918F69900A8CF1B /* GoogleService-Info.plist in Resources */,
 				D28A5BEF290BE379005F5D50 /* Main.storyboard in Resources */,
 				D29F59FC29160BEE00513A63 /* PostTableViewCell.xib in Resources */,
 			);
@@ -382,6 +389,7 @@
 				D242FDA929135CE200C56DCE /* RestaurantCollectionViewCell.swift in Sources */,
 				D28A5BEC290BE379005F5D50 /* MapViewController.swift in Sources */,
 				D242FDB52913E28500C56DCE /* ReviewTableViewCell.swift in Sources */,
+				D26F258B2918E11C00A8CF1B /* User.swift in Sources */,
 				D2A0678629113CCE00988C56 /* RestaurantTableViewCell.swift in Sources */,
 				D28A5BE8290BE379005F5D50 /* AppDelegate.swift in Sources */,
 				D242FDAD29138B5700C56DCE /* HeaderView.swift in Sources */,

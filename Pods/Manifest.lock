@@ -602,8 +602,6 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.24):
     - BoringSSL-GRPC/Interface (= 0.0.24)
   - BoringSSL-GRPC/Interface (0.0.24)
-  - Firebase/Analytics (9.6.0):
-    - Firebase/Core
   - Firebase/Core (9.6.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (~> 9.6.0)
@@ -655,6 +653,8 @@ PODS:
     - "gRPC-C++ (~> 1.44.0)"
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseFirestoreSwift (9.6.0):
+    - FirebaseFirestore (~> 9.0)
   - FirebaseInstallations (9.6.0):
     - FirebaseCore (~> 9.0)
     - GoogleUtilities/Environment (~> 7.7)
@@ -797,9 +797,9 @@ PODS:
   - SwiftLint (0.49.1)
 
 DEPENDENCIES:
-  - Firebase/Analytics
   - Firebase/Core
   - Firebase/Firestore
+  - FirebaseFirestoreSwift
   - FloatingPanel
   - Google-Maps-iOS-Utils
   - GoogleMaps
@@ -817,6 +817,7 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseCoreInternal
     - FirebaseFirestore
+    - FirebaseFirestoreSwift
     - FirebaseInstallations
     - FloatingPanel
     - Google-Maps-iOS-Utils
@@ -843,6 +844,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 99a495094b10a57eeb3ae8efa1665700ad0bdaa6
   FirebaseCoreInternal: bca76517fe1ed381e989f5e7d8abb0da8d85bed3
   FirebaseFirestore: c09ce6d050745a45fb75ebd901005ed3279c3caf
+  FirebaseFirestoreSwift: d86a0fef1225c6c1ddfae15b3250700867d63013
   FirebaseInstallations: 0a115432c4e223c5ab20b0dbbe4cbefa793a0e8e
   FloatingPanel: a27e7827e0f710fa6236fe2596dd1b5484cb4fc1
   Google-Maps-iOS-Utils: 3343332b18dfd5be8f1f44edd7d481ace3da4d9a
@@ -860,6 +862,6 @@ SPEC CHECKSUMS:
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: 129e6081a9bb20eca371cb448dfc01a4bf5570b5
+PODFILE CHECKSUM: 7fceb25cc74b596c52dacea674211f8e59f02a8c
 
 COCOAPODS: 1.11.3

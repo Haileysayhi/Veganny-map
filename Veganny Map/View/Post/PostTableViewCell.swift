@@ -9,7 +9,11 @@ import UIKit
 
 class PostTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var userImgView: UIImageView!
+    @IBOutlet weak var userImgView: UIImageView! {
+        didSet {
+            userImgView.layer.cornerRadius = userImgView.bounds.width / 2
+        }
+    }
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var postImgView: UIImageView!
     @IBOutlet weak var likeButton: UIButton!

@@ -23,5 +23,9 @@ pod 'IQKeyboardManagerSwift'
 pod 'Firebase/Firestore'
 pod 'Firebase/Core'
 pod 'FirebaseFirestoreSwift'
+pod 'Firebase/Storage'
+
+  # Pods for Kingfisher
+pod 'Kingfisher'
 
 end

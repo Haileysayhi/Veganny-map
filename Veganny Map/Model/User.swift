@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 // 使用App的人的資料
-struct User {
+struct User: Codable {
     var name: String
     var userPhotoURL: String
     var userId: String // firebase給的
@@ -19,7 +19,7 @@ struct User {
 }
 
 // 使用App + 有發文的資料
-struct Post {
+struct Post: Codable {
     var authorId: String // 抓userId，用來抓取發文者的name & photo，利用id資料就不用重複存入
     var postId: String // firebase給的--> 如果按讚人數有改變用id去抓是哪一篇貼文更改
     var content: String
@@ -36,7 +36,7 @@ enum MediaType: String {
     case video
 }
 
-struct Comment {
+struct Comment: Codable {
     var content: String
     var contentType: String
     var userId: String // 用userId 來抓取留言人的name & photo，利用id資料就不用重複存入

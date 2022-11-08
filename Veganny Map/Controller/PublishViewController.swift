@@ -6,6 +6,10 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+import FirebaseStorage
+
 
 class PublishViewController: UIViewController {
     
@@ -15,6 +19,10 @@ class PublishViewController: UIViewController {
     
     // MARK: - Properties
     var imagePickerController = UIImagePickerController()
+    let storage = Storage.storage().reference()
+    let dataBase = Firestore.firestore()
+    var urlString: String?
+
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -26,7 +34,6 @@ class PublishViewController: UIViewController {
     }
     
     // MARK: - Function
-
     @IBAction func post(_ sender: Any) {
         
         // 跳轉回PostViewController
@@ -38,8 +45,7 @@ class PublishViewController: UIViewController {
         }
         
         // 傳資料到firebase
-        
-        
+        addData()
     }
     
     func showAlert() {
@@ -71,15 +77,64 @@ class PublishViewController: UIViewController {
         imagePickerController.sourceType = .savedPhotosAlbum
         present(imagePickerController, animated: true)
     }
+    
+    func addData() {
+        let document = dataBase.collection("Post").document()
+        print("===>>document ID \(document.documentID)")
+        
+        let post = Post(
+            authorId: "fds9KGgchZFsAIvbauMF",
+            postId: document.documentID,
+            content: contentTextView.text,
+            mediaType: MediaType.photo.rawValue,
+            mediaURL: self.urlString ?? "",
+            time: Timestamp(date: Date()),
+            likes: [],
+            comments: []
+        )
+        do {
+            try document.setData(from: post)
+        } catch {
+            print("ERROR")
+        }
+        
+        let addPostId = dataBase.collection("User").document("fds9KGgchZFsAIvbauMF")
+        addPostId.updateData([
+            "postIds": FieldValue.arrayUnion([document.documentID])
+        ])
+    }
 }
 
 // MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
 extension PublishViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.editedImage] as? UIImage {
-            self.photoImgView.image = image
-        }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        
         picker.dismiss(animated: true)
+        
+        guard let image = info[.editedImage] as? UIImage else { return }
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.3) else { return }
+        let photoReference = storage.child(UUID().uuidString + ".jpg")
+        photoReference.putData(imageData, metadata: nil, completion: { _, error in
+            
+            guard error == nil else {
+                print("Failed to upload")
+                return
+            }
+
+            photoReference.downloadURL(completion: { url, error in
+                
+                guard let url = url, error == nil else {
+                    return
+                }
+                
+                self.urlString = url.absoluteString
+                DispatchQueue.main.async {
+                    self.photoImgView.image = image
+                }
+                print("Download URL: \(self.urlString)")
+            })
+        })
     }
 }

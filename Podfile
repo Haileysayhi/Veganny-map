@@ -20,8 +20,12 @@ pod 'FloatingPanel'
 pod 'IQKeyboardManagerSwift'
 
   # Pods for Firebase
-pod 'Firebase/Analytics'
 pod 'Firebase/Firestore'
 pod 'Firebase/Core'
+pod 'FirebaseFirestoreSwift'
+pod 'Firebase/Storage'
+
+  # Pods for Kingfisher
+pod 'Kingfisher'
 
 end

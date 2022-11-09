@@ -6,6 +6,10 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+import FirebaseStorage
+
 
 class PublishViewController: UIViewController {
     
@@ -15,6 +19,9 @@ class PublishViewController: UIViewController {
     
     // MARK: - Properties
     var imagePickerController = UIImagePickerController()
+    let storage = Storage.storage().reference()
+    let dataBase = Firestore.firestore()
+    var urlString: String?
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -25,26 +32,29 @@ class PublishViewController: UIViewController {
         showAlert()
     }
     
+    // MARK: - Function
     @IBAction func post(_ sender: Any) {
+        
+        // 跳轉回PostViewController
         guard let viewControllers = self.navigationController?.viewControllers else { return }
         for controller in viewControllers {
             if controller is PostViewController {
                 self.navigationController?.popToViewController(controller, animated: true)
             }
         }
+        // 傳資料到firebase
+        addData()
     }
-    // MARK: - Function
+    
     func showAlert() {
         let controller = UIAlertController(title: "請選取照片來源", message: "", preferredStyle: .alert)
         controller.view.tintColor = UIColor.gray
         
-        // 相機
         let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
             self.takePicture()
         }
         controller.addAction(cameraAction)
         
-        // 相薄
         let savedPhotosAlbumAction = UIAlertAction(title: "相簿", style: .default) { _ in
             self.openPhotosAlbum()
         }
@@ -56,25 +66,73 @@ class PublishViewController: UIViewController {
         self.present(controller, animated: true, completion: nil)
     }
     
-    // 開啟相機
     func takePicture() {
         imagePickerController.sourceType = .camera
         present(imagePickerController, animated: true)
     }
     
-    // 開啟相簿
     func openPhotosAlbum() {
         imagePickerController.sourceType = .savedPhotosAlbum
         present(imagePickerController, animated: true)
     }
+    
+    func addData() {
+        let document = dataBase.collection("Post").document()
+        print("===>>document ID \(document.documentID)")
+        
+        let post = Post(
+            authorId: "fds9KGgchZFsAIvbauMF",
+            postId: document.documentID,
+            content: contentTextView.text,
+            mediaType: MediaType.photo.rawValue,
+            mediaURL: self.urlString ?? "",
+            time: Timestamp(date: Date()),
+            likes: [],
+            comments: []
+        )
+        do {
+            try document.setData(from: post)
+        } catch {
+            print("ERROR")
+        }
+        
+        let addPostId = dataBase.collection("User").document("fds9KGgchZFsAIvbauMF")
+        addPostId.updateData([
+            "postIds": FieldValue.arrayUnion([document.documentID])
+        ])
+    }
 }
+
 // MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
 extension PublishViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.editedImage] as? UIImage {
-            self.photoImgView.image = image
-        }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        
         picker.dismiss(animated: true)
+        
+        guard let image = info[.editedImage] as? UIImage else { return }
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.3) else { return }
+        let photoReference = storage.child(UUID().uuidString + ".jpg")
+        photoReference.putData(imageData, metadata: nil, completion: { _, error in
+            
+            guard error == nil else {
+                print("Failed to upload")
+                return
+            }
+
+            photoReference.downloadURL(completion: { url, error in
+                
+                guard let url = url, error == nil else {
+                    return
+                }
+                
+                self.urlString = url.absoluteString
+                DispatchQueue.main.async {
+                    self.photoImgView.image = image
+                }
+                print("Download URL: \(self.urlString)")
+            })
+        })
     }
 }

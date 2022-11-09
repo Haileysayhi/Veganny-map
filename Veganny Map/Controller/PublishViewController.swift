@@ -22,7 +22,6 @@ class PublishViewController: UIViewController {
     let storage = Storage.storage().reference()
     let dataBase = Firestore.firestore()
     var urlString: String?
-
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -43,7 +42,6 @@ class PublishViewController: UIViewController {
                 self.navigationController?.popToViewController(controller, animated: true)
             }
         }
-        
         // 傳資料到firebase
         addData()
     }

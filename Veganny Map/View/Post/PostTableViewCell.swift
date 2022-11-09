@@ -8,7 +8,9 @@
 import UIKit
 
 class PostTableViewCell: UITableViewCell {
-
+    
+    
+    // MARK: - IBOutlet
     @IBOutlet weak var userImgView: UIImageView! {
         didSet {
             userImgView.layer.cornerRadius = userImgView.bounds.width / 2
@@ -17,20 +19,16 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var postImgView: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var numberOfCommentButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
 }

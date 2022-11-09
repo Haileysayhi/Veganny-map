@@ -60,6 +60,12 @@ class PostViewController: UIViewController {
         }
     }
     
+    @objc func goToCommentPage() {
+        if let controller = storyboard?.instantiateViewController(withIdentifier: "CommentViewController") {
+            navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
     func getPostData() {
         Firestore.firestore().collection("Post").order(by: "time", descending: true).getDocuments { (querySnapshot, error) in
             self.posts = [] // 清空資料，從其他頁面跳回來時不會重複取資料
@@ -82,7 +88,6 @@ class PostViewController: UIViewController {
     }
     
     func getUserData(userId: String) {
-        
         Firestore.firestore().collection("User").document(userId).getDocument(as: User.self) { result in
             switch result {
             case .success(let user):
@@ -98,6 +103,7 @@ class PostViewController: UIViewController {
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
 extension PostViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         posts.count
     }
@@ -107,12 +113,13 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: "PostTableViewCell",
             for: indexPath) as? PostTableViewCell else { fatalError("Could not creat Cell.") }
 
+        cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
         cell.postImgView.loadImage(posts[indexPath.row].mediaURL, placeHolder: UIImage(named: "placeholder"))
         cell.contentLabel.text = posts[indexPath.row].content
         getUserData(userId: posts[indexPath.row].authorId)
         cell.userNameLabel.text = user?.name
         cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(named: "placeholder"))
-        cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)", for: .normal)
+        cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)則留言", for: .normal)
         
         return cell
     }

@@ -18,6 +18,8 @@
 		D26F258B2918E11C00A8CF1B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F258A2918E11C00A8CF1B /* User.swift */; };
 		D26F258D2918F69900A8CF1B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D26F258C2918F69900A8CF1B /* GoogleService-Info.plist */; };
 		D26F2591291A364B00A8CF1B /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F2590291A364B00A8CF1B /* KingFisherWrapper.swift */; };
+		D26F2593291A625300A8CF1B /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F2592291A625300A8CF1B /* CommentViewController.swift */; };
+		D26F2596291AAB7700A8CF1B /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F2595291AAB7700A8CF1B /* CommentTableViewCell.swift */; };
 		D28A5BE8290BE379005F5D50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BE7290BE379005F5D50 /* AppDelegate.swift */; };
 		D28A5BEA290BE379005F5D50 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BE9290BE379005F5D50 /* SceneDelegate.swift */; };
 		D28A5BEC290BE379005F5D50 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28A5BEB290BE379005F5D50 /* MapViewController.swift */; };
@@ -50,6 +52,8 @@
 		D26F258A2918E11C00A8CF1B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D26F258C2918F69900A8CF1B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D26F2590291A364B00A8CF1B /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
+		D26F2592291A625300A8CF1B /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CommentViewController.swift; path = "Veganny Map/Controller/Comment/CommentViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D26F2595291AAB7700A8CF1B /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		D28A5BE4290BE379005F5D50 /* Veganny Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Veganny Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D28A5BE7290BE379005F5D50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D28A5BE9290BE379005F5D50 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +150,22 @@
 			path = "Third Party Wrapper";
 			sourceTree = "<group>";
 		};
+		D26F2594291A628400A8CF1B /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				D26F2592291A625300A8CF1B /* CommentViewController.swift */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		D26F2597291AAB8500A8CF1B /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				D26F2595291AAB7700A8CF1B /* CommentTableViewCell.swift */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
 		D28A5BDB290BE379005F5D50 = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +211,7 @@
 		D28A5BFC290D1632005F5D50 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D26F2594291A628400A8CF1B /* Comment */,
 				D29F59FD29160C6300513A63 /* PostViewController.swift */,
 				D29F5A00291627A400513A63 /* PublishViewController.swift */,
 				D242FDAB29135D8700C56DCE /* Restaurant */,
@@ -205,6 +226,7 @@
 			children = (
 				D29F59FF2916262300513A63 /* Post */,
 				D242FDB82913E2DE00C56DCE /* Restaurant */,
+				D26F2597291AAB8500A8CF1B /* Comment */,
 				D242FDB72913E2CC00C56DCE /* Detail */,
 				D28A5BED290BE379005F5D50 /* Main.storyboard */,
 				D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */,
@@ -395,6 +417,7 @@
 				D29F59FE29160C6300513A63 /* PostViewController.swift in Sources */,
 				D242FDB32913E26500C56DCE /* InfoTableViewCell.swift in Sources */,
 				D242FDAF2913D90B00C56DCE /* DetailViewController.swift in Sources */,
+				D26F2596291AAB7700A8CF1B /* CommentTableViewCell.swift in Sources */,
 				D29F59FB29160BEE00513A63 /* PostTableViewCell.swift in Sources */,
 				D2A06780290F970700988C56 /* PlaceDetails.swift in Sources */,
 				D242FDA929135CE200C56DCE /* RestaurantCollectionViewCell.swift in Sources */,
@@ -402,6 +425,7 @@
 				D242FDB52913E28500C56DCE /* ReviewTableViewCell.swift in Sources */,
 				D26F258B2918E11C00A8CF1B /* User.swift in Sources */,
 				D2A0678629113CCE00988C56 /* RestaurantTableViewCell.swift in Sources */,
+				D26F2593291A625300A8CF1B /* CommentViewController.swift in Sources */,
 				D28A5BE8290BE379005F5D50 /* AppDelegate.swift in Sources */,
 				D242FDAD29138B5700C56DCE /* HeaderView.swift in Sources */,
 				D28A5BEA290BE379005F5D50 /* SceneDelegate.swift in Sources */,

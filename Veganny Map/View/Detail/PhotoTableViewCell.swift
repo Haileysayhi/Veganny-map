@@ -51,7 +51,7 @@ class PhotoTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
         
         cell.photoIngView.image = nil
         GoogleMapListController.shared.fetchPhotos(
-            photoReference: photos[indexPath.row].photoReference ?? ""){
+            photoReference: photos[indexPath.row].photoReference) {
                 image in DispatchQueue.main.async {
                 cell.photoIngView.image = image
                 cell.photoIngView.contentMode = .scaleAspectFill

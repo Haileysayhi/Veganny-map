@@ -57,6 +57,7 @@ extension RestaurantViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "RestaurantTableViewCell",
             for: indexPath) as? RestaurantTableViewCell else { fatalError("Could not create Cell") }
+        
         cell.viewController = self
         if searching {
             cell.layoutCell(result: searchedRestaurants[indexPath.row])

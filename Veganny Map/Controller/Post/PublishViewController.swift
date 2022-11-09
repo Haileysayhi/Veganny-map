@@ -39,7 +39,7 @@ class PublishViewController: UIViewController {
         guard let viewControllers = self.navigationController?.viewControllers else { return }
         for controller in viewControllers {
             if controller is PostViewController {
-                self.navigationController?.popToViewController(controller, animated: true)
+            self.navigationController?.popToViewController(controller, animated: true)
             }
         }
         // 傳資料到firebase
@@ -81,7 +81,8 @@ class PublishViewController: UIViewController {
         print("===>>document ID \(document.documentID)")
         
         let post = Post(
-            authorId: "fds9KGgchZFsAIvbauMF",
+            authorId: "fds9KGgchZFsAIvbauMF", // B9SWfBqS3WBBK7TAEZja or fds9KGgchZFsAIvbauMF
+
             postId: document.documentID,
             content: contentTextView.text,
             mediaType: MediaType.photo.rawValue,
@@ -96,7 +97,7 @@ class PublishViewController: UIViewController {
             print("ERROR")
         }
         
-        let addPostId = dataBase.collection("User").document("fds9KGgchZFsAIvbauMF")
+        let addPostId = dataBase.collection("User").document("fds9KGgchZFsAIvbauMF") // B9SWfBqS3WBBK7TAEZja or fds9KGgchZFsAIvbauMF
         addPostId.updateData([
             "postIds": FieldValue.arrayUnion([document.documentID])
         ])

@@ -254,13 +254,13 @@
         <!--Comment View Controller-->
         <scene sceneID="KQI-Uy-3Oj">
             <objects>
-                <viewController storyboardIdentifier="CommentViewController" id="ro2-Xl-Gn5" customClass="CommentViewController" customModule="Veganny_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommentViewController" hidesBottomBarWhenPushed="YES" id="ro2-Xl-Gn5" customClass="CommentViewController" customModule="Veganny_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tZ4-tq-vh7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4Hl-Cm-6D2">
-                                <rect key="frame" x="0.0" y="44" width="414" height="768"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="772"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentTableViewCell" id="kul-Jr-pvb" customClass="CommentTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
@@ -310,18 +310,21 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eiZ-tg-gVe">
-                                <rect key="frame" x="0.0" y="812" width="414" height="84"/>
+                                <rect key="frame" x="0.0" y="816" width="414" height="80"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tmh-2Z-e38">
-                                        <rect key="frame" x="35" y="20" width="319" height="34"/>
+                                        <rect key="frame" x="35" y="20" width="333" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="333" id="x6Z-Pr-6zq"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tu0-GS-PrV">
-                                        <rect key="frame" x="374" y="20" width="20" height="30"/>
+                                        <rect key="frame" x="376" y="22" width="30" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="B2Q-uB-zbl"/>
-                                            <constraint firstAttribute="width" constant="20" id="YtK-xS-aNY"/>
+                                            <constraint firstAttribute="height" constant="30" id="4jf-To-9xo"/>
+                                            <constraint firstAttribute="width" constant="30" id="EJn-9l-HYI"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="paperplane.fill" catalog="system"/>
@@ -332,11 +335,12 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <constraints>
-                                    <constraint firstItem="tmh-2Z-e38" firstAttribute="leading" secondItem="eiZ-tg-gVe" secondAttribute="leading" constant="35" id="FVr-wE-LpQ"/>
-                                    <constraint firstItem="Tu0-GS-PrV" firstAttribute="top" secondItem="tmh-2Z-e38" secondAttribute="top" id="Pzp-J9-TcU"/>
-                                    <constraint firstAttribute="trailing" secondItem="Tu0-GS-PrV" secondAttribute="trailing" constant="20" id="S0C-5u-g8P"/>
-                                    <constraint firstItem="tmh-2Z-e38" firstAttribute="top" secondItem="eiZ-tg-gVe" secondAttribute="top" constant="20" id="VJ7-Qa-vaJ"/>
-                                    <constraint firstItem="Tu0-GS-PrV" firstAttribute="leading" secondItem="tmh-2Z-e38" secondAttribute="trailing" constant="20" id="vCr-dA-ajA"/>
+                                    <constraint firstItem="Tu0-GS-PrV" firstAttribute="leading" secondItem="tmh-2Z-e38" secondAttribute="trailing" constant="8" id="2VP-mP-d5b"/>
+                                    <constraint firstItem="tmh-2Z-e38" firstAttribute="top" secondItem="eiZ-tg-gVe" secondAttribute="top" constant="20" id="IXK-iD-Wbc"/>
+                                    <constraint firstAttribute="trailing" secondItem="Tu0-GS-PrV" secondAttribute="trailing" constant="8" id="Yfi-j8-H20"/>
+                                    <constraint firstItem="tmh-2Z-e38" firstAttribute="leading" secondItem="eiZ-tg-gVe" secondAttribute="leading" constant="35" id="dqa-54-nGb"/>
+                                    <constraint firstAttribute="height" constant="80" id="hQN-kv-ltj"/>
+                                    <constraint firstItem="Tu0-GS-PrV" firstAttribute="top" secondItem="eiZ-tg-gVe" secondAttribute="top" constant="22" id="x7S-ur-RTl"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -344,13 +348,12 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="4Hl-Cm-6D2" firstAttribute="leading" secondItem="XqP-NK-68o" secondAttribute="leading" id="1WM-Q4-ccB"/>
-                            <constraint firstAttribute="bottom" secondItem="eiZ-tg-gVe" secondAttribute="bottom" id="9hB-ke-j0b"/>
-                            <constraint firstItem="eiZ-tg-gVe" firstAttribute="trailing" secondItem="XqP-NK-68o" secondAttribute="trailing" id="HYY-kM-0VG"/>
-                            <constraint firstItem="eiZ-tg-gVe" firstAttribute="top" secondItem="4Hl-Cm-6D2" secondAttribute="bottom" id="NFA-5o-QwX"/>
+                            <constraint firstAttribute="trailing" secondItem="eiZ-tg-gVe" secondAttribute="trailing" id="5Ke-57-qjk"/>
+                            <constraint firstItem="eiZ-tg-gVe" firstAttribute="leading" secondItem="tZ4-tq-vh7" secondAttribute="leading" id="S2L-9a-WSR"/>
                             <constraint firstItem="4Hl-Cm-6D2" firstAttribute="top" secondItem="XqP-NK-68o" secondAttribute="top" id="Wm5-NH-h3E"/>
-                            <constraint firstItem="eiZ-tg-gVe" firstAttribute="leading" secondItem="XqP-NK-68o" secondAttribute="leading" id="YzM-Sg-Eo4"/>
                             <constraint firstItem="XqP-NK-68o" firstAttribute="trailing" secondItem="4Hl-Cm-6D2" secondAttribute="trailing" id="aJQ-QY-9Tw"/>
-                            <constraint firstItem="XqP-NK-68o" firstAttribute="bottom" secondItem="4Hl-Cm-6D2" secondAttribute="bottom" constant="50" id="lfC-6o-SeT"/>
+                            <constraint firstAttribute="bottom" secondItem="eiZ-tg-gVe" secondAttribute="bottom" id="mix-ha-fUC"/>
+                            <constraint firstItem="eiZ-tg-gVe" firstAttribute="top" secondItem="4Hl-Cm-6D2" secondAttribute="bottom" id="sp0-5a-ywV"/>
                         </constraints>
                     </view>
                     <connections>

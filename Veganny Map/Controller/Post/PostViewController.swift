@@ -22,7 +22,7 @@ class PostViewController: UIViewController {
     // MARK: - Properties
     var posts = [Post]()
     var user: User?
-    
+    let dataBase = Firestore.firestore()
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,14 +60,18 @@ class PostViewController: UIViewController {
         }
     }
     
-    @objc func goToCommentPage() {
-        if let controller = storyboard?.instantiateViewController(withIdentifier: "CommentViewController") {
+    @objc func goToCommentPage(_ sender: UIButton) {
+        let point = sender.convert(CGPoint.zero, to: tableView) // 找出button的座標
+        guard let indexpath = tableView.indexPathForRow(at: point) else { return } // 座標轉換成 indexpath
+        
+        if let controller = storyboard?.instantiateViewController(withIdentifier: "CommentViewController") as? CommentViewController {
+            controller.postId = posts[indexpath.row].postId
             navigationController?.pushViewController(controller, animated: true)
         }
     }
     
     func getPostData() {
-        Firestore.firestore().collection("Post").order(by: "time", descending: true).getDocuments { (querySnapshot, error) in
+        dataBase.collection("Post").order(by: "time", descending: true).getDocuments { (querySnapshot, error) in
             self.posts = [] // 清空資料，從其他頁面跳回來時不會重複取資料
             if let querySnapshot = querySnapshot {
                 for document in querySnapshot.documents {
@@ -79,7 +83,7 @@ class PostViewController: UIViewController {
                         print(error)
                     }
                 }
-
+                
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -88,7 +92,7 @@ class PostViewController: UIViewController {
     }
     
     func getUserData(userId: String) {
-        Firestore.firestore().collection("User").document(userId).getDocument(as: User.self) { result in
+        dataBase.collection("User").document(userId).getDocument(as: User.self) { result in
             switch result {
             case .success(let user):
                 print(user)
@@ -99,7 +103,6 @@ class PostViewController: UIViewController {
         }
     }
 }
-
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
 extension PostViewController: UITableViewDelegate, UITableViewDataSource {
@@ -112,7 +115,8 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "PostTableViewCell",
             for: indexPath) as? PostTableViewCell else { fatalError("Could not creat Cell.") }
-
+        
+        cell.numberOfCommentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
         cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
         cell.postImgView.loadImage(posts[indexPath.row].mediaURL, placeHolder: UIImage(named: "placeholder"))
         cell.contentLabel.text = posts[indexPath.row].content
@@ -120,7 +124,6 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         cell.userNameLabel.text = user?.name
         cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(named: "placeholder"))
         cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)則留言", for: .normal)
-        
         return cell
     }
 }

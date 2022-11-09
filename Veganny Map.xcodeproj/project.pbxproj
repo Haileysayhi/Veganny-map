@@ -166,6 +166,15 @@
 			path = Comment;
 			sourceTree = "<group>";
 		};
+		D284239B291B92BC001E336F /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				D29F59FD29160C6300513A63 /* PostViewController.swift */,
+				D29F5A00291627A400513A63 /* PublishViewController.swift */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
 		D28A5BDB290BE379005F5D50 = {
 			isa = PBXGroup;
 			children = (
@@ -211,9 +220,8 @@
 		D28A5BFC290D1632005F5D50 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D284239B291B92BC001E336F /* Post */,
 				D26F2594291A628400A8CF1B /* Comment */,
-				D29F59FD29160C6300513A63 /* PostViewController.swift */,
-				D29F5A00291627A400513A63 /* PublishViewController.swift */,
 				D242FDAB29135D8700C56DCE /* Restaurant */,
 				D242FDB62913E2BD00C56DCE /* Detail */,
 				D242FDAA29135D7000C56DCE /* Map */,
@@ -225,8 +233,8 @@
 			isa = PBXGroup;
 			children = (
 				D29F59FF2916262300513A63 /* Post */,
-				D242FDB82913E2DE00C56DCE /* Restaurant */,
 				D26F2597291AAB8500A8CF1B /* Comment */,
+				D242FDB82913E2DE00C56DCE /* Restaurant */,
 				D242FDB72913E2CC00C56DCE /* Detail */,
 				D28A5BED290BE379005F5D50 /* Main.storyboard */,
 				D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */,

@@ -79,6 +79,7 @@ class PublishViewController: UIViewController {
     func addData() {
         let document = dataBase.collection("Post").document()
         print("===>>document ID \(document.documentID)")
+
         
         let post = Post(
             authorId: "fds9KGgchZFsAIvbauMF", // B9SWfBqS3WBBK7TAEZja or fds9KGgchZFsAIvbauMF

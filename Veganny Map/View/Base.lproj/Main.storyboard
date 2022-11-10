@@ -264,10 +264,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentTableViewCell" id="kul-Jr-pvb" customClass="CommentTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="79.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="79"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kul-Jr-pvb" id="nYG-ps-cCB">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="79"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fTF-uT-ITn">
@@ -284,7 +284,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ijd-WD-WDn">
-                                                    <rect key="frame" x="10" y="48" width="384" height="21.5"/>
+                                                    <rect key="frame" x="10" y="48" width="384" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -381,7 +381,7 @@
             </objects>
             <point key="canvasLocation" x="590" y="1476"/>
         </scene>
-        <!--Save-->
+        <!--Save View Controller-->
         <scene sceneID="hCu-fR-A3a">
             <objects>
                 <viewController storyboardIdentifier="SaveViewController" id="bnV-xj-rhS" customClass="SaveViewController" customModule="Veganny_Map" customModuleProvider="target" sceneMemberID="viewController">
@@ -390,11 +390,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="DyK-8p-c5w">
-                                <rect key="frame" x="0.0" y="44" width="414" height="51"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="IFr-6I-355">
-                                <rect key="frame" x="0.0" y="136" width="414" height="760"/>
+                                <rect key="frame" x="0.0" y="180" width="414" height="716"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SaveTableViewCell" rowHeight="271" id="cW3-vF-7iZ" customClass="SaveTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
@@ -448,7 +448,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have saved 3 locations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REj-d3-xWq">
-                                <rect key="frame" x="37" y="105" width="340" height="21"/>
+                                <rect key="frame" x="37" y="149" width="340" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="340" id="tqi-I0-Rfa"/>
                                 </constraints>
@@ -471,7 +471,6 @@
                             <constraint firstItem="REj-d3-xWq" firstAttribute="centerX" secondItem="Jnx-44-ztf" secondAttribute="centerX" id="uSa-QX-zap"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Save" image="heart" catalog="system" id="1H6-sI-2Vw"/>
                     <navigationItem key="navigationItem" id="2ug-PG-2iX"/>
                     <connections>
                         <outlet property="saveCountLabel" destination="REj-d3-xWq" id="FKV-p7-CNZ"/>
@@ -481,7 +480,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S1g-Ku-NmM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="589.85507246376812" y="498.88392857142856"/>
+            <point key="canvasLocation" x="1500.0000000000002" y="498.88392857142856"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="Ku6-J1-Dvg">
@@ -808,7 +807,7 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="ur4-HY-ogD"/>
                         <segue destination="yae-Rj-i9n" kind="relationship" relationship="viewControllers" id="iJj-AU-7x1"/>
-                        <segue destination="bnV-xj-rhS" kind="relationship" relationship="viewControllers" id="3VB-oA-cG0"/>
+                        <segue destination="lZE-tI-Wul" kind="relationship" relationship="viewControllers" id="3VB-oA-cG0"/>
                         <segue destination="LWq-Ih-Q5M" kind="relationship" relationship="viewControllers" id="9jj-yc-hv2"/>
                     </connections>
                 </tabBarController>
@@ -834,6 +833,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uQE-87-7Xf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="589.85507246376812" y="-1000.4464285714286"/>
+        </scene>
+        <!--Save-->
+        <scene sceneID="RWJ-vu-aN0">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lZE-tI-Wul" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Save" image="heart" catalog="system" id="1H6-sI-2Vw"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hwQ-Db-wXH">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bnV-xj-rhS" kind="relationship" relationship="rootViewController" id="TfZ-JY-FDs"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YUQ-KE-GPr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="589.85507246376812" y="498.88392857142856"/>
         </scene>
     </scenes>
     <resources>

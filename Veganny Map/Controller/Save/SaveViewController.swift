@@ -25,10 +25,13 @@ class SaveViewController: UIViewController {
     let dataBase = Firestore.firestore()
     var user: User?
     var detail = [DetailResponse]()
+    var searching = false
+    var searchedSave = [DetailResponse]()
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.searchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +44,7 @@ class SaveViewController: UIViewController {
         dataBase.collection("User").document("fds9KGgchZFsAIvbauMF").getDocument(as: User.self) { result in
             switch result {
             case .success(let user):
-                print("===SaveViewController資料：\(user)")
+                print("===SaveViewController資料===\(user)")
                 self.user = user
                 self.fetchPlaceId()
             case .failure(let error):
@@ -72,32 +75,65 @@ class SaveViewController: UIViewController {
 extension SaveViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        detail.count
+        if searching {
+            return searchedSave.count
+        } else {
+            return  detail.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SaveTableViewCell", for: indexPath) as? SaveTableViewCell
         else { fatalError("Could not creat Cell.") }
         
-        cell.nameLabel.text = detail[indexPath.row].result.name
         cell.photoImgView.image = nil
         
-        GoogleMapListController.shared.fetchPhotos(photoReference: detail[indexPath.row].result.photos[indexPath.row].photoReference) { image in
-            DispatchQueue.main.async {
-                cell.photoImgView.image = image
-                cell.photoImgView.layer.cornerRadius = 5
-                self.saveCountLabel.text = "You have saved \(self.detail.count) locations"
+        if searching {
+            GoogleMapListController.shared.fetchPhotos(photoReference: searchedSave[indexPath.row].result.photos[indexPath.row].photoReference) { image in
+                DispatchQueue.main.async {
+                    cell.nameLabel.text = self.searchedSave[indexPath.row].result.name
+                    cell.photoImgView.image = image
+                    cell.photoImgView.layer.cornerRadius = 5
+                    self.saveCountLabel.text = "You have saved \(self.detail.count) locations"
+                }
+            }
+        } else {
+            GoogleMapListController.shared.fetchPhotos(photoReference: detail[indexPath.row].result.photos[indexPath.row].photoReference) { image in
+                DispatchQueue.main.async {
+                    cell.nameLabel.text = self.detail[indexPath.row].result.name
+                    cell.photoImgView.image = image
+                    cell.photoImgView.layer.cornerRadius = 5
+                    self.saveCountLabel.text = "You have saved \(self.detail.count) locations"
+                }
             }
         }
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
         tableVC.infoResult = self.detail[indexPath.row].result
+        navigationController?.pushViewController(tableVC, animated: true)
+    }
+}
 
-        self.present(tableVC, animated: true)
+// MARK: - UISearchBarDelegate
+extension SaveViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchedSave = detail.filter { $0.result.name.lowercased().prefix(searchText.count) == searchText.lowercased() }
+        searching = true
+        tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searching = false
+        searchBar.text = ""
+        tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searching = false
+        self.searchBar.endEditing(true)
     }
 }

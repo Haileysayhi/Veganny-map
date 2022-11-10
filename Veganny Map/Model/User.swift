@@ -26,7 +26,7 @@ struct Post: Codable {
     var mediaType: String // photo, video
     var mediaURL: String
     var time: Timestamp // 發文時間
-    var likes: [String] // 留言人的id -->為了讓按讚的人畫面可以顯示已按過讚
+    var likes: [String] // 按讚人的id -->為了讓按讚的人畫面可以顯示已按過讚
     var comments: [Comment]
 }
 

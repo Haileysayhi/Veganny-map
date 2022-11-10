@@ -82,7 +82,6 @@ class PublishViewController: UIViewController {
         
         let post = Post(
             authorId: "fds9KGgchZFsAIvbauMF", // B9SWfBqS3WBBK7TAEZja or fds9KGgchZFsAIvbauMF
-
             postId: document.documentID,
             content: contentTextView.text,
             mediaType: MediaType.photo.rawValue,
@@ -116,14 +115,12 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
         guard let imageData = image.jpegData(compressionQuality: 0.3) else { return }
         let photoReference = storage.child(UUID().uuidString + ".jpg")
         photoReference.putData(imageData, metadata: nil, completion: { _, error in
-            
             guard error == nil else {
                 print("Failed to upload")
                 return
             }
 
             photoReference.downloadURL(completion: { url, error in
-                
                 guard let url = url, error == nil else {
                     return
                 }

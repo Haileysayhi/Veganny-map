@@ -81,8 +81,8 @@ class GoogleMapListController {
         }
     }
     
-    //Place Photos - Place Photo requests
-    func fetchPhotos(photoReference: String , completion: @escaping (UIImage?) -> Void) {
+    // Place Photos - Place Photo requests
+    func fetchPhotos(photoReference: String, completion: @escaping (UIImage?) -> Void) {
         
         if let url = URL(string: "https://maps.googleapis.com/maps/api/place/photo?photo_reference=\(photoReference)&maxwidth=1600&key=\(GoogleMapListController.key)"){
             
@@ -90,10 +90,10 @@ class GoogleMapListController {
                 if let data = data,
                    let response = response as? HTTPURLResponse,
                    response.statusCode == 200,
-                   error == nil{
+                   error == nil {
                     let photo = UIImage(data: data)
                     completion(photo)
-                }else{
+                } else {
                     completion(nil)
                 }
             }.resume()

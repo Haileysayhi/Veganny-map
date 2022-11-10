@@ -23,6 +23,8 @@ class PostViewController: UIViewController {
     var posts = [Post]()
     var user: User?
     let dataBase = Firestore.firestore()
+    var didTapButton = false
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +70,30 @@ class PostViewController: UIViewController {
             controller.postId = posts[indexpath.row].postId
             navigationController?.pushViewController(controller, animated: true)
         }
+    }
+    
+    @objc func tapLike(_ sender: UIButton) {
+        let point = sender.convert(CGPoint.zero, to: tableView) // 找出button的座標
+        guard let indexpath = tableView.indexPathForRow(at: point) else { return } // 座標轉換成 indexpath
+        let document = dataBase.collection("Post").document(posts[indexpath.row].postId)
+        
+        
+        if didTapButton {
+            sender.setImage(UIImage(systemName: "heart"), for: .normal)
+            sender.tintColor = .link
+            
+            document.updateData([
+                "likes": FieldValue.arrayRemove(["fds9KGgchZFsAIvbauMF"])
+            ])
+        } else {
+            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            sender.tintColor = .red
+            
+            document.updateData([
+                "likes": FieldValue.arrayUnion(["fds9KGgchZFsAIvbauMF"])
+            ])
+        }
+        didTapButton.toggle()
     }
     
     func getPostData() {
@@ -116,6 +142,15 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: "PostTableViewCell",
             for: indexPath) as? PostTableViewCell else { fatalError("Could not creat Cell.") }
         
+        if posts[indexPath.row].likes.contains("fds9KGgchZFsAIvbauMF") {
+            cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            cell.likeButton.tintColor = .red
+        } else {
+            cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            cell.likeButton.tintColor = .link
+        }
+        
+        cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
         cell.numberOfCommentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
         cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
         cell.postImgView.loadImage(posts[indexPath.row].mediaURL, placeHolder: UIImage(named: "placeholder"))
@@ -124,6 +159,20 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         cell.userNameLabel.text = user?.name
         cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(named: "placeholder"))
         cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)則留言", for: .normal)
+        
+        dataBase.collection("Post").document(posts[indexPath.row].postId).addSnapshotListener { snapshot, error in
+            guard let snapshot = snapshot else { return }
+            guard let post = try? snapshot.data(as: Post.self) else { return }
+            
+            if post.likes.isEmpty {
+                cell.numberOfLikeLabel.isHidden = true
+            } else {
+                cell.numberOfLikeLabel.isHidden = false
+                cell.numberOfLikeLabel.text = "\(post.likes.count) likes"
+            }
+        }
+        
+        
         return cell
     }
 }

@@ -60,8 +60,6 @@ class CommentViewController: UIViewController {
         textField.text = ""
     }
     
-    
-    
     func getCommentData() {
         group.enter()
         dataBase.collection("Post").document(postId).getDocument(as: Post.self) { result in
@@ -109,11 +107,13 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as? CommentTableViewCell else { fatalError("Could not creat Cell.") }
         
         getUserData(userId: comments[indexPath.row].userId)
-        group.notify(queue: DispatchQueue.main) {
+        
+        self.group.notify(queue: DispatchQueue.main) {
             cell.nameLabel.text = self.user?.name
             cell.photoImgView.loadImage(self.user?.userPhotoURL, placeHolder: UIImage(named: "placeholder"))
             cell.contentLabel.text = self.comments[indexPath.row].content
         }
+        
         return cell
     }
 }

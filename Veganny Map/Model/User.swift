@@ -25,9 +25,8 @@ struct Post: Codable {
     var content: String
     var mediaType: String // photo, video
     var mediaURL: String
-    //    var video: String
     var time: Timestamp // 發文時間
-    var likes: [String] // 留言人的id -->為了讓按讚的人畫面可以顯示已按過讚
+    var likes: [String] // 按讚人的id -->為了讓按讚的人畫面可以顯示已按過讚
     var comments: [Comment]
 }
 
@@ -48,6 +47,3 @@ enum ContentType: String {
     case photo
     case video
 }
-// 1. 按讚人數
-// 2. 留言數量
-// 3. 顯示全部留言（留言者照片 名字 留言內容 留言時間）

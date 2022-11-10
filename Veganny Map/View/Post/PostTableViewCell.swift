@@ -18,7 +18,8 @@ class PostTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var postImgView: UIImageView!
-    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton! 
+    @IBOutlet weak var numberOfLikeLabel: UILabel! 
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var numberOfCommentButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!

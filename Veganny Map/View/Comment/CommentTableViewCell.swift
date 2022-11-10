@@ -10,13 +10,15 @@ import UIKit
 class CommentTableViewCell: UITableViewCell {
 
     
-    @IBOutlet weak var photoImgView: UIImageView!
+    @IBOutlet weak var photoImgView: UIImageView! {
+        didSet {
+            photoImgView.layer.cornerRadius = photoImgView.bounds.width / 2
+        }
+    }
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     
-    
-    
-    //MARK: - awakeFromNib
+    // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
     }

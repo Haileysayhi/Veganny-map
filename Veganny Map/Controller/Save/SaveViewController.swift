@@ -71,7 +71,8 @@ class SaveViewController: UIViewController {
 // MARK: - UITableViewDelegate & UITableViewDataSource
 extension SaveViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { detail.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        detail.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -90,5 +91,13 @@ extension SaveViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
+        tableVC.infoResult = self.detail[indexPath.row].result
+
+        self.present(tableVC, animated: true)
     }
 }

@@ -99,7 +99,6 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
             sheet.prefersEdgeAttachedInCompactHeight = true
         }
         tableVC.infoResult = self.detail?.result // 把detail資料傳到DetailVC
-        tableVC.itemResult = self.itemResult // 把地址傳到DetailVC
         
         viewController?.present(tableVC, animated: true)
     }

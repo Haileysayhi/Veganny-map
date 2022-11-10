@@ -12,20 +12,26 @@ struct DetailResponse: Codable {
 }
 
 struct InfoResult: Codable {
+    
+    var placeId: String
     var name: String                // 餐廳名稱
     var photos: [PhotosResults]     // 照片
     var reviews: [Reviews]          // 評論
     var currentOpeningHours: CurrentOpeningHours // 營業資訊
     var rating: Double
     var internationalPhoneNumber: String
+    var formattedAddress: String // 地址
     
     enum CodingKeys: String, CodingKey {
+        
+        case placeId = "place_id"
         case name
         case photos
         case reviews
         case currentOpeningHours = "current_opening_hours"
         case rating
         case internationalPhoneNumber = "international_phone_number"
+        case formattedAddress = "formatted_address"
     }
 }
 

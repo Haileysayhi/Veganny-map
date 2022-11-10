@@ -21,7 +21,6 @@ class DetailViewController: UIViewController {
     
     // MARK: - Properties
     var infoResult: InfoResult?
-    var itemResult: ItemResult?
     let dataBase = Firestore.firestore()
     var didTapButton = false
     // MARK: - viewDidLoad
@@ -29,13 +28,10 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    
     // MARK: - function
     @objc func saveRestaurantId(_ sender: UIButton) {
-//        let point = sender.convert(CGPoint.zero, to: tableView) // 找出button的座標
-//        guard let indexpath = tableView.indexPathForRow(at: point) else { return } // 座標轉換成 indexpath
         let document = dataBase.collection("User").document("fds9KGgchZFsAIvbauMF")
-        let placeId = itemResult?.placeId as! String
+        let placeId = infoResult?.placeId as! String
                 
         if didTapButton {
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
@@ -109,7 +105,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                 guard let snapshot = snapshot else { return }
                 guard let user = try? snapshot.data(as: User.self) else { return }
                 
-                if user.savedRestaurants.contains(self.itemResult!.placeId) {
+                if user.savedRestaurants.contains(self.infoResult!.placeId) {
                     cell.saveButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                     cell.saveButton.tintColor = .red
                 } else {
@@ -120,7 +116,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.saveButton.addTarget(self, action: #selector(saveRestaurantId), for: .touchUpInside)
             cell.nameLabel.text = infoResult.name
-            cell.addressLabel.text = itemResult?.vicinity
+            cell.addressLabel.text = infoResult.formattedAddress
             cell.workHourLabel.text = infoResult.currentOpeningHours.weekdayText[indexPath.row]
             cell.phoneLabel.text = infoResult.internationalPhoneNumber
             cell.reviewsLabel.text = "\(infoResult.rating)"

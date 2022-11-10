@@ -92,7 +92,6 @@ class CommentViewController: UIViewController {
                 self.group.leave()
             }
         }
-        
     }
 }
 

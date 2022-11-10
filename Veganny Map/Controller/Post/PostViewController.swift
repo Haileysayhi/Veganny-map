@@ -77,7 +77,6 @@ class PostViewController: UIViewController {
         guard let indexpath = tableView.indexPathForRow(at: point) else { return } // 座標轉換成 indexpath
         let document = dataBase.collection("Post").document(posts[indexpath.row].postId)
         
-        
         if didTapButton {
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
             sender.tintColor = .link
@@ -171,7 +170,6 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.numberOfLikeLabel.text = "\(post.likes.count) likes"
             }
         }
-        
         
         return cell
     }

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class DetailViewController: UIViewController {
     
@@ -19,12 +21,34 @@ class DetailViewController: UIViewController {
     
     // MARK: - Properties
     var infoResult: InfoResult?
-    var itemResult: ItemResult?
-    
+    let dataBase = Firestore.firestore()
+    var didTapButton = false
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    // MARK: - function
+    @objc func saveRestaurantId(_ sender: UIButton) {
+        let document = dataBase.collection("User").document("fds9KGgchZFsAIvbauMF")
+        let placeId = infoResult?.placeId as! String
+                
+        if didTapButton {
+            sender.setImage(UIImage(systemName: "heart"), for: .normal)
+            sender.tintColor = .link
+            
+            document.updateData([
+                "savedRestaurants": FieldValue.arrayRemove([placeId]) // 刪掉餐廳的id
+            ])
+        } else {
+            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            sender.tintColor = .red
+                        
+            document.updateData([
+                "savedRestaurants": FieldValue.arrayUnion([placeId]) // 存入餐廳的id
+            ])
+        }
+        didTapButton.toggle()
     }
 }
 
@@ -77,8 +101,22 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                 withIdentifier: "InfoTableViewCell",
                 for: indexPath) as? InfoTableViewCell else { fatalError("Could not create Cell") }
             
+            dataBase.collection("User").document("fds9KGgchZFsAIvbauMF").addSnapshotListener { snapshot, error in
+                guard let snapshot = snapshot else { return }
+                guard let user = try? snapshot.data(as: User.self) else { return }
+                
+                if user.savedRestaurants.contains(self.infoResult!.placeId) {
+                    cell.saveButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    cell.saveButton.tintColor = .red
+                } else {
+                    cell.saveButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                    cell.saveButton.tintColor = .link
+                }
+            }
+            
+            cell.saveButton.addTarget(self, action: #selector(saveRestaurantId), for: .touchUpInside)
             cell.nameLabel.text = infoResult.name
-            cell.addressLabel.text = itemResult?.vicinity
+            cell.addressLabel.text = infoResult.formattedAddress
             cell.workHourLabel.text = infoResult.currentOpeningHours.weekdayText[indexPath.row]
             cell.phoneLabel.text = infoResult.internationalPhoneNumber
             cell.reviewsLabel.text = "\(infoResult.rating)"

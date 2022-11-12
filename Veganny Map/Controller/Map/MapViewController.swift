@@ -39,6 +39,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
         manager.distanceFilter = kCLLocationAccuracyNearestTenMeters // update data after move ten meters
         manager.desiredAccuracy = kCLLocationAccuracyBest
         
+        
         //    生成 Cluster Manager
         let iconGenerator = GMUDefaultClusterIconGenerator.init(buckets: [99999], backgroundColors: [UIColor.green])
         let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
@@ -52,25 +53,25 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-    
-            GoogleMapListController.shared.fetchNearbySearch(location: self.userLocation, keyword: "vegan") { listresponse in
-                self.listResponse = listresponse
-                print("==位置<MapViewController>有沒有吃到\(self.userLocation)")
-                print("==<MapViewController>\(listresponse)")
-                self.delegate.manager(self, didGet: listresponse!.results)
-                listresponse?.results.forEach({ result in
-                    let marker = GMSMarker()
-                    marker.position = CLLocationCoordinate2D(
-                        latitude: result.geometry.location.lat,
-                        longitude: result.geometry.location.lng
-                    )
-                    marker.snippet = result.name
-                    marker.icon = GMSMarker.markerImage(with: .green)
-                    self.clusterManager.add(marker)
-                    self.clusterManager.cluster()
-                    marker.map = self.mapView
-                })
-            }
+        
+        GoogleMapListController.shared.fetchNearbySearch(location: self.userLocation, keyword: "vegan") { listresponse in
+            self.listResponse = listresponse
+            print("==位置<MapViewController>有沒有吃到\(self.userLocation)")
+            print("==<MapViewController>\(listresponse)")
+            self.delegate.manager(self, didGet: listresponse!.results)
+            listresponse?.results.forEach({ result in
+                let marker = GMSMarker()
+                marker.position = CLLocationCoordinate2D(
+                    latitude: result.geometry.location.lat,
+                    longitude: result.geometry.location.lng
+                )
+                marker.snippet = result.name
+                marker.icon = GMSMarker.markerImage(with: .green)
+                self.clusterManager.add(marker)
+                self.clusterManager.cluster()
+                marker.map = self.mapView
+            })
+        }
     }
     
     

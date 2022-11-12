@@ -58,17 +58,17 @@
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RestaurantTableViewCell" id="417-KO-RTU" customClass="RestaurantTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="212.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="232.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="417-KO-RTU" id="BqJ-gk-eP3">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="212.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="232.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gTE-PP-oXo">
-                                                    <rect key="frame" x="20" y="11" width="374" height="190.5"/>
+                                                    <rect key="frame" x="20" y="11" width="374" height="210.5"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="190" id="ncX-Be-mFy"/>
+                                                        <constraint firstAttribute="height" constant="210" id="ncX-Be-mFy"/>
                                                     </constraints>
                                                     <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="O4V-2g-iQ0">
                                                         <size key="itemSize" width="120" height="180"/>
@@ -143,8 +143,8 @@
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" image="star.fill" catalog="system"/>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pd8-xj-vYz">
-                                                                <rect key="frame" x="8" y="48" width="57" height="22"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pd8-xj-vYz">
+                                                                <rect key="frame" x="8" y="48" width="354" height="22"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -164,6 +164,7 @@
                                                             <constraint firstItem="Gm0-W7-Ht7" firstAttribute="top" secondItem="zbr-Nw-dcy" secondAttribute="bottom" constant="3" id="EWP-ET-83m"/>
                                                             <constraint firstAttribute="bottom" secondItem="pd8-xj-vYz" secondAttribute="bottom" constant="5" id="EuX-EI-Nts"/>
                                                             <constraint firstItem="zbr-Nw-dcy" firstAttribute="leading" secondItem="fNF-zs-8pu" secondAttribute="leadingMargin" id="FsE-XB-Aeh"/>
+                                                            <constraint firstAttribute="trailing" secondItem="pd8-xj-vYz" secondAttribute="trailing" constant="12" id="GCm-Ht-bfE"/>
                                                             <constraint firstItem="pd8-xj-vYz" firstAttribute="top" secondItem="Gm0-W7-Ht7" secondAttribute="bottom" constant="2" id="Gtx-ae-Yn9"/>
                                                             <constraint firstItem="Gm0-W7-Ht7" firstAttribute="leading" secondItem="fNF-zs-8pu" secondAttribute="leading" constant="8" id="JHC-4L-20q"/>
                                                             <constraint firstItem="zbr-Nw-dcy" firstAttribute="top" secondItem="fNF-zs-8pu" secondAttribute="topMargin" id="R0D-H8-BkQ"/>
@@ -705,10 +706,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InfoTableViewCell" id="iiO-Rt-Sua" customClass="InfoTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="247" width="414" height="315"/>
+                                        <rect key="frame" x="0.0" y="247" width="414" height="317"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iiO-Rt-Sua" id="5sv-fT-QAK">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="315"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="317"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNg-Ug-ZAh">
@@ -716,7 +717,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="290" id="OQq-Nf-hvt"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -832,7 +833,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReviewTableViewCell" id="O9x-MZ-ssZ" customClass="ReviewTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="562" width="414" height="200.5"/>
+                                        <rect key="frame" x="0.0" y="564" width="414" height="200.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O9x-MZ-ssZ" id="bxb-z1-4dO">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="200.5"/>

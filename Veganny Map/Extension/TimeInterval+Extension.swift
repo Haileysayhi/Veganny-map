@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TimeInterval+Extension.swift
 //  Veganny Map
 //
 //  Created by Hailey on 2022/11/12.

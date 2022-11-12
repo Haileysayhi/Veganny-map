@@ -102,7 +102,7 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
         guard let tableVC = mainStoryBoard.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
                 
         if let sheet = tableVC.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
+            sheet.detents = [.large()]
             sheet.prefersScrollingExpandsWhenScrolledToEdge = false
             sheet.prefersGrabberVisible = true
             sheet.largestUndimmedDetentIdentifier = .medium
@@ -125,7 +125,7 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
         section.orthogonalScrollingBehavior = .continuous
         
         // 設定Header大小
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(80))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(100))
         
         // 生成NSCollectionLayoutBoundarySupplementaryItem，Header內容靠右上對齊
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)

@@ -78,9 +78,20 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
         guard let headerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind, withReuseIdentifier: "HeaderView", for: indexPath) as?
                 HeaderView else {fatalError("Could not create Header.") }
-        
-        headerView.header.text = detail?.result.name
-        
+
+        if let detail = self.detail {
+            headerView.header.text = detail.result.name
+            headerView.reviewsLabel.text = "\(detail.result.rating)"
+            headerView.addressLabel.text = detail.result.formattedAddress
+            
+            if detail.result.currentOpeningHours.openNow {
+                headerView.openOrCloseLabel.text = "Open"
+                headerView.openOrCloseLabel.textColor = .systemOrange
+            } else {
+                headerView.openOrCloseLabel.text = "Closed"
+                headerView.openOrCloseLabel.textColor = .red
+            }
+        }
         return headerView
     }
     
@@ -108,13 +119,13 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
         let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(100), heightDimension: .absolute(100))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(1100), heightDimension: .absolute(170))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(100), heightDimension: .absolute(100))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
         
         // 設定Header大小
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(80))
         
         // 生成NSCollectionLayoutBoundarySupplementaryItem，Header內容靠右上對齊
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)

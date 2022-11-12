@@ -15,7 +15,11 @@ class InfoTableViewCell: UITableViewCell {
     @IBOutlet weak var workHourLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var reviewsLabel: UILabel!
-    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var saveButton: UIButton! {
+        didSet {
+            saveButton.layer.cornerRadius = 10
+        }
+    }
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {

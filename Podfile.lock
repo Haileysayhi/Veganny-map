@@ -798,6 +798,7 @@ PODS:
   - gRPC-Core/Interface (1.44.0)
   - GTMSessionFetcher/Core (2.2.0)
   - IQKeyboardManagerSwift (6.5.10)
+  - JGProgressHUD (2.2)
   - Kingfisher (7.3.2)
   - leveldb-library (1.22.1)
   - Libuv-gRPC (0.0.10):
@@ -812,6 +813,7 @@ PODS:
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
   - PromisesObjC (2.1.1)
+  - SPAlert (4.2.0)
   - SwiftLint (0.49.1)
 
 DEPENDENCIES:
@@ -824,7 +826,9 @@ DEPENDENCIES:
   - GoogleMaps
   - GooglePlaces
   - IQKeyboardManagerSwift
+  - JGProgressHUD
   - Kingfisher
+  - SPAlert
   - SwiftLint
 
 SPEC REPOS:
@@ -855,11 +859,13 @@ SPEC REPOS:
     - gRPC-Core
     - GTMSessionFetcher
     - IQKeyboardManagerSwift
+    - JGProgressHUD
     - Kingfisher
     - leveldb-library
     - Libuv-gRPC
     - nanopb
     - PromisesObjC
+    - SPAlert
     - SwiftLint
 
 SPEC CHECKSUMS:
@@ -889,13 +895,15 @@ SPEC CHECKSUMS:
   gRPC-Core: 943e491cb0d45598b0b0eb9e910c88080369290b
   GTMSessionFetcher: d62ffccea5108bb9e7762ee121ae63bbdd2c6303
   IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
+  JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
+  SPAlert: 735da1f16a887e294719217572ce1f936d8c8782
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: 0baf40c2ac5b6533b95960b3a8ae409a820f3daf
+PODFILE CHECKSUM: 03ba8577f3d23f4a92f2e03fd0c01367ec5262bf
 
 COCOAPODS: 1.11.3

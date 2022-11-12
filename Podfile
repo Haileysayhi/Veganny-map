@@ -28,4 +28,11 @@ pod 'Firebase/Storage'
   # Pods for Kingfisher
 pod 'Kingfisher'
 
+  # Pods for SPAlert
+pod 'SPAlert'
+
+  # Pods for JGProgressHUD
+pod 'JGProgressHUD'
+
+
 end

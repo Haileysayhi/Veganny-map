@@ -17,6 +17,7 @@ class SaveTableViewCell: UITableViewCell {
     // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = .systemOrange
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

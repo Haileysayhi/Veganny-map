@@ -15,7 +15,19 @@ class PublishViewController: UIViewController {
     
     // MARK: - IBOutlet
     @IBOutlet weak var photoImgView: UIImageView!
-    @IBOutlet weak var contentTextView: UITextView!
+    @IBOutlet weak var contentTextView: UITextView! {
+        didSet {
+            contentTextView.layer.cornerRadius = 20
+        }
+    }
+    @IBOutlet weak var postButton: UIButton! {
+        didSet {
+            postButton.tintColor = .white
+            postButton.layer.cornerRadius = 10
+            postButton.backgroundColor = .orange
+            postButton.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
     
     // MARK: - Properties
     var imagePickerController = UIImagePickerController()

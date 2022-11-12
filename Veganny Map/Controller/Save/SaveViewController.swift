@@ -13,7 +13,12 @@ class SaveViewController: UIViewController {
     
     // MARK: - IBOutlet
     @IBOutlet weak var saveCountLabel: UILabel!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchBar: UISearchBar! {
+        didSet {
+            searchBar.layer.cornerRadius = 20
+            searchBar.clipsToBounds = true
+        }
+    }
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
@@ -31,6 +36,7 @@ class SaveViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemOrange
         self.searchBar.delegate = self
     }
     

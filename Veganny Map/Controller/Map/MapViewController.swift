@@ -39,7 +39,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
         manager.distanceFilter = kCLLocationAccuracyNearestTenMeters // update data after move ten meters
         manager.desiredAccuracy = kCLLocationAccuracyBest
         
-        
         //    生成 Cluster Manager
         let iconGenerator = GMUDefaultClusterIconGenerator.init(buckets: [99999], backgroundColors: [UIColor.green])
         let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
@@ -53,6 +52,16 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+//        let lat = mapView.projection.coordinate(for: mapView.center).latitude
+//        let lng = mapView.projection.coordinate(for: mapView.center).longitude
+//        print("center Lat & Lng = \(lat), \(lng)")
+//
+//
+//        let marker2 = GMSMarker()
+//        marker2.position = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+//        marker2.icon = GMSMarker.markerImage(with: .red)
+//        marker2.map = self.mapView
+
         
         GoogleMapListController.shared.fetchNearbySearch(location: self.userLocation, keyword: "vegan") { listresponse in
             self.listResponse = listresponse
@@ -65,6 +74,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
                     latitude: result.geometry.location.lat,
                     longitude: result.geometry.location.lng
                 )
+                
                 marker.snippet = result.name
                 marker.icon = GMSMarker.markerImage(with: .green)
                 self.clusterManager.add(marker)
@@ -73,7 +83,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
             })
         }
     }
-    
     
     // MARK: - Function
     func showTableView() {
@@ -133,6 +142,13 @@ extension MapViewController: CLLocationManagerDelegate {
 extension MapViewController: GMUClusterManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
+//        guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "RestaurantViewController") as? RestaurantViewController
+//        else { fatalError("ERROR") }
+//        tableVC.itemResults = self.listResponse!.results
+//        print("GGGGGGGGG\(self.listResponse!.results)")
+//        navigationController?.pushViewController(tableVC, animated: true)
+        
         // center the map on tapped marker
         mapView.animate(toLocation: marker.position)
         // check if a cluster icon was tapped

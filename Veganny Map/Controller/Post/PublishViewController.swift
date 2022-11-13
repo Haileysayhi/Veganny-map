@@ -38,7 +38,6 @@ class PublishViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil )
         imagePickerController.delegate = self
         imagePickerController.allowsEditing = true
         showAlert()
@@ -51,7 +50,7 @@ class PublishViewController: UIViewController {
         guard let viewControllers = self.navigationController?.viewControllers else { return }
         for controller in viewControllers {
             if controller is PostViewController {
-            self.navigationController?.popToViewController(controller, animated: true)
+                self.navigationController?.popToViewController(controller, animated: true)
             }
         }
         // 傳資料到firebase
@@ -72,7 +71,14 @@ class PublishViewController: UIViewController {
         }
         controller.addAction(savedPhotosAlbumAction)
         
-        let cancelAction = UIAlertAction(title: "取消", style: .destructive, handler: nil)
+        let cancelAction = UIAlertAction(title: "取消", style: .destructive) { _ in
+            guard let viewControllers = self.navigationController?.viewControllers else { return }
+            for controller in viewControllers {
+                if controller is PostViewController {
+                    self.navigationController?.popToViewController(controller, animated: true)
+                }
+            }
+        }
         controller.addAction(cancelAction)
         
         self.present(controller, animated: true, completion: nil)
@@ -91,7 +97,7 @@ class PublishViewController: UIViewController {
     func addData() {
         let document = dataBase.collection("Post").document()
         print("===>>document ID \(document.documentID)")
-
+        
         
         let post = Post(
             authorId: "fds9KGgchZFsAIvbauMF", // B9SWfBqS3WBBK7TAEZja or fds9KGgchZFsAIvbauMF
@@ -132,7 +138,7 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
                 print("Failed to upload")
                 return
             }
-
+            
             photoReference.downloadURL(completion: { url, error in
                 guard let url = url, error == nil else {
                     return

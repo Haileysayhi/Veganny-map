@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class GoogleMapListController {
-    static let key = "AIzaSyC8IQNR378ak19gj7fEHbuQoU4txNS6jic"
+    static let key = "AIzaSyCcQhC_uvERIltDUPbnWnoJDK1fkCnOemw"
     static var shared = GoogleMapListController()
     
     // Place Search - NearbySearch
@@ -24,14 +24,16 @@ class GoogleMapListController {
         if let url = URL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(location)&radius=3000&keyword=\(keyword)&language=zh-TW&key=\(GoogleMapListController.key)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data,
-                let response = response as? HTTPURLResponse,
-                response.statusCode == 200,
-                error == nil {
-                    do {
-                        let decoder = JSONDecoder()
-                        completion(try decoder.decode(ListResponse.self, from: data))
-                    } catch {
-                        completion(nil)
+                   let response = response as? HTTPURLResponse,
+                   response.statusCode == 200,
+                   error == nil {
+                    DispatchQueue.main.async {
+                        do {
+                            let decoder = JSONDecoder()
+                            completion(try decoder.decode(ListResponse.self, from: data))
+                        } catch {
+                            completion(nil)
+                        }
                     }
                 } else {
                     print("ERROR: \(error)")
@@ -47,16 +49,18 @@ class GoogleMapListController {
         if let url = URL(string: "https://maps.googleapis.com/maps/api/place/details/json?place_id=\(placeId)&language=zh-TW&key=\(GoogleMapListController.key)") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data,
-                let response = response as? HTTPURLResponse,
-                response.statusCode == 200,
-                error == nil {
-                    do {
-                        let decoder = JSONDecoder()
-                        decoder.dateDecodingStrategy = .secondsSince1970 // 時間
-                        completion(try decoder.decode(DetailResponse.self, from: data))
-                    } catch {
-                        print(error)
-                        completion(nil)
+                   let response = response as? HTTPURLResponse,
+                   response.statusCode == 200,
+                   error == nil {
+                    DispatchQueue.main.async {
+                        do {
+                            let decoder = JSONDecoder()
+                            decoder.dateDecodingStrategy = .secondsSince1970 // 時間
+                            completion(try decoder.decode(DetailResponse.self, from: data))
+                        } catch {
+                            print(error)
+                            completion(nil)
+                        }
                     }
                 } else {
                     print(error)
@@ -70,10 +74,12 @@ class GoogleMapListController {
         if let url = URL(string: url) {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data,
-                let response = response as? HTTPURLResponse,
-                response.statusCode == 200,
-                error == nil {
-                    completion(UIImage(data: data))
+                   let response = response as? HTTPURLResponse,
+                   response.statusCode == 200,
+                   error == nil {
+                    DispatchQueue.main.async {
+                        completion(UIImage(data: data))
+                    }
                 } else {
                     print(error)
                 }
@@ -91,8 +97,10 @@ class GoogleMapListController {
                    let response = response as? HTTPURLResponse,
                    response.statusCode == 200,
                    error == nil {
-                    let photo = UIImage(data: data)
-                    completion(photo)
+                    DispatchQueue.main.async {
+                        let photo = UIImage(data: data)
+                        completion(photo)
+                    }
                 } else {
                     completion(nil)
                 }

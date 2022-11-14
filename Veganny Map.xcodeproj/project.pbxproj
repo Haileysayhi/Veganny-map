@@ -35,8 +35,10 @@
 		D2A06782290FCD6A00988C56 /* GoogleMapListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A06781290FCD6A00988C56 /* GoogleMapListController.swift */; };
 		D2A0678429113BEE00988C56 /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0678329113BEE00988C56 /* RestaurantViewController.swift */; };
 		D2A0678629113CCE00988C56 /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0678529113CCE00988C56 /* RestaurantTableViewCell.swift */; };
+		D2D180E8291F848000661B4C /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D180E7291F848000661B4C /* TimeInterval+Extension.swift */; };
 		D2DEC44A291C8AB4001328CE /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DEC449291C8AB4001328CE /* SaveViewController.swift */; };
 		D2DEC44F291C8F1F001328CE /* SaveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DEC44E291C8F1F001328CE /* SaveTableViewCell.swift */; };
+		D2DEC453291DF4CE001328CE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DEC452291DF4CE001328CE /* ProfileViewController.swift */; };
 		D2FC5F242914D66D00ADBBEB /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FC5F232914D66D00ADBBEB /* ReviewCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,8 +75,10 @@
 		D2A06781290FCD6A00988C56 /* GoogleMapListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapListController.swift; sourceTree = "<group>"; };
 		D2A0678329113BEE00988C56 /* RestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
 		D2A0678529113CCE00988C56 /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
+		D2D180E7291F848000661B4C /* TimeInterval+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extension.swift"; sourceTree = "<group>"; };
 		D2DEC449291C8AB4001328CE /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveViewController.swift; path = "Veganny Map/Controller/Save/SaveViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D2DEC44E291C8F1F001328CE /* SaveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveTableViewCell.swift; sourceTree = "<group>"; };
+		D2DEC452291DF4CE001328CE /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D2FC5F232914D66D00ADBBEB /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				D28A5BFB290D1616005F5D50 /* Resource */,
+				D2D180E9291F854000661B4C /* Extension */,
 				D26F258F291A363700A8CF1B /* Third Party Wrapper */,
 				D2A0677C290F966600988C56 /* Model */,
 				D28A5BFD290D16A0005F5D50 /* View */,
@@ -224,6 +229,7 @@
 		D28A5BFC290D1632005F5D50 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D2DEC452291DF4CE001328CE /* ProfileViewController.swift */,
 				D2DEC451291CD31F001328CE /* Save */,
 				D284239B291B92BC001E336F /* Post */,
 				D26F2594291A628400A8CF1B /* Comment */,
@@ -265,6 +271,14 @@
 				D26F258A2918E11C00A8CF1B /* User.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D2D180E9291F854000661B4C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D2D180E7291F848000661B4C /* TimeInterval+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		D2DEC450291CD311001328CE /* Save */ = {
@@ -454,11 +468,13 @@
 				D2A06780290F970700988C56 /* PlaceDetails.swift in Sources */,
 				D242FDA929135CE200C56DCE /* RestaurantCollectionViewCell.swift in Sources */,
 				D28A5BEC290BE379005F5D50 /* MapViewController.swift in Sources */,
+				D2DEC453291DF4CE001328CE /* ProfileViewController.swift in Sources */,
 				D242FDB52913E28500C56DCE /* ReviewTableViewCell.swift in Sources */,
 				D26F258B2918E11C00A8CF1B /* User.swift in Sources */,
 				D2A0678629113CCE00988C56 /* RestaurantTableViewCell.swift in Sources */,
 				D26F2593291A625300A8CF1B /* CommentViewController.swift in Sources */,
 				D28A5BE8290BE379005F5D50 /* AppDelegate.swift in Sources */,
+				D2D180E8291F848000661B4C /* TimeInterval+Extension.swift in Sources */,
 				D242FDAD29138B5700C56DCE /* HeaderView.swift in Sources */,
 				D28A5BEA290BE379005F5D50 /* SceneDelegate.swift in Sources */,
 				D29F5A01291627A400513A63 /* PublishViewController.swift in Sources */,
@@ -631,7 +647,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Hailey.Veganny-Map";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -663,7 +679,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Hailey.Veganny-Map";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

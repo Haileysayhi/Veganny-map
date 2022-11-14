@@ -10,5 +10,7 @@ import UIKit
 class HeaderView: UICollectionReusableView {
     
     @IBOutlet weak var header: UILabel!
-        
+    @IBOutlet weak var reviewsLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var openOrCloseLabel: UILabel!
 }

@@ -31,11 +31,16 @@ class CommentViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        dataBase.collection("Post").document(postId).addSnapshotListener { snapshot, error in
+            guard let snapshot = snapshot else { return }
+            guard let post = try? snapshot.data(as: Post.self) else { return }
+            self.comments = post.comments
+            self.tableView.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         getCommentData()
     }
     
@@ -93,6 +98,34 @@ class CommentViewController: UIViewController {
             }
         }
     }
+    
+    func getReadableDate(timeStamp: TimeInterval) -> String? {
+        let date = Date(timeIntervalSince1970: timeStamp)
+        let dateFormatter = DateFormatter()
+        
+        if Calendar.current.isDateInTomorrow(date) {
+            return "Tomorrow"
+        } else if Calendar.current.isDateInYesterday(date) {
+            return "Yesterday"
+        } else if dateFallsInCurrentWeek(date: date) {
+            if Calendar.current.isDateInToday(date) {
+                dateFormatter.dateFormat = "h:mm a"
+                return dateFormatter.string(from: date)
+            } else {
+                dateFormatter.dateFormat = "EEEE"
+                return dateFormatter.string(from: date)
+            }
+        } else {
+            dateFormatter.dateFormat = "MMM d, yyyy"
+            return dateFormatter.string(from: date)
+        }
+    }
+    
+    func dateFallsInCurrentWeek(date: Date) -> Bool {
+        let currentWeek = Calendar.current.component(Calendar.Component.weekOfYear, from: Date())
+        let datesWeek = Calendar.current.component(Calendar.Component.weekOfYear, from: date)
+        return (currentWeek == datesWeek)
+    }
 }
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
@@ -105,14 +138,15 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as? CommentTableViewCell else { fatalError("Could not creat Cell.") }
         
-        getUserData(userId: comments[indexPath.row].userId)
-        
+        self.getUserData(userId: self.comments[indexPath.row].userId)
         self.group.notify(queue: DispatchQueue.main) {
             cell.nameLabel.text = self.user?.name
             cell.photoImgView.loadImage(self.user?.userPhotoURL, placeHolder: UIImage(named: "placeholder"))
             cell.contentLabel.text = self.comments[indexPath.row].content
+            let timeStamp = self.comments[indexPath.row].time
+            let timeInterval = TimeInterval(Double(timeStamp.seconds))
+            cell.timeLabel.text = timeInterval.getReadableDate()
         }
-        
         return cell
     }
 }

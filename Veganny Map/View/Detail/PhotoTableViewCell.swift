@@ -20,13 +20,13 @@ class PhotoTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     }
     
     // MARK: - Properties
-    var photos: [PhotosResults] = []    
+    var photos: [PhotosResults] = []
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -53,25 +53,21 @@ class PhotoTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
         GoogleMapListController.shared.fetchPhotos(
             photoReference: photos[indexPath.row].photoReference) {
                 image in DispatchQueue.main.async {
-                cell.photoIngView.image = image
-                cell.photoIngView.contentMode = .scaleAspectFill
-                cell.photoIngView.layer.cornerRadius = 5
+                    cell.photoIngView.image = image
+                    cell.photoIngView.contentMode = .scaleAspectFill
+                }
             }
-        }
-        
         return cell
     }
     
     // MARK: - Compositional Layout
     var photoSection: NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(100), heightDimension: .absolute(100))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalWidth(1/2))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(1100), heightDimension: .absolute(170))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1/2))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        
         return section
     }
 }

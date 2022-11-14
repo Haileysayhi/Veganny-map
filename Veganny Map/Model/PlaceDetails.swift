@@ -49,6 +49,7 @@ struct Reviews: Codable {
     var relativeTimeDescription: String
     var text: String
     var time: Date
+    var rating: Double
     
     enum CodingKeys: String, CodingKey {
         case authorName = "author_name"
@@ -56,6 +57,7 @@ struct Reviews: Codable {
         case relativeTimeDescription = "relative_time_description"
         case text
         case time
+        case rating
     }
 }
 

@@ -17,6 +17,8 @@ class CommentTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {

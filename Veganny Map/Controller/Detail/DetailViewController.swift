@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import SPAlert
 
 class DetailViewController: UIViewController {
     
@@ -23,6 +24,7 @@ class DetailViewController: UIViewController {
     var infoResult: InfoResult?
     let dataBase = Firestore.firestore()
     var didTapButton = false
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,21 +34,30 @@ class DetailViewController: UIViewController {
     @objc func saveRestaurantId(_ sender: UIButton) {
         let document = dataBase.collection("User").document("fds9KGgchZFsAIvbauMF")
         let placeId = infoResult?.placeId as! String
-                
+        
         if didTapButton {
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
-            sender.tintColor = .link
+            sender.tintColor = .systemOrange
             
             document.updateData([
                 "savedRestaurants": FieldValue.arrayRemove([placeId]) // 刪掉餐廳的id
             ])
+            
+            let alertView = SPAlertView(title: "Remove from save", preset: .done)
+            alertView.duration = 0.5
+            alertView.present()
+            
         } else {
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             sender.tintColor = .red
-                        
+            
             document.updateData([
                 "savedRestaurants": FieldValue.arrayUnion([placeId]) // 存入餐廳的id
             ])
+            
+            let alertView = SPAlertView(title: "Add to save", preset: .heart)
+            alertView.duration = 0.5
+            alertView.present()
         }
         didTapButton.toggle()
     }
@@ -110,14 +121,15 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.saveButton.tintColor = .red
                 } else {
                     cell.saveButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                    cell.saveButton.tintColor = .link
+                    cell.saveButton.tintColor = .systemOrange
                 }
             }
             
             cell.saveButton.addTarget(self, action: #selector(saveRestaurantId), for: .touchUpInside)
             cell.nameLabel.text = infoResult.name
             cell.addressLabel.text = infoResult.formattedAddress
-            cell.workHourLabel.text = infoResult.currentOpeningHours.weekdayText[indexPath.row]
+            cell.workHourLabel.text = infoResult.currentOpeningHours.weekdayText.map({$0}).joined(separator: "\n")
+        
             cell.phoneLabel.text = infoResult.internationalPhoneNumber
             cell.reviewsLabel.text = "\(infoResult.rating)"
             return cell

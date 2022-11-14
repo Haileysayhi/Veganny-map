@@ -29,6 +29,13 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let barAppearance = UINavigationBarAppearance()
+        // 不要有底線
+        barAppearance.shadowColor = nil
+        barAppearance.backgroundColor = UIColor.systemOrange
+        navigationItem.standardAppearance = barAppearance
+        navigationItem.backButtonTitle = ""
+        
         tableView.register(UINib(nibName: "PostTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "PostTableViewCell")
         
@@ -79,7 +86,7 @@ class PostViewController: UIViewController {
         
         if didTapButton {
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
-            sender.tintColor = .link
+            sender.tintColor = .black
             
             document.updateData([
                 "likes": FieldValue.arrayRemove(["fds9KGgchZFsAIvbauMF"])
@@ -146,7 +153,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.likeButton.tintColor = .red
         } else {
             cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-            cell.likeButton.tintColor = .link
+            cell.likeButton.tintColor = .black
         }
         
         cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
@@ -159,6 +166,10 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(named: "placeholder"))
         cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)則留言", for: .normal)
         
+        let timeStamp = posts[indexPath.row].time
+        let timeInterval = TimeInterval(Double(timeStamp.seconds))
+        cell.timeLabel.text = timeInterval.getReadableDate()
+        
         dataBase.collection("Post").document(posts[indexPath.row].postId).addSnapshotListener { snapshot, error in
             guard let snapshot = snapshot else { return }
             guard let post = try? snapshot.data(as: Post.self) else { return }
@@ -170,7 +181,6 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.numberOfLikeLabel.text = "\(post.likes.count) likes"
             }
         }
-        
         return cell
     }
 }

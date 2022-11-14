@@ -39,7 +39,6 @@ class SaveViewController: UIViewController {
         view.backgroundColor = .systemOrange
         self.searchBar.delegate = self
         navigationItem.backButtonTitle = ""
-
     }
     
     override func viewWillAppear(_ animated: Bool) {

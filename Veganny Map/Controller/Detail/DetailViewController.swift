@@ -128,8 +128,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             cell.saveButton.addTarget(self, action: #selector(saveRestaurantId), for: .touchUpInside)
             cell.nameLabel.text = infoResult.name
             cell.addressLabel.text = infoResult.formattedAddress
-            cell.workHourLabel.text = infoResult.currentOpeningHours.weekdayText.map({$0}).joined(separator: ",")
-            print("＃＃＃＃＃＃＃＃＃＃＃\(cell.workHourLabel.text)")
+            cell.workHourLabel.text = infoResult.currentOpeningHours.weekdayText.map({$0}).joined(separator: "\n")
         
             cell.phoneLabel.text = infoResult.internationalPhoneNumber
             cell.reviewsLabel.text = "\(infoResult.rating)"

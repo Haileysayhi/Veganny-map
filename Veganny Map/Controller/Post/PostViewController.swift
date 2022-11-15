@@ -89,14 +89,14 @@ class PostViewController: UIViewController {
             sender.tintColor = .black
             
             document.updateData([
-                "likes": FieldValue.arrayRemove(["fds9KGgchZFsAIvbauMF"])
+                "likes": FieldValue.arrayRemove([userID])
             ])
         } else {
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             sender.tintColor = .red
             
             document.updateData([
-                "likes": FieldValue.arrayUnion(["fds9KGgchZFsAIvbauMF"])
+                "likes": FieldValue.arrayUnion([userID])
             ])
         }
         didTapButton.toggle()
@@ -148,7 +148,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: "PostTableViewCell",
             for: indexPath) as? PostTableViewCell else { fatalError("Could not creat Cell.") }
         
-        if posts[indexPath.row].likes.contains("fds9KGgchZFsAIvbauMF") {
+        if posts[indexPath.row].likes.contains(userID) {
             cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             cell.likeButton.tintColor = .red
         } else {

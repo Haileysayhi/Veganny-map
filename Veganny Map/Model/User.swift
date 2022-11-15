@@ -8,11 +8,14 @@
 import Foundation
 import FirebaseFirestore
 
+
+var userID: String = "" // 存放登入後的userID
+
 // 使用App的人的資料
 struct User: Codable {
     var name: String
     var userPhotoURL: String
-    var userId: String // firebase給的
+    var userId: String // firebase給的 UID
     var email: String
     var postIds: [String] // postIds 等於Post中的很多個postId，使用者可以看全部自己發過的文
     var savedRestaurants: [String] // 存餐廳的placeId

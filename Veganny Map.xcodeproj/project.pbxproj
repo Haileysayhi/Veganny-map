@@ -35,6 +35,8 @@
 		D2A06782290FCD6A00988C56 /* GoogleMapListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A06781290FCD6A00988C56 /* GoogleMapListController.swift */; };
 		D2A0678429113BEE00988C56 /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0678329113BEE00988C56 /* RestaurantViewController.swift */; };
 		D2A0678629113CCE00988C56 /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0678529113CCE00988C56 /* RestaurantTableViewCell.swift */; };
+		D2A6131C2923381F0095AED2 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A6131B2923381F0095AED2 /* SignInViewController.swift */; };
+		D2A6131E2923431A0095AED2 /* CustomFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A6131D2923431A0095AED2 /* CustomFunc.swift */; };
 		D2D180E8291F848000661B4C /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D180E7291F848000661B4C /* TimeInterval+Extension.swift */; };
 		D2DEC44A291C8AB4001328CE /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DEC449291C8AB4001328CE /* SaveViewController.swift */; };
 		D2DEC44F291C8F1F001328CE /* SaveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DEC44E291C8F1F001328CE /* SaveTableViewCell.swift */; };
@@ -75,6 +77,9 @@
 		D2A06781290FCD6A00988C56 /* GoogleMapListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapListController.swift; sourceTree = "<group>"; };
 		D2A0678329113BEE00988C56 /* RestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
 		D2A0678529113CCE00988C56 /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
+		D2A6131A292335BD0095AED2 /* Veganny Map.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Veganny Map.entitlements"; sourceTree = "<group>"; };
+		D2A6131B2923381F0095AED2 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		D2A6131D2923431A0095AED2 /* CustomFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFunc.swift; sourceTree = "<group>"; };
 		D2D180E7291F848000661B4C /* TimeInterval+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extension.swift"; sourceTree = "<group>"; };
 		D2DEC449291C8AB4001328CE /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveViewController.swift; path = "Veganny Map/Controller/Save/SaveViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D2DEC44E291C8F1F001328CE /* SaveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveTableViewCell.swift; sourceTree = "<group>"; };
@@ -204,6 +209,7 @@
 		D28A5BE6290BE379005F5D50 /* Veganny Map */ = {
 			isa = PBXGroup;
 			children = (
+				D2A6131A292335BD0095AED2 /* Veganny Map.entitlements */,
 				D28A5BFB290D1616005F5D50 /* Resource */,
 				D2D180E9291F854000661B4C /* Extension */,
 				D26F258F291A363700A8CF1B /* Third Party Wrapper */,
@@ -249,6 +255,8 @@
 				D242FDB82913E2DE00C56DCE /* Restaurant */,
 				D242FDB72913E2CC00C56DCE /* Detail */,
 				D28A5BED290BE379005F5D50 /* Main.storyboard */,
+				D2A6131B2923381F0095AED2 /* SignInViewController.swift */,
+				D2A6131D2923431A0095AED2 /* CustomFunc.swift */,
 				D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */,
 			);
 			path = View;
@@ -458,8 +466,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2A6131C2923381F0095AED2 /* SignInViewController.swift in Sources */,
 				D2DEC44F291C8F1F001328CE /* SaveTableViewCell.swift in Sources */,
 				D29F59FE29160C6300513A63 /* PostViewController.swift in Sources */,
+				D2A6131E2923431A0095AED2 /* CustomFunc.swift in Sources */,
 				D2DEC44A291C8AB4001328CE /* SaveViewController.swift in Sources */,
 				D242FDB32913E26500C56DCE /* InfoTableViewCell.swift in Sources */,
 				D242FDAF2913D90B00C56DCE /* DetailViewController.swift in Sources */,
@@ -630,6 +640,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Veganny Map/Veganny Map.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B683C2644L;
@@ -662,6 +673,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Veganny Map/Veganny Map.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B683C2644L;

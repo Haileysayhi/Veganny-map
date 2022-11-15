@@ -32,7 +32,7 @@ class DetailViewController: UIViewController {
     
     // MARK: - function
     @objc func saveRestaurantId(_ sender: UIButton) {
-        let document = dataBase.collection("User").document("fds9KGgchZFsAIvbauMF")
+        let document = dataBase.collection("User").document(userID)
         let placeId = infoResult?.placeId as! String
         
         if didTapButton {
@@ -112,7 +112,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                 withIdentifier: "InfoTableViewCell",
                 for: indexPath) as? InfoTableViewCell else { fatalError("Could not create Cell") }
             
-            dataBase.collection("User").document("fds9KGgchZFsAIvbauMF").addSnapshotListener { snapshot, error in
+            dataBase.collection("User").document(userID).addSnapshotListener { snapshot, error in
                 guard let snapshot = snapshot else { return }
                 guard let user = try? snapshot.data(as: User.self) else { return }
                 

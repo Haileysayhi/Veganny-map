@@ -7,9 +7,17 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 
-var userID: String = "" // 存放登入後的userID
+var userID = getUserID() // 存放登入後的userID
+
+func getUserID() -> String {
+    guard let userID = Auth.auth().currentUser?.uid else {
+        return ""
+    }
+    return userID
+}
 
 // 使用App的人的資料
 struct User: Codable {

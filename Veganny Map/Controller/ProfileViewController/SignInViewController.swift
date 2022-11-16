@@ -69,7 +69,7 @@ class SignInViewController: UIViewController {
             signInWithAppleButton.heightAnchor.constraint(equalToConstant: 50),
             signInWithAppleButton.widthAnchor.constraint(equalToConstant: 280),
             signInWithAppleButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            signInWithAppleButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70)
+            signInWithAppleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -70)
         ])
     }
     // 淺色模式就顯示黑色的按鈕，深色模式就顯示白色的按鈕
@@ -154,6 +154,12 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
             print("appleIDToken: \(String(describing: appleIDCredential.identityToken))")
             print("idTokenString: \(idTokenString)")
             
+            var viewController = self.tabBarController?.viewControllers
+            guard let vc = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
+            else { fatalError("ERROR") }
+            vc.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 3)
+            viewController?.replaceSubrange(3...3, with: [vc])
+            self.tabBarController?.viewControllers = viewController
             
             // 產生 Apple ID 登入的 Credential
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)

@@ -7,9 +7,14 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class ProfileViewController: UIViewController {
-
+    
+    
+    // MARK: - Properties
+    let dataBase = Firestore.firestore()
+    var user: User?
     
     // MARK: - IBOutlet
     @IBOutlet weak var profileImgView: UIImageView! {
@@ -24,7 +29,11 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemOrange
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getUserData()
+    }
     
     // MARK: - Function
     @IBAction func signOut(_ sender: Any) {
@@ -39,6 +48,28 @@ class ProfileViewController: UIViewController {
                 self.tabBarController?.viewControllers = viewController
             } catch {
                 print(error.localizedDescription)
+            }
+        }
+    }
+    
+    @IBAction func showEditProfilePage(_ sender: Any) {
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "EditProfileViewController") as? EditProfileViewController else { return }
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func getUserData() {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
+        dataBase.collection("User").document(userId).getDocument(as: User.self) { result in
+            switch result {
+            case .success(let user):
+                print(user)
+                self.user = user
+                self.profileImgView.loadImage(self.user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+                self.nameLabel.text = self.user?.name
+            case .failure(let error):
+                print(error)
             }
         }
     }

@@ -163,7 +163,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         cell.contentLabel.text = posts[indexPath.row].content
         getUserData(userId: posts[indexPath.row].authorId)
         cell.userNameLabel.text = user?.name
-        cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(named: "placeholder"))
+        cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
         cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)則留言", for: .normal)
         
         let timeStamp = posts[indexPath.row].time

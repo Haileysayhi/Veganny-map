@@ -15,6 +15,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
+        UINavigationBar.appearance().tintColor = .systemOrange
     }
     
     // MARK: - Function
@@ -46,6 +47,8 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
                 let navProfileVC = UINavigationController(rootViewController: profileVC)
                 viewControllers?.replaceSubrange(3...3, with: [navProfileVC])
                 navProfileVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 3)
+                navProfileVC.navigationItem.backButtonTitle = ""
+
             } else if viewController == viewControllers?[2] {
                 let navSaveVC = UINavigationController(rootViewController: saveVC)
                 viewControllers?.replaceSubrange(2...2, with: [navSaveVC])

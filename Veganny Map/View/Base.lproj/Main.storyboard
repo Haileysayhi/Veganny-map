@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -448,46 +449,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="全家福" translatesAutoresizingMaskIntoConstraints="NO" id="1rg-rT-KAR">
-                                <rect key="frame" x="132" y="138" width="150" height="150"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1rg-rT-KAR">
+                                <rect key="frame" x="132" y="138.5" width="150" height="149"/>
+                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="W6H-f4-rvi"/>
                                     <constraint firstAttribute="width" constant="150" id="vt0-dd-bsj"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Homer Simpson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WMs-sA-JF5">
-                                <rect key="frame" x="91" y="318" width="232" height="35"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WMs-sA-JF5">
+                                <rect key="frame" x="164.5" y="318" width="85" height="35"/>
                                 <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oVh-Bn-Yd3">
-                                <rect key="frame" x="30" y="423" width="190" height="45"/>
+                                <rect key="frame" x="30" y="423" width="190" height="36.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="SfA-zF-s37"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="person.circle" catalog="system" title="Edit profile" subtitle="" imagePadding="10">
-                                    <fontDescription key="titleFontDescription" name="GeezaPro" family="Geeza Pro" pointSize="25"/>
+                                    <fontDescription key="titleFontDescription" name="GeezaPro" family="Geeza Pro" pointSize="18"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="showEditProfilePage:" destination="LWq-Ih-Q5M" eventType="touchUpInside" id="nS8-yg-EkC"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xrh-jB-Qhb">
-                                <rect key="frame" x="30" y="498" width="170" height="45"/>
+                                <rect key="frame" x="30" y="489.5" width="170" height="36.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="170" id="HGQ-5P-I28"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="rectangle.portrait.and.arrow.right" catalog="system" title="Sign out" subtitle="" imagePadding="7">
-                                    <fontDescription key="titleFontDescription" name="GeezaPro" family="Geeza Pro" pointSize="25"/>
+                                    <fontDescription key="titleFontDescription" name="GeezaPro" family="Geeza Pro" pointSize="18"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="signOut:" destination="LWq-Ih-Q5M" eventType="touchUpInside" id="6EM-rP-ZMV"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xLg-24-Vpq">
-                                <rect key="frame" x="40" y="480" width="300" height="2"/>
+                                <rect key="frame" x="40" y="471.5" width="300" height="2"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="8ks-pY-Mcc"/>
@@ -520,7 +525,9 @@
                             <constraint firstItem="zAa-wP-FSR" firstAttribute="leading" secondItem="xNV-3E-9da" secondAttribute="leadingMargin" constant="20" id="yuX-ve-y5v"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="8zX-t8-Wzb"/>
+                    <navigationItem key="navigationItem" id="8zX-t8-Wzb">
+                        <barButtonItem key="backBarButtonItem" title=" " id="yRW-vW-9Z1"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="nameLabel" destination="WMs-sA-JF5" id="lC9-Q6-Jct"/>
                         <outlet property="profileImgView" destination="1rg-rT-KAR" id="3Z7-qg-AFi"/>
@@ -530,20 +537,91 @@
             </objects>
             <point key="canvasLocation" x="1613" y="1476"/>
         </scene>
-        <!--View Controller-->
+        <!--Edit Profile View Controller-->
         <scene sceneID="tvx-GP-htW">
             <objects>
-                <viewController id="kne-AT-k7c" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditProfileViewController" id="kne-AT-k7c" customClass="EditProfileViewController" customModule="Veganny_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qVZ-yi-Vxu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Tmd-Om-nud">
+                                <rect key="frame" x="132" y="94.5" width="150" height="149"/>
+                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="XnR-vc-GuP"/>
+                                    <constraint firstAttribute="height" constant="150" id="cat-BQ-lC0"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jab-hB-fjO">
+                                <rect key="frame" x="30" y="375" width="50" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8m7-vB-VBb">
+                                <rect key="frame" x="151" y="269" width="112" height="30"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="yqm-Uh-jrX"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Upload photo"/>
+                                <connections>
+                                    <action selector="uploadPhoto:" destination="kne-AT-k7c" eventType="touchUpInside" id="k8l-mb-epX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jS1-rF-UGc">
+                                <rect key="frame" x="39.5" y="498" width="335" height="50"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="gQP-bz-X98"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Save changes"/>
+                                <connections>
+                                    <action selector="saveChanges:" destination="kne-AT-k7c" eventType="touchUpInside" id="vI2-yz-K56"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="MJK-3P-wZO">
+                                <rect key="frame" x="160" y="369" width="234" height="29"/>
+                                <color key="tintColor" name="AccentColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="i5p-Ft-4F4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="n7p-5h-q63"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jS1-rF-UGc" firstAttribute="leading" secondItem="n7p-5h-q63" secondAttribute="leading" constant="39.5" id="2fc-4H-KKm"/>
+                            <constraint firstItem="jS1-rF-UGc" firstAttribute="top" secondItem="MJK-3P-wZO" secondAttribute="bottom" constant="100" id="7dR-BS-AK6"/>
+                            <constraint firstItem="MJK-3P-wZO" firstAttribute="top" secondItem="8m7-vB-VBb" secondAttribute="bottom" constant="70" id="CDq-zL-I8q"/>
+                            <constraint firstItem="Tmd-Om-nud" firstAttribute="centerX" secondItem="qVZ-yi-Vxu" secondAttribute="centerX" id="PKi-uX-Xz8"/>
+                            <constraint firstItem="Jab-hB-fjO" firstAttribute="leading" secondItem="n7p-5h-q63" secondAttribute="leading" constant="30" id="Xy0-8c-Oor"/>
+                            <constraint firstItem="8m7-vB-VBb" firstAttribute="top" secondItem="Tmd-Om-nud" secondAttribute="bottom" constant="25" id="cuq-HB-glB"/>
+                            <constraint firstItem="n7p-5h-q63" firstAttribute="trailing" secondItem="MJK-3P-wZO" secondAttribute="trailing" constant="20" id="dRk-fA-3kY"/>
+                            <constraint firstItem="n7p-5h-q63" firstAttribute="trailing" secondItem="jS1-rF-UGc" secondAttribute="trailing" constant="39.5" id="iJr-qU-C8c"/>
+                            <constraint firstItem="Tmd-Om-nud" firstAttribute="top" secondItem="n7p-5h-q63" secondAttribute="top" constant="50" id="oZo-Cs-iup"/>
+                            <constraint firstItem="8m7-vB-VBb" firstAttribute="centerX" secondItem="qVZ-yi-Vxu" secondAttribute="centerX" id="rLQ-Yp-Iha"/>
+                            <constraint firstItem="Jab-hB-fjO" firstAttribute="top" secondItem="n7p-5h-q63" secondAttribute="top" constant="331" id="tJX-o7-i1U"/>
+                            <constraint firstItem="MJK-3P-wZO" firstAttribute="leading" secondItem="Jab-hB-fjO" secondAttribute="trailing" constant="80" id="zBi-ZC-Mju"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="ccS-ac-2Lp"/>
+                    <connections>
+                        <outlet property="nameTextField" destination="MJK-3P-wZO" id="3Lc-iU-cuF"/>
+                        <outlet property="saveButton" destination="jS1-rF-UGc" id="mnD-q9-NK2"/>
+                        <outlet property="uploadButton" destination="8m7-vB-VBb" id="yUB-dm-Lw4"/>
+                        <outlet property="userImgView" destination="Tmd-Om-nud" id="J5Q-Vn-lrm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1f5-GL-2Gc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2490" y="1476"/>
+            <point key="canvasLocation" x="2489.8550724637685" y="1475.8928571428571"/>
         </scene>
         <!--Veganny map-->
         <scene sceneID="hCu-fR-A3a">
@@ -1155,7 +1233,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YUQ-KE-GPr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="589.85507246376812" y="498.88392857142856"/>
+            <point key="canvasLocation" x="458" y="499"/>
         </scene>
         <!--Profile-->
         <scene sceneID="hNx-Om-zKf">
@@ -1190,7 +1268,9 @@
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="108"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
-        <image name="全家福" width="600" height="389"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

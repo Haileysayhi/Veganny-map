@@ -155,10 +155,12 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
             print("idTokenString: \(idTokenString)")
             
             var viewController = self.tabBarController?.viewControllers
-            guard let vc = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
+            guard let profileVC = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
             else { fatalError("ERROR") }
-            vc.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 3)
-            viewController?.replaceSubrange(3...3, with: [vc])
+            let navProfileVC = UINavigationController(rootViewController: profileVC)
+            viewController?.replaceSubrange(3...3, with: [navProfileVC])
+            navProfileVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 3)
+            navProfileVC.navigationItem.backButtonTitle = ""
             self.tabBarController?.viewControllers = viewController
             
             // 產生 Apple ID 登入的 Credential

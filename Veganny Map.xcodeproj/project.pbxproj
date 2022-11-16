@@ -42,6 +42,7 @@
 		D2DEC44A291C8AB4001328CE /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DEC449291C8AB4001328CE /* SaveViewController.swift */; };
 		D2DEC44F291C8F1F001328CE /* SaveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DEC44E291C8F1F001328CE /* SaveTableViewCell.swift */; };
 		D2DEC453291DF4CE001328CE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DEC452291DF4CE001328CE /* ProfileViewController.swift */; };
+		D2F477EC2924B92F00B56067 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F477EB2924B92F00B56067 /* EditProfileViewController.swift */; };
 		D2FC5F242914D66D00ADBBEB /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FC5F232914D66D00ADBBEB /* ReviewCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +87,7 @@
 		D2DEC449291C8AB4001328CE /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveViewController.swift; path = "Veganny Map/Controller/Save/SaveViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D2DEC44E291C8F1F001328CE /* SaveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveTableViewCell.swift; sourceTree = "<group>"; };
 		D2DEC452291DF4CE001328CE /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		D2F477EB2924B92F00B56067 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditProfileViewController.swift; path = "Veganny Map/View/EditProfileViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D2FC5F232914D66D00ADBBEB /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -237,6 +239,7 @@
 		D28A5BFC290D1632005F5D50 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D2F477EB2924B92F00B56067 /* EditProfileViewController.swift */,
 				D2A6131F292381BC0095AED2 /* TabBarViewController.swift */,
 				D2F477EA2924B4DC00B56067 /* ProfileViewController */,
 				D2DEC451291CD31F001328CE /* Save */,
@@ -481,6 +484,7 @@
 				D2DEC44F291C8F1F001328CE /* SaveTableViewCell.swift in Sources */,
 				D29F59FE29160C6300513A63 /* PostViewController.swift in Sources */,
 				D2A61320292381BC0095AED2 /* TabBarViewController.swift in Sources */,
+				D2F477EC2924B92F00B56067 /* EditProfileViewController.swift in Sources */,
 				D2A6131E2923431A0095AED2 /* CustomFunc.swift in Sources */,
 				D2DEC44A291C8AB4001328CE /* SaveViewController.swift in Sources */,
 				D242FDB32913E26500C56DCE /* InfoTableViewCell.swift in Sources */,

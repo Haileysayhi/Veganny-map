@@ -19,8 +19,12 @@ class PostViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var changePage: UISegmentedControl!
+    
+    
     // MARK: - Properties
     var posts = [Post]()
+    var myPosts = [Post]() // 存使用者自己的發文
     var user: User?
     let dataBase = Firestore.firestore()
     var didTapButton = false
@@ -89,18 +93,19 @@ class PostViewController: UIViewController {
             sender.tintColor = .black
             
             document.updateData([
-                "likes": FieldValue.arrayRemove([userID])
+                "likes": FieldValue.arrayRemove([getUserID()])
             ])
         } else {
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             sender.tintColor = .red
             
             document.updateData([
-                "likes": FieldValue.arrayUnion([userID])
+                "likes": FieldValue.arrayUnion([getUserID()])
             ])
         }
         didTapButton.toggle()
     }
+    
     
     func getPostData() {
         dataBase.collection("Post").order(by: "time", descending: true).getDocuments { (querySnapshot, error) in
@@ -109,6 +114,9 @@ class PostViewController: UIViewController {
                 for document in querySnapshot.documents {
                     do {
                         let post = try document.data(as: Post.self)
+                        if post.authorId == getUserID() { // 如果post中的authorId是等於現在登入的使用者ID
+                            self.myPosts.append(post)
+                        }
                         self.posts.append(post)
                         print("===firebase:\(post)")
                     } catch {
@@ -134,13 +142,21 @@ class PostViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func changePost(_ sender: UISegmentedControl) {
+        tableView.reloadData() // 點選時重新load資料
+    }
 }
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
 extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts.count
+        if changePage.selectedSegmentIndex == 0 {
+            return posts.count
+        } else {
+            return myPosts.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -148,38 +164,79 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: "PostTableViewCell",
             for: indexPath) as? PostTableViewCell else { fatalError("Could not creat Cell.") }
         
-        if posts[indexPath.row].likes.contains(userID) {
-            cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            cell.likeButton.tintColor = .red
-        } else {
-            cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-            cell.likeButton.tintColor = .black
-        }
-        
-        cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
-        cell.numberOfCommentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
-        cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
-        cell.postImgView.loadImage(posts[indexPath.row].mediaURL, placeHolder: UIImage(named: "placeholder"))
-        cell.contentLabel.text = posts[indexPath.row].content
-        getUserData(userId: posts[indexPath.row].authorId)
-        cell.userNameLabel.text = user?.name
-        cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
-        cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)則留言", for: .normal)
-        
-        let timeStamp = posts[indexPath.row].time
-        let timeInterval = TimeInterval(Double(timeStamp.seconds))
-        cell.timeLabel.text = timeInterval.getReadableDate()
-        
-        dataBase.collection("Post").document(posts[indexPath.row].postId).addSnapshotListener { snapshot, error in
-            guard let snapshot = snapshot else { return }
-            guard let post = try? snapshot.data(as: Post.self) else { return }
-            
-            if post.likes.isEmpty {
-                cell.numberOfLikeLabel.isHidden = true
+        if changePage.selectedSegmentIndex == 0 {
+            if posts[indexPath.row].likes.contains(getUserID()) {
+                cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                cell.likeButton.tintColor = .red
             } else {
-                cell.numberOfLikeLabel.isHidden = false
-                cell.numberOfLikeLabel.text = "\(post.likes.count) likes"
+                cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                cell.likeButton.tintColor = .black
             }
+            cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
+            cell.numberOfCommentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
+            cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
+            
+            cell.postImgView.loadImage(posts[indexPath.row].mediaURL, placeHolder: UIImage(named: "placeholder"))
+            cell.contentLabel.text = posts[indexPath.row].content
+            
+            getUserData(userId: posts[indexPath.row].authorId)
+            cell.userNameLabel.text = user?.name
+            cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+            
+            cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)則留言", for: .normal)
+            
+            let timeStamp = posts[indexPath.row].time
+            let timeInterval = TimeInterval(Double(timeStamp.seconds))
+            cell.timeLabel.text = timeInterval.getReadableDate()
+            
+            dataBase.collection("Post").document(posts[indexPath.row].postId).addSnapshotListener { snapshot, error in
+                guard let snapshot = snapshot else { return }
+                guard let post = try? snapshot.data(as: Post.self) else { return }
+                
+                if post.likes.isEmpty {
+                    cell.numberOfLikeLabel.isHidden = true
+                } else {
+                    cell.numberOfLikeLabel.isHidden = false
+                    cell.numberOfLikeLabel.text = "\(post.likes.count) likes"
+                }
+            }
+        } else {
+            if myPosts[indexPath.row].likes.contains(getUserID()) {
+                cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                cell.likeButton.tintColor = .red
+            } else {
+                cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                cell.likeButton.tintColor = .black
+            }
+            cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
+            cell.numberOfCommentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
+            cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
+            
+            cell.postImgView.loadImage(myPosts[indexPath.row].mediaURL, placeHolder: UIImage(named: "placeholder"))
+            cell.contentLabel.text = myPosts[indexPath.row].content
+            
+            getUserData(userId: myPosts[indexPath.row].authorId)
+            cell.userNameLabel.text = user?.name
+            cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+            
+            cell.numberOfCommentButton.setTitle("\(myPosts[indexPath.row].comments.count)則留言", for: .normal)
+            
+            let timeStamp = myPosts[indexPath.row].time
+            let timeInterval = TimeInterval(Double(timeStamp.seconds))
+            cell.timeLabel.text = timeInterval.getReadableDate()
+            
+            dataBase.collection("Post").document(myPosts[indexPath.row].postId).addSnapshotListener { snapshot, error in
+                guard let snapshot = snapshot else { return }
+                guard let post = try? snapshot.data(as: Post.self) else { return }
+                
+                if post.likes.isEmpty {
+                    cell.numberOfLikeLabel.isHidden = true
+                } else {
+                    cell.numberOfLikeLabel.isHidden = false
+                    cell.numberOfLikeLabel.text = "\(post.likes.count) likes"
+                }
+            }
+            
         }
         return cell
     }

@@ -43,6 +43,8 @@
 		D2DEC44F291C8F1F001328CE /* SaveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DEC44E291C8F1F001328CE /* SaveTableViewCell.swift */; };
 		D2DEC453291DF4CE001328CE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DEC452291DF4CE001328CE /* ProfileViewController.swift */; };
 		D2F477EC2924B92F00B56067 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F477EB2924B92F00B56067 /* EditProfileViewController.swift */; };
+		D2F477EE29251B9D00B56067 /* 26623-map-navigation.json in Resources */ = {isa = PBXBuildFile; fileRef = D2F477ED29251B9C00B56067 /* 26623-map-navigation.json */; };
+		D2F477F0292529E800B56067 /* 124306-address-proof-location-access.json in Resources */ = {isa = PBXBuildFile; fileRef = D2F477EF292529E800B56067 /* 124306-address-proof-location-access.json */; };
 		D2FC5F242914D66D00ADBBEB /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FC5F232914D66D00ADBBEB /* ReviewCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -87,7 +89,9 @@
 		D2DEC449291C8AB4001328CE /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveViewController.swift; path = "Veganny Map/Controller/Save/SaveViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D2DEC44E291C8F1F001328CE /* SaveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveTableViewCell.swift; sourceTree = "<group>"; };
 		D2DEC452291DF4CE001328CE /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		D2F477EB2924B92F00B56067 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditProfileViewController.swift; path = "Veganny Map/View/EditProfileViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D2F477EB2924B92F00B56067 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditProfileViewController.swift; path = "Veganny Map/Controller/ProfileViewController/EditProfileViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D2F477ED29251B9C00B56067 /* 26623-map-navigation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "26623-map-navigation.json"; sourceTree = "<group>"; };
+		D2F477EF292529E800B56067 /* 124306-address-proof-location-access.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "124306-address-proof-location-access.json"; sourceTree = "<group>"; };
 		D2FC5F232914D66D00ADBBEB /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -231,6 +235,8 @@
 		D28A5BFB290D1616005F5D50 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				D2F477EF292529E800B56067 /* 124306-address-proof-location-access.json */,
+				D2F477ED29251B9C00B56067 /* 26623-map-navigation.json */,
 				D28A5BF0290BE37B005F5D50 /* Assets.xcassets */,
 			);
 			path = Resource;
@@ -239,7 +245,6 @@
 		D28A5BFC290D1632005F5D50 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D2F477EB2924B92F00B56067 /* EditProfileViewController.swift */,
 				D2A6131F292381BC0095AED2 /* TabBarViewController.swift */,
 				D2F477EA2924B4DC00B56067 /* ProfileViewController */,
 				D2DEC451291CD31F001328CE /* Save */,
@@ -315,6 +320,7 @@
 			children = (
 				D2A6131B2923381F0095AED2 /* SignInViewController.swift */,
 				D2DEC452291DF4CE001328CE /* ProfileViewController.swift */,
+				D2F477EB2924B92F00B56067 /* EditProfileViewController.swift */,
 			);
 			path = ProfileViewController;
 			sourceTree = "<group>";
@@ -391,6 +397,8 @@
 			files = (
 				D28A5BF4290BE37B005F5D50 /* LaunchScreen.storyboard in Resources */,
 				D28A5BF1290BE37B005F5D50 /* Assets.xcassets in Resources */,
+				D2F477EE29251B9D00B56067 /* 26623-map-navigation.json in Resources */,
+				D2F477F0292529E800B56067 /* 124306-address-proof-location-access.json in Resources */,
 				D26F258D2918F69900A8CF1B /* GoogleService-Info.plist in Resources */,
 				D28A5BEF290BE379005F5D50 /* Main.storyboard in Resources */,
 				D29F59FC29160BEE00513A63 /* PostTableViewCell.xib in Resources */,

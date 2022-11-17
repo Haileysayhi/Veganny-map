@@ -48,7 +48,7 @@ class SaveViewController: UIViewController {
     
     // MARK: - Function
     func getPlaceIdData() {
-        dataBase.collection("User").document(userID).getDocument(as: User.self) { result in
+        dataBase.collection("User").document(getUserID()).getDocument(as: User.self) { result in
             switch result {
             case .success(let user):
                 print("===SaveViewController資料===\(user)")

@@ -100,7 +100,7 @@ class PublishViewController: UIViewController {
         
         
         let post = Post(
-            authorId: userID,
+            authorId: getUserID(),
             postId: document.documentID,
             content: contentTextView.text,
             mediaType: MediaType.photo.rawValue,
@@ -115,7 +115,7 @@ class PublishViewController: UIViewController {
             print("ERROR")
         }
         
-        let addPostId = dataBase.collection("User").document(userID) 
+        let addPostId = dataBase.collection("User").document(getUserID()) 
         addPostId.updateData([
             "postIds": FieldValue.arrayUnion([document.documentID])
         ])

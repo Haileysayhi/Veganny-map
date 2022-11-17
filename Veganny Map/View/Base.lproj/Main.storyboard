@@ -225,22 +225,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WOe-5h-yLA">
+                                <rect key="frame" x="107" y="88" width="200" height="32"/>
+                                <segments>
+                                    <segment title="All"/>
+                                    <segment title="My"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changePost:" destination="G0o-5O-09y" eventType="valueChanged" id="UZc-ng-3hC"/>
+                                </connections>
+                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jBW-RP-288">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="124" width="414" height="689"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="an2-IF-BCi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="jBW-RP-288" firstAttribute="top" secondItem="an2-IF-BCi" secondAttribute="top" id="1wC-8F-uO9"/>
                             <constraint firstItem="an2-IF-BCi" firstAttribute="bottom" secondItem="jBW-RP-288" secondAttribute="bottom" id="KWF-1u-9WF"/>
+                            <constraint firstItem="jBW-RP-288" firstAttribute="top" secondItem="WOe-5h-yLA" secondAttribute="bottom" constant="5" id="QH0-RL-bT7"/>
+                            <constraint firstItem="WOe-5h-yLA" firstAttribute="top" secondItem="an2-IF-BCi" secondAttribute="top" id="W0u-r0-aHh"/>
+                            <constraint firstItem="WOe-5h-yLA" firstAttribute="leading" secondItem="an2-IF-BCi" secondAttribute="leading" constant="107" id="WfH-6i-tsx"/>
+                            <constraint firstItem="an2-IF-BCi" firstAttribute="trailing" secondItem="WOe-5h-yLA" secondAttribute="trailing" constant="107" id="Zwm-2X-l0V"/>
                             <constraint firstItem="jBW-RP-288" firstAttribute="leading" secondItem="an2-IF-BCi" secondAttribute="leading" id="aDy-nR-QPT"/>
                             <constraint firstItem="an2-IF-BCi" firstAttribute="trailing" secondItem="jBW-RP-288" secondAttribute="trailing" id="bsH-hP-7rK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Veganny map" id="YYp-ZU-eeG"/>
                     <connections>
+                        <outlet property="changePage" destination="WOe-5h-yLA" id="pVd-L8-fOg"/>
                         <outlet property="tableView" destination="jBW-RP-288" id="ISG-p6-yS1"/>
                     </connections>
                 </viewController>
@@ -332,6 +346,7 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fTF-uT-ITn">
                                                     <rect key="frame" x="10" y="5.5" width="50" height="49"/>
+                                                    <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="aoZ-pU-rJj"/>
                                                         <constraint firstAttribute="height" constant="50" id="xKb-ml-bkp"/>
@@ -726,7 +741,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S1g-Ku-NmM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1500.0000000000002" y="498.88392857142856"/>
+            <point key="canvasLocation" x="1525" y="499"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="Ku6-J1-Dvg">
@@ -1233,7 +1248,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YUQ-KE-GPr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="458" y="499"/>
+            <point key="canvasLocation" x="590" y="499"/>
         </scene>
         <!--Profile-->
         <scene sceneID="hNx-Om-zKf">

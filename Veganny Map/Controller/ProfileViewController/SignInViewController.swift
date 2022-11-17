@@ -10,12 +10,15 @@ import FirebaseAuth // Connect with firebase
 import AuthenticationServices // Sign in with apple
 import CryptoKit // Create random String (Nonce)
 import Firebase
+import Lottie
 
 class SignInViewController: UIViewController {
     
     // MARK: - Properties
     var currentNonce: String?
     var appleUserID: String?
+    var animationView: AnimationView!
+    var dataBase = Firestore.firestore()
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -23,13 +26,35 @@ class SignInViewController: UIViewController {
         setSignInWithAppleButton()
         self.observeAppleIDState()
         self.checkAppleIDCredentialState(userID: appleUserID ?? "")
+        setupAnimationView()
     }
     
     // MARK: - Function
+    
+    func setupAnimationView() {
+        animationView = .init(name: "124306-address-proof-location-access")
+        //        animationView.frame = view.frame
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.animationSpeed = 1.0
+        view.addSubview(animationView)
+        view.sendSubviewToBack(animationView)
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            animationView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            animationView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            animationView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -140),
+            animationView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            animationView.heightAnchor.constraint(equalTo: view.heightAnchor)
+        ])
+        
+        animationView.play()
+    }
+    
     // 監聽目前的 Apple ID 的登入狀況
     // 主動監聽
     func checkAppleIDCredentialState(userID: String) {
-        ASAuthorizationAppleIDProvider().getCredentialState(forUserID: userID) { credentialState, error in
+        ASAuthorizationAppleIDProvider().getCredentialState(forUserID: getUserID()) { credentialState, error in
             switch credentialState {
             case .authorized: // 用戶已登入
                 CustomFunc.customAlert(title: "使用者已授權！", message: "", vc: self, actionHandler: nil)
@@ -203,7 +228,7 @@ extension SignInViewController: ASAuthorizationControllerPresentationContextProv
 }
 
 
-// MARK: - 透過 Credential 與 Firebase Auth 串接
+// 透過 Credential 與 Firebase Auth 串接
 extension SignInViewController {
     func firebaseSignInWithApple(credential: AuthCredential, fullName: String) {
         Auth.auth().signIn(with: credential) { authResult, error in
@@ -216,25 +241,29 @@ extension SignInViewController {
             guard let user = authResult?.user else { return }
             let email = user.email ?? ""
             guard let uid = Auth.auth().currentUser?.uid else { return }
-            userID = uid
-            let userData = User(
-                name: fullName,
-                userPhotoURL: "",
-                userId: userID,
-                email: email,
-                postIds: [],
-                savedRestaurants: []
-            )
-
-            do {
-                try Firestore.firestore().collection("User").document(userID).setData(from: userData)
-            } catch {
-                print("ERROR")
+            self.dataBase.collection("User").document(getUserID()).getDocument { documentSnapshot, error in
+                if let documentSnapshot = documentSnapshot, documentSnapshot.exists {
+                    return
+                } else {
+                    let userData = User(
+                        name: fullName,
+                        userPhotoURL: "",
+                        userId: getUserID(),
+                        email: email,
+                        postIds: [],
+                        savedRestaurants: []
+                    )
+                    do {
+                        try self.dataBase.collection("User").document(getUserID()).setData(from: userData)
+                    } catch {
+                        print("ERROR")
+                    }
+                }
             }
         }
     }
     
-    // - Firebase 取得登入使用者的資訊
+    // Firebase 取得登入使用者的資訊
     func getFirebaseUserInfo() {
         let currentUser = Auth.auth().currentUser // 取得一整包使用者的資料
         guard let user = currentUser else {

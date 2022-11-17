@@ -64,14 +64,14 @@ class EditProfileViewController: UIViewController {
     }
     
     func changeData() {
-        dataBase.collection("User").document(userID).setData([
+        dataBase.collection("User").document(getUserID()).setData([
             "name": nameTextField.text,
             "userPhotoURL": self.urlString
         ], merge: true)
     }
     
     func getUserData() {
-        dataBase.collection("User").document(userID).getDocument(as: User.self) { result in
+        dataBase.collection("User").document(getUserID()).getDocument(as: User.self) { result in
             switch result {
             case .success(let user):
                 print(user)

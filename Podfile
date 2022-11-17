@@ -36,4 +36,7 @@ pod 'SPAlert'
 pod 'JGProgressHUD'
 
 
+  # Pods for lottie-ios
+pod 'lottie-ios'
+
 end

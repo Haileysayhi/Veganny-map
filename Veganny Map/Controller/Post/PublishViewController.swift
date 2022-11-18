@@ -30,6 +30,8 @@ class PublishViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var locationLabel: UILabel!
+    
     // MARK: - Properties
     var imagePickerController = UIImagePickerController()
     let storage = Storage.storage().reference()
@@ -111,7 +113,8 @@ class PublishViewController: UIViewController {
             mediaURL: self.urlString ?? "",
             time: Timestamp(date: Date()),
             likes: [],
-            comments: []
+            comments: [],
+            location: locationLabel.text ?? ""
         )
         do {
             try document.setData(from: post)
@@ -119,10 +122,21 @@ class PublishViewController: UIViewController {
             print("ERROR")
         }
         
-        let addPostId = dataBase.collection("User").document(getUserID()) 
+        let addPostId = dataBase.collection("User").document(getUserID())
         addPostId.updateData([
             "postIds": FieldValue.arrayUnion([document.documentID])
         ])
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let locationData = segue.destination as! CheckinViewController
+        
+        if segue.identifier == "segue" {
+            locationData.name = { [weak self] input in
+                guard let self = self else { return }
+                self.locationLabel.text = input
+            }
+        }
     }
 }
 

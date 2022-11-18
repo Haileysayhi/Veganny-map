@@ -41,6 +41,8 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var locationButton: UIButton!
+    
     // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()

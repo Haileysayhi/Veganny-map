@@ -184,11 +184,20 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.postImgView.loadImage(posts[indexPath.row].mediaURL, placeHolder: UIImage(named: "placeholder"))
             cell.contentLabel.text = posts[indexPath.row].content
             
-            getUserData(userId: posts[indexPath.row].authorId)
-            cell.userNameLabel.text = user?.name
-            cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+            dataBase.collection("User").document(posts[indexPath.row].authorId).getDocument(as: User.self) { result in
+                switch result {
+                case .success(let user):
+                    print(user)
+                    self.user = user
+                    cell.userNameLabel.text = user.name
+                    cell.userImgView.loadImage(user.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+                case .failure(let error):
+                    print(error)
+                }
+            }
             
             cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)", for: .normal)
+            cell.locationButton.setTitle("\(posts[indexPath.row].location)", for: .normal)
             
             let timeStamp = posts[indexPath.row].time
             let timeInterval = TimeInterval(Double(timeStamp.seconds))
@@ -220,11 +229,20 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.postImgView.loadImage(myPosts[indexPath.row].mediaURL, placeHolder: UIImage(named: "placeholder"))
             cell.contentLabel.text = myPosts[indexPath.row].content
             
-            getUserData(userId: myPosts[indexPath.row].authorId)
-            cell.userNameLabel.text = user?.name
-            cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+            dataBase.collection("User").document(posts[indexPath.row].authorId).getDocument(as: User.self) { result in
+                switch result {
+                case .success(let user):
+                    print(user)
+                    self.user = user
+                    cell.userNameLabel.text = user.name
+                    cell.userImgView.loadImage(user.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+                case .failure(let error):
+                    print(error)
+                }
+            }
             
             cell.numberOfCommentButton.setTitle("\(myPosts[indexPath.row].comments.count)", for: .normal)
+            cell.locationButton.setTitle("\(posts[indexPath.row].location)", for: .normal)
             
             let timeStamp = myPosts[indexPath.row].time
             let timeInterval = TimeInterval(Double(timeStamp.seconds))

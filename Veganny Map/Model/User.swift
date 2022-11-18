@@ -39,6 +39,7 @@ struct Post: Codable {
     var time: Timestamp // 發文時間
     var likes: [String] // 按讚人的id -->為了讓按讚的人畫面可以顯示已按過讚
     var comments: [Comment]
+    var location: String // 存地點
 }
 
 enum MediaType: String {

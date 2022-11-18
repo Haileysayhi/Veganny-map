@@ -21,14 +21,4 @@ class CheckinTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-    func updateCell(item: ItemResult?) {
-        if let item = item {
-            nameLabel.text = item.name
-            addressLabel.text = item.vicinity
-        } else {
-            nameLabel.text = ""
-            addressLabel.text = ""
-        }
-    }
 }

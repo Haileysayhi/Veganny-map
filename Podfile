@@ -39,4 +39,8 @@ pod 'JGProgressHUD'
   # Pods for lottie-ios
 pod 'lottie-ios'
 
+
+  # Pods for MJRefresh
+pod 'MJRefresh'
+
 end

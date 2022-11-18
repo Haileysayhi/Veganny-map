@@ -23,6 +23,9 @@ class SaveViewController: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
+            tableView.addRefreshHeader(refreshingBlock: { [weak self] in
+                self?.getPlaceIdData()
+            })
         }
     }
     
@@ -39,6 +42,7 @@ class SaveViewController: UIViewController {
         view.backgroundColor = .systemOrange
         self.searchBar.delegate = self
         navigationItem.backButtonTitle = ""
+        tableView.beginHeaderRefreshing()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +74,7 @@ class SaveViewController: UIViewController {
                 self.detail.append(detailResponse)
                 print("===SaveViewController資料2:\(self.detail)")
                 DispatchQueue.main.async {
+                    self.tableView.endHeaderRefreshing()
                     self.tableView.reloadData()
                 }
             }

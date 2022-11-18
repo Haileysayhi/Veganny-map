@@ -9,6 +9,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
+import SPAlert
 
 
 class PublishViewController: UIViewController {
@@ -45,6 +46,10 @@ class PublishViewController: UIViewController {
     
     // MARK: - Function
     @IBAction func post(_ sender: Any) {
+        
+        let alertView = SPAlertView(title: "Done", preset: .done)
+        alertView.duration = 1.0
+        alertView.present()
         
         // 跳轉回PostViewController
         guard let viewControllers = self.navigationController?.viewControllers else { return }
@@ -97,7 +102,6 @@ class PublishViewController: UIViewController {
     func addData() {
         let document = dataBase.collection("Post").document()
         print("===>>document ID \(document.documentID)")
-        
         
         let post = Post(
             authorId: getUserID(),

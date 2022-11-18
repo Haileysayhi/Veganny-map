@@ -16,6 +16,9 @@ class PostViewController: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
+            tableView.addRefreshHeader(refreshingBlock: { [weak self] in
+                self?.getPostData()
+            })
         }
     }
     
@@ -42,6 +45,7 @@ class PostViewController: UIViewController {
         
         tableView.register(UINib(nibName: "PostTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "PostTableViewCell")
+        tableView.beginHeaderRefreshing() // 出現轉圈圈圖案
         
         let floatingButton = UIButton()
         floatingButton.setImage(UIImage(systemName: "plus"), for: .normal)
@@ -125,6 +129,7 @@ class PostViewController: UIViewController {
                 }
                 
                 DispatchQueue.main.async {
+                    self.tableView.endHeaderRefreshing()
                     self.tableView.reloadData()
                 }
             }
@@ -183,7 +188,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.userNameLabel.text = user?.name
             cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
             
-            cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)則留言", for: .normal)
+            cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)", for: .normal)
             
             let timeStamp = posts[indexPath.row].time
             let timeInterval = TimeInterval(Double(timeStamp.seconds))
@@ -197,7 +202,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.numberOfLikeLabel.isHidden = true
                 } else {
                     cell.numberOfLikeLabel.isHidden = false
-                    cell.numberOfLikeLabel.text = "\(post.likes.count) likes"
+                    cell.numberOfLikeLabel.text = "\(post.likes.count)"
                 }
             }
         } else {
@@ -219,7 +224,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.userNameLabel.text = user?.name
             cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
             
-            cell.numberOfCommentButton.setTitle("\(myPosts[indexPath.row].comments.count)則留言", for: .normal)
+            cell.numberOfCommentButton.setTitle("\(myPosts[indexPath.row].comments.count)", for: .normal)
             
             let timeStamp = myPosts[indexPath.row].time
             let timeInterval = TimeInterval(Double(timeStamp.seconds))
@@ -233,10 +238,9 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.numberOfLikeLabel.isHidden = true
                 } else {
                     cell.numberOfLikeLabel.isHidden = false
-                    cell.numberOfLikeLabel.text = "\(post.likes.count) likes"
+                    cell.numberOfLikeLabel.text = "\(post.likes.count)"
                 }
             }
-            
         }
         return cell
     }

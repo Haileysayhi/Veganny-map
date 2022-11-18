@@ -816,6 +816,7 @@ PODS:
     - Libuv-gRPC/Interface (= 0.0.10)
   - Libuv-gRPC/Interface (0.0.10)
   - lottie-ios (3.5.0)
+  - MJRefresh (3.7.5)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -839,6 +840,7 @@ DEPENDENCIES:
   - JGProgressHUD
   - Kingfisher
   - lottie-ios
+  - MJRefresh
   - SPAlert
   - SwiftLint
 
@@ -876,6 +878,7 @@ SPEC REPOS:
     - leveldb-library
     - Libuv-gRPC
     - lottie-ios
+    - MJRefresh
     - nanopb
     - PromisesObjC
     - SPAlert
@@ -914,11 +917,12 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   lottie-ios: c55158d67d0629a260625cc2ded2052b829e3c3e
+  MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   SPAlert: 735da1f16a887e294719217572ce1f936d8c8782
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: d31d0a25b9f2627d4ad282359ef8d95474455aaa
+PODFILE CHECKSUM: 4ae61f4a5dcae12d9d44f04f6a178def305ed802
 
 COCOAPODS: 1.11.3

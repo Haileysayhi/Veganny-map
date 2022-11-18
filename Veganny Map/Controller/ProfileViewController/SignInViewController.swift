@@ -32,7 +32,7 @@ class SignInViewController: UIViewController {
     // MARK: - Function
     
     func setupAnimationView() {
-        animationView = .init(name: "124306-address-proof-location-access")
+        animationView = .init(name: "84914-purple")
         //        animationView.frame = view.frame
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .loop
@@ -43,7 +43,7 @@ class SignInViewController: UIViewController {
         NSLayoutConstraint.activate([
             animationView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             animationView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            animationView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -140),
+            animationView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -160),
             animationView.widthAnchor.constraint(equalTo: view.widthAnchor),
             animationView.heightAnchor.constraint(equalTo: view.heightAnchor)
         ])
@@ -94,7 +94,7 @@ class SignInViewController: UIViewController {
             signInWithAppleButton.heightAnchor.constraint(equalToConstant: 50),
             signInWithAppleButton.widthAnchor.constraint(equalToConstant: 280),
             signInWithAppleButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            signInWithAppleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -70)
+            signInWithAppleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50)
         ])
     }
     // 淺色模式就顯示黑色的按鈕，深色模式就顯示白色的按鈕

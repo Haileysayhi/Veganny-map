@@ -55,7 +55,7 @@ class CommentViewController: UIViewController {
         let comment: [String: Any] = [
             "content": textField.text ?? "",
             "contentType": ContentType.text.rawValue,
-            "userId": "fds9KGgchZFsAIvbauMF",
+            "userId": getUserID(),
             "time": Timestamp(date: Date())
         ]
         

@@ -24,6 +24,7 @@ pod 'Firebase/Firestore'
 pod 'Firebase/Core'
 pod 'FirebaseFirestoreSwift'
 pod 'Firebase/Storage'
+pod 'Firebase/Auth'
 
   # Pods for Kingfisher
 pod 'Kingfisher'
@@ -34,5 +35,12 @@ pod 'SPAlert'
   # Pods for JGProgressHUD
 pod 'JGProgressHUD'
 
+
+  # Pods for lottie-ios
+pod 'lottie-ios'
+
+
+  # Pods for MJRefresh
+pod 'MJRefresh'
 
 end

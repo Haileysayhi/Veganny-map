@@ -62,7 +62,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
             searchAreaButton.widthAnchor.constraint(equalToConstant: 150),
             searchAreaButton.heightAnchor.constraint(equalToConstant: 35),
             searchAreaButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            searchAreaButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30)
+            searchAreaButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
         ])
         searchAreaButton.isHidden = true
         

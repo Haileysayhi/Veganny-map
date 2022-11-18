@@ -1,6 +1,7 @@
 ${PODS_ROOT}/Target Support Files/Pods-Veganny Map/Pods-Veganny Map-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseAppCheckInterop/FirebaseAppCheckInterop.framework
+${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseAuthInterop/FirebaseAuthInterop.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework
@@ -19,10 +20,12 @@ ${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework
 ${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework
 ${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework
 ${BUILT_PRODUCTS_DIR}/Libuv-gRPC/uv.framework
+${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework
 ${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
 ${BUILT_PRODUCTS_DIR}/SPAlert/SPAlert.framework
 ${BUILT_PRODUCTS_DIR}/abseil/absl.framework
 ${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework
 ${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework
 ${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework
+${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework
 ${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework

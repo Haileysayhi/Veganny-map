@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -75,7 +76,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.87058823529999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="0.87058823529999996" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="lDG-VO-swQ" firstAttribute="top" secondItem="2tO-bK-Z4v" secondAttribute="top" constant="6" id="0dh-mZ-toI"/>
                             <constraint firstAttribute="bottom" secondItem="lDG-VO-swQ" secondAttribute="bottom" constant="7" id="2kx-yL-NcV"/>
@@ -119,7 +120,7 @@
                                 </buttonConfiguration>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.93333333330000001" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="0.87058823529999996" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="0kQ-2f-RDR"/>
                             <constraint firstAttribute="trailing" secondItem="Kim-8u-fNf" secondAttribute="trailing" constant="3" id="Fn2-Zb-40k"/>
@@ -135,7 +136,7 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Me0-b0-ecQ">
                         <rect key="frame" x="50" y="49.5" width="41" height="96.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" systemColor="systemOrangeColor"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2" maxY="0.0"/>
                         <state key="normal" title="Taipei">
                             <color key="titleColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -191,5 +192,8 @@
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="placeholder" width="900" height="497"/>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

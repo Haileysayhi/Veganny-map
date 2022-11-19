@@ -49,7 +49,7 @@ class DetailViewController: UIViewController {
             
         } else {
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            sender.tintColor = .red
+            sender.tintColor = .systemPink
             
             document.updateData([
                 "savedRestaurants": FieldValue.arrayUnion([placeId]) // 存入餐廳的id
@@ -118,7 +118,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 if user.savedRestaurants.contains(self.infoResult!.placeId) {
                     cell.saveButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                    cell.saveButton.tintColor = .red
+                    cell.saveButton.tintColor = .systemPink
                 } else {
                     cell.saveButton.setImage(UIImage(systemName: "heart"), for: .normal)
                     cell.saveButton.tintColor = .systemOrange

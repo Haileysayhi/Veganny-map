@@ -22,7 +22,13 @@ class PostViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var changePage: UISegmentedControl!
+    @IBOutlet weak var changePage: UISegmentedControl! {
+        didSet {
+            changePage.selectedSegmentTintColor = .systemOrange
+            changePage.backgroundColor = .white
+
+        }
+    }
     
     
     // MARK: - Properties
@@ -46,7 +52,7 @@ class PostViewController: UIViewController {
         tableView.register(UINib(nibName: "PostTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "PostTableViewCell")
         tableView.beginHeaderRefreshing() // 出現轉圈圈圖案
-        
+                
         let floatingButton = UIButton()
         floatingButton.setImage(UIImage(systemName: "plus"), for: .normal)
         floatingButton.tintColor = .white
@@ -172,7 +178,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         if changePage.selectedSegmentIndex == 0 {
             if posts[indexPath.row].likes.contains(getUserID()) {
                 cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                cell.likeButton.tintColor = .red
+                cell.likeButton.tintColor = .systemPink
             } else {
                 cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
                 cell.likeButton.tintColor = .black

@@ -13,4 +13,10 @@ class HeaderView: UICollectionReusableView {
     @IBOutlet weak var reviewsLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var openOrCloseLabel: UILabel!
+    
+    @IBOutlet weak var view: UIView! {
+        didSet {
+            view.layer.cornerRadius = 10
+        }
+    }
 }

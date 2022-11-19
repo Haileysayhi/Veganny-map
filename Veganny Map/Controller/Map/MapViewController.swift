@@ -44,7 +44,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
         manager.desiredAccuracy = kCLLocationAccuracyBest
         
         //    生成 Cluster Manager
-        let iconGenerator = GMUDefaultClusterIconGenerator.init(buckets: [99999], backgroundColors: [UIColor.green])
+        let iconGenerator = GMUDefaultClusterIconGenerator.init(buckets: [99999], backgroundColors: [UIColor.systemOrange])
         let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
         let renderer = GMUDefaultClusterRenderer(mapView: mapView, clusterIconGenerator: iconGenerator)
         clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm, renderer: renderer)
@@ -90,7 +90,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
                 )
                 
                 marker.snippet = result.name
-                marker.icon = GMSMarker.markerImage(with: .green)
+                marker.icon = GMSMarker.markerImage(with: .systemOrange)
                 marker.accessibilityLabel = result.placeId // 儲存每個pin自己的id
                 self.clusterManager.add(marker)
                 self.clusterManager.cluster()
@@ -147,7 +147,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
                 )
                 
                 marker.snippet = result.name
-                marker.icon = GMSMarker.markerImage(with: .green)
+                marker.icon = GMSMarker.markerImage(with: .systemOrange)
                 marker.accessibilityLabel = result.placeId // 儲存每個pin自己的id
                 self.clusterManager.add(marker)
                 self.clusterManager.cluster()

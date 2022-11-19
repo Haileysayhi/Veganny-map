@@ -8,7 +8,5 @@
 import UIKit
 
 class RestaurantCollectionViewCell: UICollectionViewCell {
-    
     @IBOutlet weak var restaurantImgView: UIImageView!
-    
 }

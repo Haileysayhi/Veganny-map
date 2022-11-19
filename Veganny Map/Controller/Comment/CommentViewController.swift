@@ -16,6 +16,9 @@ class CommentViewController: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
+            tableView.addRefreshHeader(refreshingBlock: { [weak self] in
+                self?.getCommentData()
+            })
         }
     }
     
@@ -37,6 +40,7 @@ class CommentViewController: UIViewController {
             self.comments = post.comments
             self.tableView.reloadData()
         }
+        tableView.beginHeaderRefreshing()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,6 +83,7 @@ class CommentViewController: UIViewController {
                 self.group.leave()
             }
             DispatchQueue.main.async {
+                self.tableView.endHeaderRefreshing()
                 self.tableView.reloadData()
             }
         }

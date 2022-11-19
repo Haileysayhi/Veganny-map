@@ -48,6 +48,7 @@ class PostViewController: UIViewController {
         barAppearance.backgroundColor = UIColor.systemOrange
         navigationItem.standardAppearance = barAppearance
         navigationItem.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = .white
         
         tableView.register(UINib(nibName: "PostTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "PostTableViewCell")

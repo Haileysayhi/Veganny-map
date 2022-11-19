@@ -87,9 +87,11 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
             if detail.result.currentOpeningHours.openNow {
                 headerView.openOrCloseLabel.text = "Open"
                 headerView.openOrCloseLabel.textColor = .white
+                headerView.view.backgroundColor = .systemOrange
             } else {
                 headerView.openOrCloseLabel.text = "Closed"
-                headerView.openOrCloseLabel.textColor = .white
+                headerView.openOrCloseLabel.textColor = .black
+                headerView.view.backgroundColor = .systemGray5
             }
         }
         return headerView

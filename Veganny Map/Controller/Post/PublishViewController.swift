@@ -10,6 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 import SPAlert
+import PhotosUI
 
 
 class PublishViewController: UIViewController {
@@ -30,8 +31,18 @@ class PublishViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var locationLabel: UILabel!
+    
+    @IBOutlet weak var locationBaground: UIView! {
+        didSet {
+            locationBaground.layer.cornerRadius = 10
+            locationBaground.backgroundColor = .systemGray6
+        }
+    }
+    
     // MARK: - Properties
     var imagePickerController = UIImagePickerController()
+    //    var configuration = PHPickerConfiguration()
     let storage = Storage.storage().reference()
     let dataBase = Firestore.firestore()
     var urlString: String?
@@ -39,9 +50,11 @@ class PublishViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationBaground.isHidden = true
         imagePickerController.delegate = self
         imagePickerController.allowsEditing = true
         showAlert()
+        //        selectPhotos()
     }
     
     // MARK: - Function
@@ -99,6 +112,13 @@ class PublishViewController: UIViewController {
         present(imagePickerController, animated: true)
     }
     
+    //    func selectPhotos() {
+    //        configuration.filter = .images
+    //        let picker = PHPickerViewController(configuration: configuration)
+    //        picker.delegate = self
+    //        present(picker, animated: true)
+    //    }
+    
     func addData() {
         let document = dataBase.collection("Post").document()
         print("===>>document ID \(document.documentID)")
@@ -111,7 +131,8 @@ class PublishViewController: UIViewController {
             mediaURL: self.urlString ?? "",
             time: Timestamp(date: Date()),
             likes: [],
-            comments: []
+            comments: [],
+            location: locationLabel.text ?? ""
         )
         do {
             try document.setData(from: post)
@@ -119,10 +140,24 @@ class PublishViewController: UIViewController {
             print("ERROR")
         }
         
-        let addPostId = dataBase.collection("User").document(getUserID()) 
+        let addPostId = dataBase.collection("User").document(getUserID())
         addPostId.updateData([
             "postIds": FieldValue.arrayUnion([document.documentID])
         ])
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let locationData = segue.destination as! CheckinViewController
+        
+        if segue.identifier == "segue" {
+            locationData.name = { [weak self] input in
+                guard let self = self else { return }
+                if input != nil {
+                    self.locationBaground.isHidden = false
+                    self.locationLabel.text = input
+                }
+            }
+        }
     }
 }
 
@@ -157,3 +192,22 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
         })
     }
 }
+
+
+//extension PublishViewController: PHPickerViewControllerDelegate {
+//
+//    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+//        picker.dismiss(animated: true)
+//
+//        let itemProviders = results.map(\.itemProvider)
+//        if let itemProvider = itemProviders.first, itemProvider.canLoadObject(ofClass: UIImage.self) {
+//            let previousImage = self.imageViews.first?.image
+//            itemProvider.loadObject(ofClass: UIImage.self) {[weak self] (image, error) in
+//                DispatchQueue.main.async {
+//                    guard let self = self, let image = image as? UIImage, self.imageViews.first?.image == previousImage else { return }
+//                    self.imageViews.first?.image = image
+//                }
+//            }
+//        }
+//    }
+//}

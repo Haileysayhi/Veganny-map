@@ -41,11 +41,13 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var locationButton: UIButton!
+    
     // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
-    }
     
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }

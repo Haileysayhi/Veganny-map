@@ -65,7 +65,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
             searchAreaButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
         ])
         searchAreaButton.isHidden = true
-        
         searchAreaButton.addTarget(self, action: #selector(search), for: .touchUpInside)
     }
     
@@ -169,6 +168,7 @@ extension MapViewController: CLLocationManagerDelegate {
             
             print("目前位置為\n經度為\(location.coordinate.longitude)\n緯度為\(location.coordinate.latitude)")
             self.userLocation = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
+            UserDefaults.standard.set(self.userLocation, forKey: "userLocation")
         }
     }
     

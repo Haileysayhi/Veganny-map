@@ -39,9 +39,9 @@ class SaveViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemOrange
         self.searchBar.delegate = self
         navigationItem.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = .white
         tableView.beginHeaderRefreshing()
     }
     

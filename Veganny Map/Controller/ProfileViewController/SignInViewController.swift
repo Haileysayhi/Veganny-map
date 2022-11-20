@@ -33,7 +33,6 @@ class SignInViewController: UIViewController {
     
     func setupAnimationView() {
         animationView = .init(name: "84914-purple")
-        //        animationView.frame = view.frame
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .loop
         animationView.animationSpeed = 1.0
@@ -180,14 +179,15 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
             print("idTokenString: \(idTokenString)")
             
             var viewController = self.tabBarController?.viewControllers
-            guard let profileVC = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
-            else { fatalError("ERROR") }
-            let navProfileVC = UINavigationController(rootViewController: profileVC)
-            viewController?.replaceSubrange(3...3, with: [navProfileVC])
-            navProfileVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 3)
-            navProfileVC.navigationItem.backButtonTitle = ""
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard
+                let tabController = storyboard.instantiateViewController(withIdentifier: String(describing: TabBarViewController.self))
+                    as? TabBarViewController,
+                let tabBarControllers = tabController.viewControllers
+            else { fatalError("Could not instantiate tabController") }
+            viewController?.replaceSubrange(3...3, with: [tabBarControllers[3]])
             self.tabBarController?.viewControllers = viewController
-            
+
             // 產生 Apple ID 登入的 Credential
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
             // 與 Firebase Auth 進行串接

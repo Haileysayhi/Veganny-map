@@ -22,7 +22,12 @@ class PostViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var changePage: UISegmentedControl!
+    @IBOutlet weak var changePage: UISegmentedControl! {
+        didSet {
+            changePage.selectedSegmentTintColor = .systemOrange
+            changePage.backgroundColor = .white
+        }
+    }
     
     
     // MARK: - Properties
@@ -42,11 +47,12 @@ class PostViewController: UIViewController {
         barAppearance.backgroundColor = UIColor.systemOrange
         navigationItem.standardAppearance = barAppearance
         navigationItem.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = .white
         
         tableView.register(UINib(nibName: "PostTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "PostTableViewCell")
         tableView.beginHeaderRefreshing() // 出現轉圈圈圖案
-        
+                
         let floatingButton = UIButton()
         floatingButton.setImage(UIImage(systemName: "plus"), for: .normal)
         floatingButton.tintColor = .white
@@ -172,7 +178,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         if changePage.selectedSegmentIndex == 0 {
             if posts[indexPath.row].likes.contains(getUserID()) {
                 cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                cell.likeButton.tintColor = .red
+                cell.likeButton.tintColor = .systemPink
             } else {
                 cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
                 cell.likeButton.tintColor = .black
@@ -184,11 +190,20 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.postImgView.loadImage(posts[indexPath.row].mediaURL, placeHolder: UIImage(named: "placeholder"))
             cell.contentLabel.text = posts[indexPath.row].content
             
-            getUserData(userId: posts[indexPath.row].authorId)
-            cell.userNameLabel.text = user?.name
-            cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+            dataBase.collection("User").document(posts[indexPath.row].authorId).getDocument(as: User.self) { result in
+                switch result {
+                case .success(let user):
+                    print(user)
+                    self.user = user
+                    cell.userNameLabel.text = user.name
+                    cell.userImgView.loadImage(user.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+                case .failure(let error):
+                    print(error)
+                }
+            }
             
             cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)", for: .normal)
+            cell.locationButton.setTitle("\(posts[indexPath.row].location)", for: .normal)
             
             let timeStamp = posts[indexPath.row].time
             let timeInterval = TimeInterval(Double(timeStamp.seconds))
@@ -220,11 +235,20 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.postImgView.loadImage(myPosts[indexPath.row].mediaURL, placeHolder: UIImage(named: "placeholder"))
             cell.contentLabel.text = myPosts[indexPath.row].content
             
-            getUserData(userId: myPosts[indexPath.row].authorId)
-            cell.userNameLabel.text = user?.name
-            cell.userImgView.loadImage(user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+            dataBase.collection("User").document(posts[indexPath.row].authorId).getDocument(as: User.self) { result in
+                switch result {
+                case .success(let user):
+                    print(user)
+                    self.user = user
+                    cell.userNameLabel.text = user.name
+                    cell.userImgView.loadImage(user.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+                case .failure(let error):
+                    print(error)
+                }
+            }
             
             cell.numberOfCommentButton.setTitle("\(myPosts[indexPath.row].comments.count)", for: .normal)
+            cell.locationButton.setTitle("\(posts[indexPath.row].location)", for: .normal)
             
             let timeStamp = myPosts[indexPath.row].time
             let timeInterval = TimeInterval(Double(timeStamp.seconds))

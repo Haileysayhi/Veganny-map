@@ -26,7 +26,6 @@ class PostViewController: UIViewController {
         didSet {
             changePage.selectedSegmentTintColor = .systemOrange
             changePage.backgroundColor = .white
-
         }
     }
     

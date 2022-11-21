@@ -61,6 +61,27 @@ class DetailViewController: UIViewController {
         }
         didTapButton.toggle()
     }
+    
+    @IBAction func callRestaurant(_ sender: Any) {
+        let controller = UIAlertController(title: "店家資訊", message: infoResult?.name, preferredStyle: .actionSheet)
+        let phoneNumber = infoResult!.internationalPhoneNumber as! String
+        let newStringPhone = phoneNumber.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+        let phoneAction = UIAlertAction(title: "打電話給\(newStringPhone)", style: .default) { (_) in
+            if let url = URL(string: "tel:\(newStringPhone)") {
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    print("無法開啟URL")
+                }
+            } else {
+                print("錯誤連結")
+            }
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(phoneAction)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+    }
 }
 
 // MARK: - UITableViewDelegate & UITableViewDataSource

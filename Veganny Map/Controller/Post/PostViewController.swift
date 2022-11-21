@@ -107,7 +107,7 @@ class PostViewController: UIViewController {
             ])
         } else {
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            sender.tintColor = .red
+            sender.tintColor = .systemOrange
             
             document.updateData([
                 "likes": FieldValue.arrayUnion([getUserID()])
@@ -179,7 +179,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         if changePage.selectedSegmentIndex == 0 {
             if posts[indexPath.row].likes.contains(getUserID()) {
                 cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                cell.likeButton.tintColor = .systemPink
+                cell.likeButton.tintColor = .systemOrange
             } else {
                 cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
                 cell.likeButton.tintColor = .black
@@ -228,7 +228,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             if myPosts[indexPath.row].likes.contains(getUserID()) {
                 cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                cell.likeButton.tintColor = .red
+                cell.likeButton.tintColor = .systemOrange
             } else {
                 cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
                 cell.likeButton.tintColor = .black

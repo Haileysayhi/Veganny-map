@@ -21,10 +21,7 @@ class ReviewCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var backGroundView: UIView! {
         didSet {
-            backGroundView.layer.cornerRadius = 20
-            backGroundView.layer.shadowOpacity = 0.5
-            backGroundView.layer.shadowColor = UIColor.systemGray4.cgColor
-            backGroundView.layer.shadowOffset = CGSize.zero
+            backGroundView.layer.cornerRadius = 10
             backGroundView.clipsToBounds = false
         }
     }

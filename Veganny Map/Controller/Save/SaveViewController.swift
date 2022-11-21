@@ -104,6 +104,7 @@ extension SaveViewController: UITableViewDelegate, UITableViewDataSource {
             GoogleMapListController.shared.fetchPhotos(photoReference: searchedSave[indexPath.row].result.photos[indexPath.row].photoReference) { image in
                 DispatchQueue.main.async {
                     cell.nameLabel.text = self.searchedSave[indexPath.row].result.name
+                    cell.addressLabel.text = self.searchedSave[indexPath.row].result.formattedAddress
                     cell.photoImgView.image = image
                     cell.photoImgView.layer.cornerRadius = 5
                     self.saveCountLabel.text = "You have saved \(self.detail.count) locations"
@@ -113,6 +114,7 @@ extension SaveViewController: UITableViewDelegate, UITableViewDataSource {
             GoogleMapListController.shared.fetchPhotos(photoReference: detail[indexPath.row].result.photos[indexPath.row].photoReference) { image in
                 DispatchQueue.main.async {
                     cell.nameLabel.text = self.detail[indexPath.row].result.name
+                    cell.addressLabel.text = self.detail[indexPath.row].result.formattedAddress
                     cell.photoImgView.image = image
                     cell.photoImgView.layer.cornerRadius = 5
                     self.saveCountLabel.text = "You have saved \(self.detail.count) locations"

@@ -20,6 +20,11 @@ class InfoTableViewCell: UITableViewCell {
             saveButton.layer.cornerRadius = 10
         }
     }
+    @IBOutlet weak var callButton: UIButton! {
+        didSet {
+            callButton.layer.cornerRadius = 10
+        }
+    }
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {

@@ -13,6 +13,7 @@ class SaveTableViewCell: UITableViewCell {
     // MARK: - IBOutlet
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var photoImgView: UIImageView!
+    @IBOutlet weak var addressLabel: UILabel!
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {

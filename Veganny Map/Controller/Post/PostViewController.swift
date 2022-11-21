@@ -107,7 +107,7 @@ class PostViewController: UIViewController {
             ])
         } else {
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            sender.tintColor = .red
+            sender.tintColor = .systemOrange
             
             document.updateData([
                 "likes": FieldValue.arrayUnion([getUserID()])
@@ -120,6 +120,7 @@ class PostViewController: UIViewController {
     func getPostData() {
         dataBase.collection("Post").order(by: "time", descending: true).getDocuments { (querySnapshot, error) in
             self.posts = [] // 清空資料，從其他頁面跳回來時不會重複取資料
+            self.myPosts = []
             if let querySnapshot = querySnapshot {
                 for document in querySnapshot.documents {
                     do {
@@ -178,7 +179,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         if changePage.selectedSegmentIndex == 0 {
             if posts[indexPath.row].likes.contains(getUserID()) {
                 cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                cell.likeButton.tintColor = .systemPink
+                cell.likeButton.tintColor = .systemOrange
             } else {
                 cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
                 cell.likeButton.tintColor = .black
@@ -203,8 +204,12 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)", for: .normal)
-            cell.locationButton.setTitle("\(posts[indexPath.row].location)", for: .normal)
-            
+            if posts[indexPath.row].location.isEmpty {
+                cell.locationButton.isHidden = true
+            } else {
+                cell.locationButton.isHidden = false
+                cell.locationButton.setTitle("\(posts[indexPath.row].location)", for: .normal)
+            }
             let timeStamp = posts[indexPath.row].time
             let timeInterval = TimeInterval(Double(timeStamp.seconds))
             cell.timeLabel.text = timeInterval.getReadableDate()
@@ -223,7 +228,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             if myPosts[indexPath.row].likes.contains(getUserID()) {
                 cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                cell.likeButton.tintColor = .red
+                cell.likeButton.tintColor = .systemOrange
             } else {
                 cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
                 cell.likeButton.tintColor = .black
@@ -235,7 +240,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.postImgView.loadImage(myPosts[indexPath.row].mediaURL, placeHolder: UIImage(named: "placeholder"))
             cell.contentLabel.text = myPosts[indexPath.row].content
             
-            dataBase.collection("User").document(posts[indexPath.row].authorId).getDocument(as: User.self) { result in
+            dataBase.collection("User").document(myPosts[indexPath.row].authorId).getDocument(as: User.self) { result in
                 switch result {
                 case .success(let user):
                     print(user)
@@ -248,7 +253,13 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             cell.numberOfCommentButton.setTitle("\(myPosts[indexPath.row].comments.count)", for: .normal)
-            cell.locationButton.setTitle("\(posts[indexPath.row].location)", for: .normal)
+            
+            if myPosts[indexPath.row].location.isEmpty {
+                cell.locationButton.isHidden = true
+            } else {
+                cell.locationButton.isHidden = false
+                cell.locationButton.setTitle("\(myPosts[indexPath.row].location)", for: .normal)
+            }
             
             let timeStamp = myPosts[indexPath.row].time
             let timeInterval = TimeInterval(Double(timeStamp.seconds))

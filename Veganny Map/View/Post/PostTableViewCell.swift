@@ -17,11 +17,7 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var postImgView: UIImageView! {
-        didSet {
-            postImgView.layer.cornerRadius = 20
-        }
-    }
+    @IBOutlet weak var postImgView: UIImageView! 
     @IBOutlet weak var likeButton: UIButton! 
     @IBOutlet weak var numberOfLikeLabel: UILabel! 
     @IBOutlet weak var contentLabel: UILabel!

@@ -28,7 +28,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
             guard
                 let signInVC = storyboard.instantiateViewController(withIdentifier: String(describing: SignInViewController.self))
                     as? SignInViewController
-            else { fatalError("Could not instantiate LoginViewController") }
+            else { fatalError("Could not instantiate SignInViewController") }
             
             if viewController == viewControllers?[3] {
                 signInVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 3)

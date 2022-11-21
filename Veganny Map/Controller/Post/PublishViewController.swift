@@ -58,21 +58,30 @@ class PublishViewController: UIViewController {
     }
     
     // MARK: - Function
+    @IBAction func tapPhotoImgView(_ sender: UITapGestureRecognizer) {
+        showAlert()
+    }
+    
     @IBAction func post(_ sender: Any) {
         
-        let alertView = SPAlertView(title: "Done", preset: .done)
-        alertView.duration = 1.0
-        alertView.present()
-        
-        // 跳轉回PostViewController
-        guard let viewControllers = self.navigationController?.viewControllers else { return }
-        for controller in viewControllers {
-            if controller is PostViewController {
-                self.navigationController?.popToViewController(controller, animated: true)
+        if self.urlString == nil {
+            CustomFunc.customAlert(title: "照片不可為空", message: "", vc: self, actionHandler: nil)
+        } else {
+            let alertView = SPAlertView(title: "Done", preset: .done)
+            alertView.duration = 1.0
+            alertView.present()
+            
+            // 跳轉回PostViewController
+            guard let viewControllers = self.navigationController?.viewControllers else { return }
+            for controller in viewControllers {
+                if controller is PostViewController {
+                    self.navigationController?.popToViewController(controller, animated: true)
+                }
             }
+            // 傳資料到firebase
+            addData()
         }
-        // 傳資料到firebase
-        addData()
+ 
     }
     
     func showAlert() {

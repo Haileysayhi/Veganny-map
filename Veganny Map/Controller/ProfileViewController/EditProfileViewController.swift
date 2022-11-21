@@ -49,6 +49,7 @@ class EditProfileViewController: UIViewController {
         imagePickerController.delegate = self
         imagePickerController.allowsEditing = true
         getUserData()
+        print("===urlString\(urlString)")
     }
     
     // MARK: - Function
@@ -57,10 +58,16 @@ class EditProfileViewController: UIViewController {
     }
     
     @IBAction func saveChanges(_ sender: Any) {
-        changeData()
-        let alertView = SPAlertView(title: "Done", preset: .done)
-        alertView.duration = 0.5
-        alertView.present()
+        if let text = nameTextField.text,
+           text.isEmpty {
+            CustomFunc.customAlert(title: "名字不可為空", message: "請輸入名字", vc: self, actionHandler: nil)
+        } else {
+            changeData()
+            let alertView = SPAlertView(title: "Done", preset: .done)
+            alertView.duration = 0.5
+            alertView.present()
+            print("===urlString\(urlString)")
+        }
     }
     
     func changeData() {
@@ -75,6 +82,7 @@ class EditProfileViewController: UIViewController {
             switch result {
             case .success(let user):
                 print(user)
+                self.urlString = user.userPhotoURL
                 self.user = user
                 self.userImgView.loadImage(self.user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
                 self.nameTextField.text = self.user?.name

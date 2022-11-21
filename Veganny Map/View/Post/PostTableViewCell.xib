@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="fdT-MP-hdZ">
-                        <rect key="frame" x="20" y="149" width="280" height="210"/>
+                        <rect key="frame" x="20" y="159" width="280" height="210"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="fdT-MP-hdZ" secondAttribute="height" multiplier="4:3" id="8te-1X-6Wc"/>
                         </constraints>
@@ -38,8 +38,8 @@
                             <constraint firstAttribute="width" constant="35" id="8c7-fj-Gzy"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AL9-56-cNV">
-                        <rect key="frame" x="35" y="401" width="250" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AL9-56-cNV">
+                        <rect key="frame" x="35" y="411" width="250" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -54,7 +54,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2tO-bK-Z4v">
-                        <rect key="frame" x="27" y="363" width="50" height="28"/>
+                        <rect key="frame" x="27" y="373" width="50" height="28"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lDG-VO-swQ">
                                 <rect key="frame" x="8" y="6" width="15" height="15"/>
@@ -88,7 +88,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQ7-t7-Tes">
-                        <rect key="frame" x="85" y="363" width="50" height="28"/>
+                        <rect key="frame" x="85" y="373" width="50" height="28"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpV-Qs-e2q">
                                 <rect key="frame" x="7" y="7" width="15" height="15"/>
@@ -134,7 +134,7 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Me0-b0-ecQ">
-                        <rect key="frame" x="50" y="49.5" width="41" height="96.5"/>
+                        <rect key="frame" x="50" y="49.5" width="41" height="106.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="tintColor" systemColor="systemOrangeColor"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2" maxY="0.0"/>
@@ -163,7 +163,7 @@
                     <constraint firstItem="fdT-MP-hdZ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="nN0-w2-tkq"/>
                     <constraint firstItem="bQ7-t7-Tes" firstAttribute="leading" secondItem="2tO-bK-Z4v" secondAttribute="trailing" constant="8" id="r8h-Vg-nFx"/>
                     <constraint firstItem="9qC-nc-YqT" firstAttribute="centerY" secondItem="5gS-WE-lcI" secondAttribute="centerY" id="uSK-di-u2T"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="AL9-56-cNV" secondAttribute="bottom" constant="20" id="vfZ-L8-Vg4"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="AL9-56-cNV" secondAttribute="bottom" constant="10" id="vfZ-L8-Vg4"/>
                     <constraint firstItem="AL9-56-cNV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="19" id="wc7-9O-u4d"/>
                     <constraint firstItem="Me0-b0-ecQ" firstAttribute="leading" secondItem="2L3-3V-dQS" secondAttribute="trailing" constant="5" id="xf0-0h-FJM"/>
                 </constraints>

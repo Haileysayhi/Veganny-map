@@ -38,7 +38,7 @@ class CheckinViewController: UIViewController, CLLocationManagerDelegate {
     
     func getRestaurantData() {
         guard let userLocation = self.userLocation else { fatalError("ERROR")}
-        GoogleMapListController.shared.fetchNearbySearch(location: userLocation, keyword: "restaurant") { listresponse in
+        GoogleMapListController.shared.fetchNearbySearch(location: userLocation, keyword: "restaurant", radius: 30000) { listresponse in
             self.listResponse = listresponse
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -81,7 +81,7 @@ extension CheckinViewController: UISearchBarDelegate {
             getRestaurantData()
         } else {
             guard let userLocation = self.userLocation else { fatalError("ERROR")}
-            GoogleMapListController.shared.fetchNearbySearch(location: userLocation, keyword: searchText) { listresponse in
+            GoogleMapListController.shared.fetchNearbySearch(location: userLocation, keyword: searchText, radius: 30000) { listresponse in
                 self.listResponse = listresponse
                 DispatchQueue.main.async {
                     self.tableView.reloadData()

@@ -42,6 +42,7 @@
 		D2AA73012926740600628BD8 /* 84914-purple.json in Resources */ = {isa = PBXBuildFile; fileRef = D2AA73002926740600628BD8 /* 84914-purple.json */; };
 		D2B21DE5292758C000592FBA /* CheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B21DE4292758C000592FBA /* CheckinViewController.swift */; };
 		D2B21DE729275B8F00592FBA /* CheckinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B21DE629275B8F00592FBA /* CheckinTableViewCell.swift */; };
+		D2C5ABDE292C608C0066CA93 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5ABDD292C608C0066CA93 /* ReviewDetailViewController.swift */; };
 		D2D180E8291F848000661B4C /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D180E7291F848000661B4C /* TimeInterval+Extension.swift */; };
 		D2DEC44A291C8AB4001328CE /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DEC449291C8AB4001328CE /* SaveViewController.swift */; };
 		D2DEC44F291C8F1F001328CE /* SaveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DEC44E291C8F1F001328CE /* SaveTableViewCell.swift */; };
@@ -91,6 +92,7 @@
 		D2AA73002926740600628BD8 /* 84914-purple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "84914-purple.json"; sourceTree = "<group>"; };
 		D2B21DE4292758C000592FBA /* CheckinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinViewController.swift; sourceTree = "<group>"; };
 		D2B21DE629275B8F00592FBA /* CheckinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTableViewCell.swift; sourceTree = "<group>"; };
+		D2C5ABDD292C608C0066CA93 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
 		D2D180E7291F848000661B4C /* TimeInterval+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extension.swift"; sourceTree = "<group>"; };
 		D2DEC449291C8AB4001328CE /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveViewController.swift; path = "Veganny Map/Controller/Save/SaveViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D2DEC44E291C8F1F001328CE /* SaveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveTableViewCell.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 		D28A5BFC290D1632005F5D50 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D2C5ABDD292C608C0066CA93 /* ReviewDetailViewController.swift */,
 				D2B21DE4292758C000592FBA /* CheckinViewController.swift */,
 				D2A6131F292381BC0095AED2 /* TabBarViewController.swift */,
 				D2F477EA2924B4DC00B56067 /* ProfileViewController */,
@@ -503,6 +506,7 @@
 				D2DEC44A291C8AB4001328CE /* SaveViewController.swift in Sources */,
 				D242FDB32913E26500C56DCE /* InfoTableViewCell.swift in Sources */,
 				D242FDAF2913D90B00C56DCE /* DetailViewController.swift in Sources */,
+				D2C5ABDE292C608C0066CA93 /* ReviewDetailViewController.swift in Sources */,
 				D26F2596291AAB7700A8CF1B /* CommentTableViewCell.swift in Sources */,
 				D29F59FB29160BEE00513A63 /* PostTableViewCell.swift in Sources */,
 				D2A06780290F970700988C56 /* PlaceDetails.swift in Sources */,

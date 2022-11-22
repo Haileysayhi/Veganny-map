@@ -26,6 +26,7 @@ class ReviewTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         }
     }
     var dateFormatter = DateFormatter()
+    weak var viewController: UIViewController?
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {
@@ -42,8 +43,6 @@ class ReviewTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
             return self.photoSection
         }
     }
-    
-   
     
     // MARK: - UICollectionViewDelegate & UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -71,6 +70,13 @@ class ReviewTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         cell.updateStar(rate: reviews[indexPath.row].rating)
                 
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil) // 去UIStoryboard中
+        guard let vc = mainStoryBoard.instantiateViewController(withIdentifier: "ReviewDetailViewController") as? ReviewDetailViewController else { return }
+        vc.review = self.reviews[indexPath.item]
+        viewController?.present(vc, animated: true)
     }
     
     // MARK: - Compositional Layout

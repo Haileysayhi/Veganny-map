@@ -124,7 +124,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: "PhotoTableViewCell",
                 for: indexPath) as? PhotoTableViewCell else { fatalError("Could not create Cell") }
-            
+
             cell.photos = infoResult.photos // 傳資料給 PhotoTableViewCell
             return cell
             
@@ -132,7 +132,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: "InfoTableViewCell",
                 for: indexPath) as? InfoTableViewCell else { fatalError("Could not create Cell") }
-            
+
             dataBase.collection("User").document(getUserID()).addSnapshotListener { snapshot, error in
                 guard let snapshot = snapshot else { return }
                 guard let user = try? snapshot.data(as: User.self) else { return }
@@ -159,7 +159,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: "ReviewTableViewCell",
                 for: indexPath) as? ReviewTableViewCell else { fatalError("Could not create Cell") }
-            
+            cell.viewController = self
             cell.reviews = infoResult.reviews // 傳資料給 ReviewTableViewCell
             print("真正的傳資料給 ReviewTableViewCell\(infoResult.reviews)")
             return cell

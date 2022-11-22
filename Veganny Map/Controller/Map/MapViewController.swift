@@ -82,7 +82,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
     
     // MARK: - Function
     func getData() {
-        GoogleMapListController.shared.fetchNearbySearch(location: self.userLocation, keyword: "vegan") { listresponse in
+        GoogleMapListController.shared.fetchNearbySearch(location: self.userLocation, keyword: "vegan", radius: 3000) { listresponse in
             self.listResponse = listresponse
             print("==位置<MapViewController>有沒有吃到\(self.userLocation)")
             print("==<MapViewController>\(listresponse)")
@@ -139,7 +139,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
     @objc func search() {
         self.searchAreaButton.isHidden = true
         self.mapView.clear()
-        GoogleMapListController.shared.fetchNearbySearch(location: self.moveLocation, keyword: "vegan") { listresponse in
+        GoogleMapListController.shared.fetchNearbySearch(location: self.moveLocation, keyword: "vegan", radius: 3000) { listresponse in
             self.listResponse = listresponse
             print("==位置<moveLocation>有沒有吃到\(self.userLocation)")
             print("==<moveLocation><MapViewController>\(listresponse)")

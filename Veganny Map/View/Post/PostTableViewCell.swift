@@ -24,20 +24,8 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var numberOfCommentButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
-    
-    @IBOutlet weak var likeView: UIView! {
-        didSet {
-            likeView.layer.cornerRadius = 15
-        }
-    }
-    
-    @IBOutlet weak var commentView: UIView! {
-        didSet {
-            commentView.layer.cornerRadius = 15
-        }
-    }
-    
     @IBOutlet weak var locationButton: UIButton!
+    @IBOutlet weak var stackView: UIStackView!
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {

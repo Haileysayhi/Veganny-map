@@ -53,7 +53,7 @@ class PublishViewController: UIViewController {
     var configuration = PHPickerConfiguration()
     let storage = Storage.storage().reference()
     let dataBase = Firestore.firestore()
-    var urlString: String?
+    var urlString = [String]()
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -146,7 +146,7 @@ class PublishViewController: UIViewController {
             postId: document.documentID,
             content: contentTextView.text,
             mediaType: MediaType.photo.rawValue,
-            mediaURL: self.urlString ?? "",
+            mediaURL: self.urlString,
             time: Timestamp(date: Date()),
             likes: [],
             comments: [],
@@ -179,38 +179,7 @@ class PublishViewController: UIViewController {
     }
 }
 
-// MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
-//extension PublishViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-//
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-//
-//        picker.dismiss(animated: true)
-//
-//        guard let image = info[.editedImage] as? UIImage else { return }
-//
-//        guard let imageData = image.jpegData(compressionQuality: 0.3) else { return }
-//        let photoReference = storage.child(UUID().uuidString + ".jpg")
-//        photoReference.putData(imageData, metadata: nil, completion: { _, error in
-//            guard error == nil else {
-//                print("Failed to upload")
-//                return
-//            }
-//
-//            photoReference.downloadURL(completion: { url, error in
-//                guard let url = url, error == nil else {
-//                    return
-//                }
-//
-//                self.urlString = url.absoluteString
-//                DispatchQueue.main.async {
-//                    self.photoImgView.image = image
-//                }
-//                print("Download URL: \(self.urlString)")
-//            })
-//        })
-//    }
-//}
-
+// MARK: - PHPickerViewControllerDelegate
 extension PublishViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
@@ -221,14 +190,31 @@ extension PublishViewController: PHPickerViewControllerDelegate {
         let itemProviders = results.map(\.itemProvider)
         for (i, itemProvider) in itemProviders.enumerated() where itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
-                DispatchQueue.main.async {
-                    guard let self = self, let image = image as? UIImage else { return }
-                    let imageView = UIImageView(image: image)
-                    imageView.contentMode = .scaleAspectFill
-                    imageView.translatesAutoresizingMaskIntoConstraints = false
-                    imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
-                    self.stackView.addArrangedSubview(imageView)
-                }
+                guard let self = self, let image = image as? UIImage else { return }
+                guard let imageData = image.jpegData(compressionQuality: 0.3) else { return }
+                let photoReference = self.storage.child(UUID().uuidString + ".jpg")
+                photoReference.putData(imageData, metadata: nil, completion: { _, error in
+                    guard error == nil else {
+                        print("Failed to upload")
+                        return
+                    }
+                    
+                    photoReference.downloadURL(completion: { url, error in
+                        guard let url = url, error == nil else {
+                            return
+                        }
+                        
+                        self.urlString.append(url.absoluteString)
+                        DispatchQueue.main.async {
+                            let imageView = UIImageView(image: image)
+                            imageView.contentMode = .scaleAspectFill
+                            imageView.translatesAutoresizingMaskIntoConstraints = false
+                            imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+                            self.stackView.addArrangedSubview(imageView)
+                        }
+                        print("Download URL: \(self.urlString)")
+                    })
+                })
             }
         }
     }

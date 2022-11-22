@@ -708,7 +708,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eiH-9b-WJb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1613" y="1476"/>
+            <point key="canvasLocation" x="1525" y="1476"/>
         </scene>
         <!--Edit Profile View Controller-->
         <scene sceneID="tvx-GP-htW">
@@ -795,7 +795,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1f5-GL-2Gc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2489.8550724637685" y="1475.8928571428571"/>
+            <point key="canvasLocation" x="2383" y="1476"/>
         </scene>
         <!--Save View Controller-->
         <scene sceneID="hCu-fR-A3a">
@@ -1322,7 +1322,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="13X-KE-du9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3400.0000000000005" y="-246.42857142857142"/>
+            <point key="canvasLocation" x="2383" y="-246"/>
         </scene>
         <!--Review Detail View Controller-->
         <scene sceneID="iPF-q8-AKw">
@@ -1485,7 +1485,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9mJ-cW-7Hs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4189.855072463768" y="-246.42857142857142"/>
+            <point key="canvasLocation" x="3157" y="-246"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="9zJ-3r-0sq">
@@ -1591,7 +1591,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kN5-Lp-HSe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="614" y="1476"/>
+            <point key="canvasLocation" x="590" y="1476"/>
         </scene>
     </scenes>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

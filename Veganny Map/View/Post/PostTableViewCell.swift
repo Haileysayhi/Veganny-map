@@ -6,9 +6,15 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+
+protocol PostTableViewCellDelegate: AnyObject {
+    func deletePost(_ cell: PostTableViewCell)
+}
 
 class PostTableViewCell: UITableViewCell {
-    
     
     // MARK: - IBOutlet
     @IBOutlet weak var userImgView: UIImageView! {
@@ -30,11 +36,14 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var pullDownButton: UIButton!
     
+    // MARK: - Properties
+    let dataBase = Firestore.firestore()
+    weak var delegate: PostTableViewCellDelegate?
+
     // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
         scrollView.delegate = self
-        setupPullDownButton()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -47,17 +56,27 @@ class PostTableViewCell: UITableViewCell {
         scrollView.setContentOffset(point, animated: true)
     }
     
-    func setupPullDownButton() {
+    func setupPullDownButton(userID: String) {
         pullDownButton.showsMenuAsPrimaryAction = true
-        pullDownButton.menu = UIMenu(children: [
-            UIAction(title: "Delete", image: UIImage(systemName: "trash"), handler: { action in
-                print("Delete")
-            }),
-            
-            UIAction(title: "Report", image: UIImage(systemName: "exclamationmark.bubble"), handler: { action in
-                print("Report")
-            }),
-        ])
+        
+        if userID == Auth.auth().currentUser?.uid {
+            pullDownButton.menu = UIMenu(children: [
+                UIAction(title: "Delete", image: UIImage(systemName: "trash"), handler: { action in
+                    print("Delete")
+                    self.delegate?.deletePost(self)
+                })
+            ])
+        } else {
+            pullDownButton.menu = UIMenu(children: [
+                UIAction(title: "Block", image: UIImage(systemName: "hand.raised.slash"), handler: { action in
+                    print("Block")
+                }),
+                
+                UIAction(title: "Report", image: UIImage(systemName: "exclamationmark.bubble"), handler: { action in
+                    print("Report")
+                }),
+            ])
+        }  
     }
 }
 

@@ -22,7 +22,6 @@ class CommentViewController: UIViewController {
             })
         }
     }
-    
     @IBOutlet weak var textField: UITextField!
     
     // MARK: - Properties
@@ -47,7 +46,6 @@ class CommentViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getCommentData()
-        print("===接postVC傳過來的資料\(self.postId)")
     }
     
     // MARK: - Function

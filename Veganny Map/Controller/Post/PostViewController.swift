@@ -21,7 +21,6 @@ class PostViewController: UIViewController {
             })
         }
     }
-    
     @IBOutlet weak var changePage: UISegmentedControl! {
         didSet {
             changePage.selectedSegmentTintColor = .systemOrange
@@ -39,6 +38,7 @@ class PostViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+//        tableView.reloadData()
         
         let barAppearance = UINavigationBarAppearance()
         // 不要有底線
@@ -119,7 +119,6 @@ class PostViewController: UIViewController {
         didTapButton.toggle()
     }
     
-    
     func getPostData() {
         dataBase.collection("Post").order(by: "time", descending: true).getDocuments { (querySnapshot, error) in
             self.posts = [] // 清空資料，從其他頁面跳回來時不會重複取資料
@@ -140,8 +139,6 @@ class PostViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     self.tableView.endHeaderRefreshing()
-                    print("===mypost \(self.myPosts)")
-                    print("===posts\(self.posts)")
                     self.tableView.reloadData()
                 }
             }
@@ -180,8 +177,11 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "PostTableViewCell",
             for: indexPath) as? PostTableViewCell else { fatalError("Could not creat Cell.") }
-        
+        cell.delegate = self // 註delegate
         if changePage.selectedSegmentIndex == 0 {
+            
+            cell.setupPullDownButton(userID:posts[indexPath.row].authorId )
+
             if posts[indexPath.row].likes.contains(getUserID()) {
                 cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 cell.likeButton.tintColor = .systemOrange
@@ -251,6 +251,9 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         } else {
+            
+            cell.setupPullDownButton(userID: getUserID())
+
             if myPosts[indexPath.row].likes.contains(getUserID()) {
                 cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 cell.likeButton.tintColor = .systemOrange
@@ -323,5 +326,34 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         return cell
+    }
+}
+
+// MARK: - PostTableViewCellDelegate
+extension PostViewController: PostTableViewCellDelegate {
+    func deletePost(_ cell: PostTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { fatalError("ERROR") }
+        
+        if changePage.selectedSegmentIndex == 0 {
+            dataBase.collection("Post").document(posts[indexPath.row].postId).delete()
+            let deletePostId = dataBase.collection("User").document(getUserID())
+            deletePostId.updateData([
+                "postIds": FieldValue.arrayRemove([posts[indexPath.row].postId])
+            ])
+            guard let postIndex = myPosts.firstIndex(where: { $0.postId == posts[indexPath.row].postId }) else { return }
+            myPosts.remove(at: postIndex)
+            posts.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else {
+            dataBase.collection("Post").document(myPosts[indexPath.row].postId).delete()
+            let deletePostId = dataBase.collection("User").document(getUserID())
+            deletePostId.updateData([
+                "postIds": FieldValue.arrayRemove([myPosts[indexPath.row].postId])
+            ])
+            guard let postIndex = posts.firstIndex(where: { $0.postId == myPosts[indexPath.row].postId }) else { return }
+            posts.remove(at: postIndex)
+            myPosts.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }

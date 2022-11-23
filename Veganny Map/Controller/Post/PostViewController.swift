@@ -31,7 +31,7 @@ class PostViewController: UIViewController {
     
     // MARK: - Properties
     var posts = [Post]()
-    var myPosts = [Post]() // 存使用者自己的發文
+    var myPosts = [Post]() // 存登入者自己的發文
     var user: User?
     let dataBase = Firestore.firestore()
     var didTapButton = false
@@ -87,7 +87,11 @@ class PostViewController: UIViewController {
         guard let indexpath = tableView.indexPathForRow(at: point) else { return } // 座標轉換成 indexpath
         
         if let controller = storyboard?.instantiateViewController(withIdentifier: "CommentViewController") as? CommentViewController {
-            controller.postId = posts[indexpath.row].postId
+            if changePage.selectedSegmentIndex == 0 {
+                controller.postId = posts[indexpath.row].postId
+            } else {
+                controller.postId = myPosts[indexpath.row].postId
+            }
             navigationController?.pushViewController(controller, animated: true)
         }
     }
@@ -136,6 +140,8 @@ class PostViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     self.tableView.endHeaderRefreshing()
+                    print("===mypost \(self.myPosts)")
+                    print("===posts\(self.posts)")
                     self.tableView.reloadData()
                 }
             }

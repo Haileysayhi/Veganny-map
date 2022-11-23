@@ -17,9 +17,9 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var postImgView: UIImageView! 
-    @IBOutlet weak var likeButton: UIButton! 
-    @IBOutlet weak var numberOfLikeLabel: UILabel! 
+    @IBOutlet weak var postImgView: UIImageView!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var numberOfLikeLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var numberOfCommentButton: UIButton!
@@ -28,12 +28,15 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var pullDownButton: UIButton!
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
         scrollView.delegate = self
+        setupPullDownButton()
     }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -42,6 +45,19 @@ class PostTableViewCell: UITableViewCell {
     @IBAction func changePage(_ sender: UIPageControl) {
         let point = CGPoint(x: scrollView.bounds.width * CGFloat(sender.currentPage), y: 0)
         scrollView.setContentOffset(point, animated: true)
+    }
+    
+    func setupPullDownButton() {
+        pullDownButton.showsMenuAsPrimaryAction = true
+        pullDownButton.menu = UIMenu(children: [
+            UIAction(title: "Delete", image: UIImage(systemName: "trash"), handler: { action in
+                print("Delete")
+            }),
+            
+            UIAction(title: "Report", image: UIImage(systemName: "exclamationmark.bubble"), handler: { action in
+                print("Report")
+            }),
+        ])
     }
 }
 

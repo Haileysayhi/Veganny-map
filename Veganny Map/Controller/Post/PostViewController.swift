@@ -29,7 +29,6 @@ class PostViewController: UIViewController {
         }
     }
     
-    
     // MARK: - Properties
     var posts = [Post]()
     var myPosts = [Post]() // 存使用者自己的發文
@@ -190,7 +189,9 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.stackView.subviews.forEach { subView in
                 subView.removeFromSuperview()
+                cell.pageControl.numberOfPages = 0
             }
+            
             posts[indexPath.row].mediaURL.forEach { imageURL in
                 let imageView = UIImageView()
                 imageView.loadImage(imageURL, placeHolder: UIImage(named: "placeholder"))
@@ -198,7 +199,15 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 imageView.translatesAutoresizingMaskIntoConstraints = false
                 imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
                 cell.stackView.addArrangedSubview(imageView)
+                cell.pageControl.numberOfPages += 1
             }
+            
+            if posts[indexPath.row].mediaURL.count == 1 {
+                cell.pageControl.isHidden = true
+            } else {
+                cell.pageControl.isHidden = false
+            }
+            
             cell.contentLabel.text = posts[indexPath.row].content
             
             dataBase.collection("User").document(posts[indexPath.row].authorId).getDocument(as: User.self) { result in
@@ -249,8 +258,9 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.stackView.subviews.forEach { subView in
                 subView.removeFromSuperview()
+                cell.pageControl.numberOfPages = 0
             }
-            
+
             myPosts[indexPath.row].mediaURL.forEach { imageURL in
                 let imageView = UIImageView()
                 imageView.loadImage(imageURL, placeHolder: UIImage(named: "placeholder"))
@@ -258,6 +268,13 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 imageView.translatesAutoresizingMaskIntoConstraints = false
                 imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
                 cell.stackView.addArrangedSubview(imageView)
+                cell.pageControl.numberOfPages += 1
+            }
+            
+            if myPosts[indexPath.row].mediaURL.count == 1 {
+                cell.pageControl.isHidden = true
+            } else {
+                cell.pageControl.isHidden = false
             }
 
             cell.contentLabel.text = myPosts[indexPath.row].content

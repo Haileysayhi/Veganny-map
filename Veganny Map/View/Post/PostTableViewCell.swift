@@ -26,13 +26,29 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
-    
+        scrollView.delegate = self
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    // MARK: - Function
+    @IBAction func changePage(_ sender: UIPageControl) {
+        let point = CGPoint(x: scrollView.bounds.width * CGFloat(sender.currentPage), y: 0)
+        scrollView.setContentOffset(point, animated: true)
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension PostTableViewCell: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let page = scrollView.contentOffset.x / scrollView.bounds.width
+        pageControl.currentPage = Int(page)
     }
 }

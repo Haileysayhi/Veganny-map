@@ -35,7 +35,7 @@ struct Post: Codable {
     var postId: String // firebase給的--> 如果按讚人數有改變用id去抓是哪一篇貼文更改
     var content: String
     var mediaType: String // photo, video
-    var mediaURL: String
+    var mediaURL: [String]
     var time: Timestamp // 發文時間
     var likes: [String] // 按讚人的id -->為了讓按讚的人畫面可以顯示已按過讚
     var comments: [Comment]

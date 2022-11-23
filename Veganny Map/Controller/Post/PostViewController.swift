@@ -29,7 +29,6 @@ class PostViewController: UIViewController {
         }
     }
     
-    
     // MARK: - Properties
     var posts = [Post]()
     var myPosts = [Post]() // 存使用者自己的發文
@@ -47,7 +46,7 @@ class PostViewController: UIViewController {
         barAppearance.backgroundColor = UIColor.systemOrange
         navigationItem.standardAppearance = barAppearance
         navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.tintColor = .systemOrange
         
         tableView.register(UINib(nibName: "PostTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "PostTableViewCell")
@@ -188,7 +187,27 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.numberOfCommentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             
-            cell.postImgView.loadImage(posts[indexPath.row].mediaURL, placeHolder: UIImage(named: "placeholder"))
+            cell.stackView.subviews.forEach { subView in
+                subView.removeFromSuperview()
+                cell.pageControl.numberOfPages = 0
+            }
+            
+            posts[indexPath.row].mediaURL.forEach { imageURL in
+                let imageView = UIImageView()
+                imageView.loadImage(imageURL, placeHolder: UIImage(named: "placeholder"))
+                imageView.contentMode = .scaleAspectFill
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+                cell.stackView.addArrangedSubview(imageView)
+                cell.pageControl.numberOfPages += 1
+            }
+            
+            if posts[indexPath.row].mediaURL.count == 1 {
+                cell.pageControl.isHidden = true
+            } else {
+                cell.pageControl.isHidden = false
+            }
+            
             cell.contentLabel.text = posts[indexPath.row].content
             
             dataBase.collection("User").document(posts[indexPath.row].authorId).getDocument(as: User.self) { result in
@@ -237,7 +256,27 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.numberOfCommentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             
-            cell.postImgView.loadImage(myPosts[indexPath.row].mediaURL, placeHolder: UIImage(named: "placeholder"))
+            cell.stackView.subviews.forEach { subView in
+                subView.removeFromSuperview()
+                cell.pageControl.numberOfPages = 0
+            }
+
+            myPosts[indexPath.row].mediaURL.forEach { imageURL in
+                let imageView = UIImageView()
+                imageView.loadImage(imageURL, placeHolder: UIImage(named: "placeholder"))
+                imageView.contentMode = .scaleAspectFill
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+                cell.stackView.addArrangedSubview(imageView)
+                cell.pageControl.numberOfPages += 1
+            }
+            
+            if myPosts[indexPath.row].mediaURL.count == 1 {
+                cell.pageControl.isHidden = true
+            } else {
+                cell.pageControl.isHidden = false
+            }
+
             cell.contentLabel.text = myPosts[indexPath.row].content
             
             dataBase.collection("User").document(myPosts[indexPath.row].authorId).getDocument(as: User.self) { result in

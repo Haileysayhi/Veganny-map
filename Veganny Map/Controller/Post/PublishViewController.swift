@@ -16,7 +16,15 @@ import PhotosUI
 class PublishViewController: UIViewController {
     
     // MARK: - IBOutlet
-    @IBOutlet weak var photoImgView: UIImageView!
+    //    @IBOutlet weak var photoImgView: UIImageView!
+    
+    @IBOutlet weak var stackView: UIStackView! {
+        didSet {
+            stackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapPhotoImgView)))
+        }
+    }
+    @IBOutlet var photoImgViews: [UIImageView]!
+    
     @IBOutlet weak var contentTextView: UITextView! {
         didSet {
             contentTextView.layer.cornerRadius = 20
@@ -41,25 +49,26 @@ class PublishViewController: UIViewController {
     }
     
     // MARK: - Properties
-    var imagePickerController = UIImagePickerController()
-    //    var configuration = PHPickerConfiguration()
+    //    var imagePickerController = UIImagePickerController()
+    var configuration = PHPickerConfiguration()
     let storage = Storage.storage().reference()
     let dataBase = Firestore.firestore()
-    var urlString: String?
+    var urlString = [String]()
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         locationBaground.isHidden = true
-        imagePickerController.delegate = self
-        imagePickerController.allowsEditing = true
-        showAlert()
-        //        selectPhotos()
+        //        imagePickerController.delegate = self
+        //        imagePickerController.allowsEditing = true
+        //        showAlert()
+        selectPhotos()
     }
     
     // MARK: - Function
     @IBAction func tapPhotoImgView(_ sender: UITapGestureRecognizer) {
-        showAlert()
+        //        showAlert()
+        selectPhotos()
     }
     
     @IBAction func post(_ sender: Any) {
@@ -81,52 +90,52 @@ class PublishViewController: UIViewController {
             // 傳資料到firebase
             addData()
         }
- 
     }
     
-    func showAlert() {
-        let controller = UIAlertController(title: "請選取照片來源", message: "", preferredStyle: .alert)
-        controller.view.tintColor = UIColor.gray
-        
-        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
-            self.takePicture()
-        }
-        controller.addAction(cameraAction)
-        
-        let savedPhotosAlbumAction = UIAlertAction(title: "相簿", style: .default) { _ in
-            self.openPhotosAlbum()
-        }
-        controller.addAction(savedPhotosAlbumAction)
-        
-        let cancelAction = UIAlertAction(title: "取消", style: .destructive) { _ in
-            guard let viewControllers = self.navigationController?.viewControllers else { return }
-            for controller in viewControllers {
-                if controller is PostViewController {
-                    self.navigationController?.popToViewController(controller, animated: true)
-                }
-            }
-        }
-        controller.addAction(cancelAction)
-        
-        self.present(controller, animated: true, completion: nil)
-    }
-    
-    func takePicture() {
-        imagePickerController.sourceType = .camera
-        present(imagePickerController, animated: true)
-    }
-    
-    func openPhotosAlbum() {
-        imagePickerController.sourceType = .savedPhotosAlbum
-        present(imagePickerController, animated: true)
-    }
-    
-    //    func selectPhotos() {
-    //        configuration.filter = .images
-    //        let picker = PHPickerViewController(configuration: configuration)
-    //        picker.delegate = self
-    //        present(picker, animated: true)
+    //    func showAlert() {
+    //        let controller = UIAlertController(title: "請選取照片來源", message: "", preferredStyle: .alert)
+    //        controller.view.tintColor = UIColor.gray
+    //
+    //        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
+    //            self.takePicture()
+    //        }
+    //        controller.addAction(cameraAction)
+    //
+    //        let savedPhotosAlbumAction = UIAlertAction(title: "相簿", style: .default) { _ in
+    //            self.openPhotosAlbum()
+    //        }
+    //        controller.addAction(savedPhotosAlbumAction)
+    //
+    //        let cancelAction = UIAlertAction(title: "取消", style: .destructive) { _ in
+    //            guard let viewControllers = self.navigationController?.viewControllers else { return }
+    //            for controller in viewControllers {
+    //                if controller is PostViewController {
+    //                    self.navigationController?.popToViewController(controller, animated: true)
+    //                }
+    //            }
+    //        }
+    //        controller.addAction(cancelAction)
+    //
+    //        self.present(controller, animated: true, completion: nil)
     //    }
+    
+    //    func takePicture() {
+    //        imagePickerController.sourceType = .camera
+    //        present(imagePickerController, animated: true)
+    //    }
+    //
+    //    func openPhotosAlbum() {
+    //        imagePickerController.sourceType = .savedPhotosAlbum
+    //        present(imagePickerController, animated: true)
+    //    }
+    
+    func selectPhotos() {
+        configuration.filter = .images
+        configuration.selectionLimit = 5
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
     
     func addData() {
         let document = dataBase.collection("Post").document()
@@ -137,7 +146,7 @@ class PublishViewController: UIViewController {
             postId: document.documentID,
             content: contentTextView.text,
             mediaType: MediaType.photo.rawValue,
-            mediaURL: self.urlString ?? "",
+            mediaURL: self.urlString,
             time: Timestamp(date: Date()),
             likes: [],
             comments: [],
@@ -170,53 +179,43 @@ class PublishViewController: UIViewController {
     }
 }
 
-// MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
-extension PublishViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        
+// MARK: - PHPickerViewControllerDelegate
+extension PublishViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
+        stackView.subviews.forEach { subView in
+            subView.removeFromSuperview()
+        }
         
-        guard let image = info[.editedImage] as? UIImage else { return }
-        
-        guard let imageData = image.jpegData(compressionQuality: 0.3) else { return }
-        let photoReference = storage.child(UUID().uuidString + ".jpg")
-        photoReference.putData(imageData, metadata: nil, completion: { _, error in
-            guard error == nil else {
-                print("Failed to upload")
-                return
+        let itemProviders = results.map(\.itemProvider)
+        for (i, itemProvider) in itemProviders.enumerated() where itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+                guard let self = self, let image = image as? UIImage else { return }
+                guard let imageData = image.jpegData(compressionQuality: 0.3) else { return }
+                let photoReference = self.storage.child(UUID().uuidString + ".jpg")
+                photoReference.putData(imageData, metadata: nil, completion: { _, error in
+                    guard error == nil else {
+                        print("Failed to upload")
+                        return
+                    }
+                    
+                    photoReference.downloadURL(completion: { url, error in
+                        guard let url = url, error == nil else {
+                            return
+                        }
+                        
+                        self.urlString.append(url.absoluteString)
+                        DispatchQueue.main.async {
+                            let imageView = UIImageView(image: image)
+                            imageView.contentMode = .scaleAspectFill
+                            imageView.translatesAutoresizingMaskIntoConstraints = false
+                            imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+                            self.stackView.addArrangedSubview(imageView)
+                        }
+                        print("Download URL: \(self.urlString)")
+                    })
+                })
             }
-            
-            photoReference.downloadURL(completion: { url, error in
-                guard let url = url, error == nil else {
-                    return
-                }
-                
-                self.urlString = url.absoluteString
-                DispatchQueue.main.async {
-                    self.photoImgView.image = image
-                }
-                print("Download URL: \(self.urlString)")
-            })
-        })
+        }
     }
 }
-
-
-//extension PublishViewController: PHPickerViewControllerDelegate {
-//
-//    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-//        picker.dismiss(animated: true)
-//
-//        let itemProviders = results.map(\.itemProvider)
-//        if let itemProvider = itemProviders.first, itemProvider.canLoadObject(ofClass: UIImage.self) {
-//            let previousImage = self.imageViews.first?.image
-//            itemProvider.loadObject(ofClass: UIImage.self) {[weak self] (image, error) in
-//                DispatchQueue.main.async {
-//                    guard let self = self, let image = image as? UIImage, self.imageViews.first?.image == previousImage else { return }
-//                    self.imageViews.first?.image = image
-//                }
-//            }
-//        }
-//    }
-//}

@@ -25,6 +25,8 @@ class PostViewController: UIViewController {
         didSet {
             changePage.selectedSegmentTintColor = .systemOrange
             changePage.backgroundColor = .white
+            changePage.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.systemGray2], for: .normal)
+            changePage.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.white], for: .selected)
         }
     }
     
@@ -38,7 +40,6 @@ class PostViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.reloadData()
         
         let barAppearance = UINavigationBarAppearance()
         // 不要有底線
@@ -51,7 +52,7 @@ class PostViewController: UIViewController {
         tableView.register(UINib(nibName: "PostTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "PostTableViewCell")
         tableView.beginHeaderRefreshing() // 出現轉圈圈圖案
-                
+        
         let floatingButton = UIButton()
         floatingButton.setImage(UIImage(systemName: "plus"), for: .normal)
         floatingButton.tintColor = .white

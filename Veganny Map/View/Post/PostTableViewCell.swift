@@ -33,7 +33,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var pageControl: UIPageControl! 
     @IBOutlet weak var pullDownButton: UIButton!
     
     // MARK: - Properties
@@ -74,7 +74,7 @@ class PostTableViewCell: UITableViewCell {
                 
                 UIAction(title: "Report", image: UIImage(systemName: "exclamationmark.bubble"), handler: { action in
                     print("Report")
-                }),
+                })
             ])
         }  
     }

@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseAuth
 
 class CommentViewController: UIViewController {
     
@@ -21,7 +22,6 @@ class CommentViewController: UIViewController {
             })
         }
     }
-    
     @IBOutlet weak var textField: UITextField!
     
     // MARK: - Properties
@@ -89,6 +89,21 @@ class CommentViewController: UIViewController {
         }
     }
     
+    
+    func deleteCommentData(indexPath: Int) {
+        let document = dataBase.collection("Post").document(postId)
+        let comment: [String: Any] = [
+            "content": comments[indexPath].content,
+            "contentType": comments[indexPath].contentType,
+            "userId": comments[indexPath].userId,
+            "time": comments[indexPath].time
+        ]
+        document.updateData([
+            "comments": FieldValue.arrayRemove([comment]) // 刪掉留言
+            
+        ])
+    }
+    
     func getUserData(userId: String) {
         group.enter()
         dataBase.collection("User").document(userId).getDocument(as: User.self) { result in
@@ -153,5 +168,26 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
             cell.timeLabel.text = timeInterval.getReadableDate()
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let commentUserID = comments[indexPath.row].userId
+        
+        if Auth.auth().currentUser?.uid == commentUserID {
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, complete) in
+                self.deleteCommentData(indexPath: indexPath.row)
+                print("deleteCommentData===\(indexPath.row)")
+                self.comments.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .top)
+                complete(true)
+            }
+            deleteAction.image = UIImage(systemName: "trash")
+            let trailingSwipConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
+            return trailingSwipConfiguration
+            
+        } else {
+            return nil
+        }
     }
 }

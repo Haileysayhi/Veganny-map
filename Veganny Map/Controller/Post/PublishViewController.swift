@@ -16,8 +16,6 @@ import PhotosUI
 class PublishViewController: UIViewController {
     
     // MARK: - IBOutlet
-    //    @IBOutlet weak var photoImgView: UIImageView!
-    
     @IBOutlet weak var stackView: UIStackView! {
         didSet {
             stackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapPhotoImgView)))
@@ -49,7 +47,6 @@ class PublishViewController: UIViewController {
     }
     
     // MARK: - Properties
-    //    var imagePickerController = UIImagePickerController()
     var configuration = PHPickerConfiguration()
     let storage = Storage.storage().reference()
     let dataBase = Firestore.firestore()
@@ -59,20 +56,15 @@ class PublishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         locationBaground.isHidden = true
-        //        imagePickerController.delegate = self
-        //        imagePickerController.allowsEditing = true
-        //        showAlert()
         selectPhotos()
     }
     
     // MARK: - Function
     @IBAction func tapPhotoImgView(_ sender: UITapGestureRecognizer) {
-        //        showAlert()
         selectPhotos()
     }
     
     @IBAction func post(_ sender: Any) {
-        
         if self.urlString == nil {
             CustomFunc.customAlert(title: "照片不可為空", message: "", vc: self, actionHandler: nil)
         } else {
@@ -91,43 +83,6 @@ class PublishViewController: UIViewController {
             addData()
         }
     }
-    
-    //    func showAlert() {
-    //        let controller = UIAlertController(title: "請選取照片來源", message: "", preferredStyle: .alert)
-    //        controller.view.tintColor = UIColor.gray
-    //
-    //        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
-    //            self.takePicture()
-    //        }
-    //        controller.addAction(cameraAction)
-    //
-    //        let savedPhotosAlbumAction = UIAlertAction(title: "相簿", style: .default) { _ in
-    //            self.openPhotosAlbum()
-    //        }
-    //        controller.addAction(savedPhotosAlbumAction)
-    //
-    //        let cancelAction = UIAlertAction(title: "取消", style: .destructive) { _ in
-    //            guard let viewControllers = self.navigationController?.viewControllers else { return }
-    //            for controller in viewControllers {
-    //                if controller is PostViewController {
-    //                    self.navigationController?.popToViewController(controller, animated: true)
-    //                }
-    //            }
-    //        }
-    //        controller.addAction(cancelAction)
-    //
-    //        self.present(controller, animated: true, completion: nil)
-    //    }
-    
-    //    func takePicture() {
-    //        imagePickerController.sourceType = .camera
-    //        present(imagePickerController, animated: true)
-    //    }
-    //
-    //    func openPhotosAlbum() {
-    //        imagePickerController.sourceType = .savedPhotosAlbum
-    //        present(imagePickerController, animated: true)
-    //    }
     
     func selectPhotos() {
         configuration.filter = .images

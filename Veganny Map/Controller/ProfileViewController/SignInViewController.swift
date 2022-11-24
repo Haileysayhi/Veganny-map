@@ -251,7 +251,8 @@ extension SignInViewController {
                         userId: getUserID(),
                         email: email,
                         postIds: [],
-                        savedRestaurants: []
+                        savedRestaurants: [],
+                        blockId: []
                     )
                     do {
                         try self.dataBase.collection("User").document(getUserID()).setData(from: userData)

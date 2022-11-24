@@ -27,6 +27,7 @@ struct User: Codable {
     var email: String
     var postIds: [String] // postIds 等於Post中的很多個postId，使用者可以看全部自己發過的文
     var savedRestaurants: [String] // 存餐廳的placeId
+    var blockId: [String] // 儲存使用者封鎖的人的id
 }
 
 // 使用App + 有發文的資料
@@ -58,4 +59,11 @@ enum ContentType: String {
     case text
     case photo
     case video
+}
+
+
+struct Report: Codable {
+    var userId: String
+    var postId: String
+    var time: Timestamp
 }

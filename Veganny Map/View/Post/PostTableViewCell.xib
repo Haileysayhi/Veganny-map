@@ -6,6 +6,7 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -132,7 +133,7 @@
                         </connections>
                     </pageControl>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qC-nc-YqT">
-                        <rect key="frame" x="275" y="35.5" width="25" height="14.5"/>
+                        <rect key="frame" x="275" y="47.5" width="25" height="14.5"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="KyK-6M-Pe2"/>
                         </constraints>
@@ -140,9 +141,21 @@
                         <color key="textColor" systemColor="systemGray2Color"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TfJ-8r-v4a">
+                        <rect key="frame" x="283" y="24" width="19" height="22"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <menu key="menu" id="ShT-kV-U44">
+                            <children>
+                                <command title="Item 1" id="lyb-OU-n2h"/>
+                                <command title="Item 2" id="XVQ-Ks-1nt"/>
+                            </children>
+                        </menu>
+                        <state key="normal" image="ellipsis" catalog="system"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="5gS-WE-lcI" firstAttribute="leading" secondItem="2L3-3V-dQS" secondAttribute="trailing" constant="5" id="0Bh-vP-9sD"/>
+                    <constraint firstItem="TfJ-8r-v4a" firstAttribute="centerY" secondItem="5gS-WE-lcI" secondAttribute="centerY" id="0X6-33-SXl"/>
                     <constraint firstItem="2L3-3V-dQS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="5yd-V9-NMA"/>
                     <constraint firstAttribute="trailing" secondItem="9qC-nc-YqT" secondAttribute="trailing" constant="20" id="65p-BA-ibA"/>
                     <constraint firstItem="5gS-WE-lcI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="6kV-u6-hRz"/>
@@ -150,12 +163,12 @@
                     <constraint firstItem="aQL-Fn-d9t" firstAttribute="top" secondItem="2L3-3V-dQS" secondAttribute="bottom" constant="17" id="8uc-Sd-gk1"/>
                     <constraint firstItem="yQo-Iv-5kq" firstAttribute="top" secondItem="aQL-Fn-d9t" secondAttribute="bottom" id="EJh-og-aAO"/>
                     <constraint firstItem="Kim-8u-fNf" firstAttribute="centerY" secondItem="lDG-VO-swQ" secondAttribute="centerY" id="Gge-8g-r6N"/>
-                    <constraint firstItem="9qC-nc-YqT" firstAttribute="centerY" secondItem="2L3-3V-dQS" secondAttribute="centerY" id="HYq-l9-xB8"/>
                     <constraint firstItem="Kim-8u-fNf" firstAttribute="leading" secondItem="qpV-Qs-e2q" secondAttribute="trailing" constant="5" id="HpZ-q3-NuT"/>
                     <constraint firstAttribute="trailing" secondItem="aQL-Fn-d9t" secondAttribute="trailing" id="Ika-Ql-0mL"/>
                     <constraint firstItem="6fE-66-TEw" firstAttribute="centerY" secondItem="lDG-VO-swQ" secondAttribute="centerY" id="LQs-W7-V30"/>
                     <constraint firstItem="qpV-Qs-e2q" firstAttribute="centerY" secondItem="lDG-VO-swQ" secondAttribute="centerY" id="MTl-tp-Tvl"/>
                     <constraint firstItem="yQo-Iv-5kq" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Pki-30-Tcb"/>
+                    <constraint firstAttribute="trailing" secondItem="TfJ-8r-v4a" secondAttribute="trailing" constant="18" id="V5Q-yR-vgv"/>
                     <constraint firstItem="qpV-Qs-e2q" firstAttribute="leading" secondItem="6fE-66-TEw" secondAttribute="trailing" constant="10" id="Ypl-HR-Xp7"/>
                     <constraint firstAttribute="trailingMargin" secondItem="AL9-56-cNV" secondAttribute="trailing" constant="19" id="dhB-3o-Djb"/>
                     <constraint firstItem="6fE-66-TEw" firstAttribute="leading" secondItem="lDG-VO-swQ" secondAttribute="trailing" constant="4" id="is0-fF-Zi5"/>
@@ -166,6 +179,7 @@
                     <constraint firstItem="lDG-VO-swQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="ukw-Sz-u7O"/>
                     <constraint firstAttribute="bottomMargin" secondItem="AL9-56-cNV" secondAttribute="bottom" constant="30" id="vfZ-L8-Vg4"/>
                     <constraint firstItem="AL9-56-cNV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="wc7-9O-u4d"/>
+                    <constraint firstItem="aQL-Fn-d9t" firstAttribute="top" secondItem="9qC-nc-YqT" secondAttribute="bottom" constant="15" id="wcE-7t-Cga"/>
                     <constraint firstItem="Me0-b0-ecQ" firstAttribute="leading" secondItem="2L3-3V-dQS" secondAttribute="trailing" constant="5" id="xf0-0h-FJM"/>
                     <constraint firstItem="lDG-VO-swQ" firstAttribute="top" secondItem="aQL-Fn-d9t" secondAttribute="bottom" constant="27" id="y2r-MW-rYu"/>
                     <constraint firstItem="AL9-56-cNV" firstAttribute="top" secondItem="lDG-VO-swQ" secondAttribute="bottom" constant="32" id="z35-4v-WIN"/>
@@ -181,6 +195,7 @@
                 <outlet property="numberOfLikeLabel" destination="6fE-66-TEw" id="SeC-Cd-URX"/>
                 <outlet property="pageControl" destination="yQo-Iv-5kq" id="2QV-3U-ebx"/>
                 <outlet property="postImgView" destination="fdT-MP-hdZ" id="IGh-m5-z5p"/>
+                <outlet property="pullDownButton" destination="TfJ-8r-v4a" id="dWD-MC-gU2"/>
                 <outlet property="scrollView" destination="aQL-Fn-d9t" id="ocf-MG-izp"/>
                 <outlet property="stackView" destination="NS4-WZ-E6o" id="uFp-Sq-hUo"/>
                 <outlet property="timeLabel" destination="9qC-nc-YqT" id="8AQ-p0-xbS"/>
@@ -191,6 +206,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="mappin" catalog="system" width="105" height="128"/>
         <image name="message" catalog="system" width="128" height="113"/>

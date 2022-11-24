@@ -13,6 +13,7 @@ import FirebaseFirestoreSwift
 protocol PostTableViewCellDelegate: AnyObject {
     func deletePost(_ cell: PostTableViewCell)
     func reportPost(_ cell: PostTableViewCell)
+    func blockPeople(_ cell: PostTableViewCell)
 }
 
 class PostTableViewCell: UITableViewCell {
@@ -71,6 +72,7 @@ class PostTableViewCell: UITableViewCell {
             pullDownButton.menu = UIMenu(children: [
                 UIAction(title: "Block", image: UIImage(systemName: "hand.raised.slash"), handler: { action in
                     print("Block")
+                    self.delegate?.blockPeople(self)
                 }),
                 
                 UIAction(title: "Report", image: UIImage(systemName: "exclamationmark.bubble"), handler: { action in

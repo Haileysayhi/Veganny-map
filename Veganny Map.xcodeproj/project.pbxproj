@@ -27,6 +27,7 @@
 		D28A5BEF290BE379005F5D50 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D28A5BED290BE379005F5D50 /* Main.storyboard */; };
 		D28A5BF1290BE37B005F5D50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D28A5BF0290BE37B005F5D50 /* Assets.xcassets */; };
 		D28A5BF4290BE37B005F5D50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */; };
+		D290F86E292F16D30031D84F /* BlockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D290F86D292F16D30031D84F /* BlockListViewController.swift */; };
 		D29F59FB29160BEE00513A63 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29F59F929160BEE00513A63 /* PostTableViewCell.swift */; };
 		D29F59FC29160BEE00513A63 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D29F59FA29160BEE00513A63 /* PostTableViewCell.xib */; };
 		D29F59FE29160C6300513A63 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29F59FD29160C6300513A63 /* PostViewController.swift */; };
@@ -77,6 +78,7 @@
 		D28A5BF0290BE37B005F5D50 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D28A5BF3290BE37B005F5D50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D28A5BF5290BE37B005F5D50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D290F86D292F16D30031D84F /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockListViewController.swift; path = "Veganny Map/Controller/BlockListViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D29F59F929160BEE00513A63 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		D29F59FA29160BEE00513A63 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 		D29F59FD29160C6300513A63 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				D242FDB82913E2DE00C56DCE /* Restaurant */,
 				D242FDB72913E2CC00C56DCE /* Detail */,
 				D28A5BED290BE379005F5D50 /* Main.storyboard */,
+				D290F86D292F16D30031D84F /* BlockListViewController.swift */,
 				D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */,
 			);
 			path = View;
@@ -506,6 +509,7 @@
 				D2F477EC2924B92F00B56067 /* EditProfileViewController.swift in Sources */,
 				D26C5B13292730530031DD3C /* MJRefreshWrapper.swift in Sources */,
 				D2A6131E2923431A0095AED2 /* CustomFunc.swift in Sources */,
+				D290F86E292F16D30031D84F /* BlockListViewController.swift in Sources */,
 				D2DEC44A291C8AB4001328CE /* SaveViewController.swift in Sources */,
 				D242FDB32913E26500C56DCE /* InfoTableViewCell.swift in Sources */,
 				D242FDAF2913D90B00C56DCE /* DetailViewController.swift in Sources */,

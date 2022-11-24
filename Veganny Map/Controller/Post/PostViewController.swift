@@ -122,17 +122,6 @@ class PostViewController: UIViewController {
     }
     
     func getPostData() {
-        
-//                dataBase.collection("User").document(getUserID()).getDocument(as: User.self) { result in
-//                    switch result {
-//                    case .success(let user):
-//                        print(user)
-//                        self.user = user
-//                    case .failure(let error):
-//                        print(error)
-//                    }
-//                }
-        
         dataBase.collection("Post").order(by: "time", descending: true).getDocuments { (querySnapshot, error) in
             self.posts = [] // 清空資料，從其他頁面跳回來時不會重複取資料
             self.myPosts = []

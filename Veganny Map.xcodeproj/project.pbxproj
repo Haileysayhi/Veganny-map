@@ -28,6 +28,7 @@
 		D28A5BF1290BE37B005F5D50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D28A5BF0290BE37B005F5D50 /* Assets.xcassets */; };
 		D28A5BF4290BE37B005F5D50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */; };
 		D290F86E292F16D30031D84F /* BlockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D290F86D292F16D30031D84F /* BlockListViewController.swift */; };
+		D290F871292F22930031D84F /* BlockListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D290F870292F22930031D84F /* BlockListTableViewCell.swift */; };
 		D29F59FB29160BEE00513A63 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29F59F929160BEE00513A63 /* PostTableViewCell.swift */; };
 		D29F59FC29160BEE00513A63 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D29F59FA29160BEE00513A63 /* PostTableViewCell.xib */; };
 		D29F59FE29160C6300513A63 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29F59FD29160C6300513A63 /* PostViewController.swift */; };
@@ -78,7 +79,8 @@
 		D28A5BF0290BE37B005F5D50 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D28A5BF3290BE37B005F5D50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D28A5BF5290BE37B005F5D50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D290F86D292F16D30031D84F /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockListViewController.swift; path = "Veganny Map/Controller/BlockListViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D290F86D292F16D30031D84F /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockListViewController.swift; path = "Veganny Map/Controller/ProfileViewController/BlockListViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D290F870292F22930031D84F /* BlockListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListTableViewCell.swift; sourceTree = "<group>"; };
 		D29F59F929160BEE00513A63 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		D29F59FA29160BEE00513A63 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 		D29F59FD29160C6300513A63 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -101,7 +103,7 @@
 		D2DEC449291C8AB4001328CE /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveViewController.swift; path = "Veganny Map/Controller/Save/SaveViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D2DEC44E291C8F1F001328CE /* SaveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveTableViewCell.swift; sourceTree = "<group>"; };
 		D2DEC452291DF4CE001328CE /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		D2F477EB2924B92F00B56067 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditProfileViewController.swift; path = "Veganny Map/Controller/ProfileViewController/EditProfileViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D2F477EB2924B92F00B56067 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditProfileViewController.swift; path = ../ProfileViewController/EditProfileViewController.swift; sourceTree = "<group>"; };
 		D2FC5F232914D66D00ADBBEB /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -271,16 +273,24 @@
 		D28A5BFD290D16A0005F5D50 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D290F872292F44870031D84F /* Profile */,
 				D2DEC450291CD311001328CE /* Save */,
 				D29F59FF2916262300513A63 /* Post */,
 				D26F2597291AAB8500A8CF1B /* Comment */,
 				D242FDB82913E2DE00C56DCE /* Restaurant */,
 				D242FDB72913E2CC00C56DCE /* Detail */,
 				D28A5BED290BE379005F5D50 /* Main.storyboard */,
-				D290F86D292F16D30031D84F /* BlockListViewController.swift */,
 				D28A5BF2290BE37B005F5D50 /* LaunchScreen.storyboard */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D290F872292F44870031D84F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				D290F870292F22930031D84F /* BlockListTableViewCell.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		D29F59FF2916262300513A63 /* Post */ = {
@@ -336,6 +346,7 @@
 				D2DEC452291DF4CE001328CE /* ProfileViewController.swift */,
 				D2F477EB2924B92F00B56067 /* EditProfileViewController.swift */,
 				D2A6131F292381BC0095AED2 /* TabBarViewController.swift */,
+				D290F86D292F16D30031D84F /* BlockListViewController.swift */,
 			);
 			path = ProfileViewController;
 			sourceTree = "<group>";
@@ -517,6 +528,7 @@
 				D26F2596291AAB7700A8CF1B /* CommentTableViewCell.swift in Sources */,
 				D29F59FB29160BEE00513A63 /* PostTableViewCell.swift in Sources */,
 				D2A06780290F970700988C56 /* PlaceDetails.swift in Sources */,
+				D290F871292F22930031D84F /* BlockListTableViewCell.swift in Sources */,
 				D2B21DE729275B8F00592FBA /* CheckinTableViewCell.swift in Sources */,
 				D242FDA929135CE200C56DCE /* RestaurantCollectionViewCell.swift in Sources */,
 				D28A5BEC290BE379005F5D50 /* MapViewController.swift in Sources */,

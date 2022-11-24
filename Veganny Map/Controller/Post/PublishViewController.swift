@@ -65,7 +65,6 @@ class PublishViewController: UIViewController {
     }
     
     @IBAction func post(_ sender: Any) {
-        
         if self.urlString == nil {
             CustomFunc.customAlert(title: "照片不可為空", message: "", vc: self, actionHandler: nil)
         } else {

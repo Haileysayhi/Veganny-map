@@ -15,6 +15,8 @@ class ProfileViewController: UIViewController {
     // MARK: - Properties
     let dataBase = Firestore.firestore()
     var user: User?
+//    let orangeView = SemiCirleView.self
+    var orangeView: SemiCirleView!
     
     // MARK: - IBOutlet
     @IBOutlet weak var profileImgView: UIImageView! {
@@ -27,13 +29,23 @@ class ProfileViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemOrange
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getUserData()
     }
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        if self.orangeView != nil {
+//            orangeView.translatesAutoresizingMaskIntoConstraints = false
+//            view.addSubview(orangeView)
+//            orangeView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//            orangeView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//        } else {
+//            return
+//        }
+//    }
     
     // MARK: - Function
     @IBAction func signOut(_ sender: Any) {

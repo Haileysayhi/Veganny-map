@@ -12,6 +12,7 @@ import FirebaseFirestoreSwift
 
 protocol PostTableViewCellDelegate: AnyObject {
     func deletePost(_ cell: PostTableViewCell)
+    func reportPost(_ cell: PostTableViewCell)
 }
 
 class PostTableViewCell: UITableViewCell {
@@ -74,6 +75,7 @@ class PostTableViewCell: UITableViewCell {
                 
                 UIAction(title: "Report", image: UIImage(systemName: "exclamationmark.bubble"), handler: { action in
                     print("Report")
+                    self.delegate?.reportPost(self)
                 })
             ])
         }  

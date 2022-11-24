@@ -182,7 +182,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         if changePage.selectedSegmentIndex == 0 {
             
             cell.setupPullDownButton(userID:posts[indexPath.row].authorId )
-
+            
             if posts[indexPath.row].likes.contains(getUserID()) {
                 cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 cell.likeButton.tintColor = .systemOrange
@@ -254,7 +254,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             
             cell.setupPullDownButton(userID: getUserID())
-
+            
             if myPosts[indexPath.row].likes.contains(getUserID()) {
                 cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 cell.likeButton.tintColor = .systemOrange
@@ -270,7 +270,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 subView.removeFromSuperview()
                 cell.pageControl.numberOfPages = 0
             }
-
+            
             myPosts[indexPath.row].mediaURL.forEach { imageURL in
                 let imageView = UIImageView()
                 imageView.loadImage(imageURL, placeHolder: UIImage(named: "placeholder"))
@@ -286,7 +286,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 cell.pageControl.isHidden = false
             }
-
+            
             cell.contentLabel.text = myPosts[indexPath.row].content
             
             dataBase.collection("User").document(myPosts[indexPath.row].authorId).getDocument(as: User.self) { result in
@@ -332,10 +332,13 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - PostTableViewCellDelegate
 extension PostViewController: PostTableViewCellDelegate {
+    
     func deletePost(_ cell: PostTableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("ERROR") }
         
         if changePage.selectedSegmentIndex == 0 {
+            CustomFunc.customAlert(title: "已刪除貼文", message: "", vc: self, actionHandler: nil)
+            
             dataBase.collection("Post").document(posts[indexPath.row].postId).delete()
             let deletePostId = dataBase.collection("User").document(getUserID())
             deletePostId.updateData([
@@ -346,6 +349,8 @@ extension PostViewController: PostTableViewCellDelegate {
             posts.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else {
+            
+            CustomFunc.customAlert(title: "已刪除貼文", message: "", vc: self, actionHandler: nil)
             dataBase.collection("Post").document(myPosts[indexPath.row].postId).delete()
             let deletePostId = dataBase.collection("User").document(getUserID())
             deletePostId.updateData([
@@ -355,6 +360,27 @@ extension PostViewController: PostTableViewCellDelegate {
             posts.remove(at: postIndex)
             myPosts.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    func reportPost(_ cell: PostTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { fatalError("ERROR") }
+        
+        if changePage.selectedSegmentIndex == 0 {
+            let document = dataBase.collection("Report").document()
+            
+            let report = Report(
+                userId: getUserID(),
+                postId: posts[indexPath.row].postId,
+                time: Timestamp(date: Date())
+            )
+            
+            CustomFunc.customAlert(title: "已檢舉完成", message: "謝謝你的意見", vc: self, actionHandler: nil)
+            do {
+                try document.setData(from: report)
+            } catch {
+                print("ERROR")
+            }
         }
     }
 }

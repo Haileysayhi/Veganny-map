@@ -59,3 +59,10 @@ enum ContentType: String {
     case photo
     case video
 }
+
+
+struct Report: Codable {
+    var userId: String
+    var postId: String
+    var time: Timestamp
+}

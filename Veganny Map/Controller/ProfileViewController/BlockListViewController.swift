@@ -54,6 +54,21 @@ class BlockListViewController: UIViewController {
             }
         }
     }
+    
+    @objc func removeFromBlockList(_ sender: UIButton) {
+        let point = sender.convert(CGPoint.zero, to: tableView) // 找出button的座標
+        guard let indexpath = tableView.indexPathForRow(at: point) else { return } // 座標轉換成 indexpath
+        
+        let document = dataBase.collection("User").document(getUserID())
+        let blockUserId = user?.blockId[indexpath.row]
+        document.updateData([
+            "blockId": FieldValue.arrayRemove([blockUserId]) // 解除封鎖人的id
+        ])
+        
+        user?.blockId.remove(at: indexpath.row)
+        tableView.deleteRows(at: [indexpath], with: .fade)
+        CustomFunc.customAlert(title: "已解除封鎖", message: "你將可以看到該使用者的貼文", vc: self, actionHandler: nil)
+    }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
@@ -73,6 +88,7 @@ extension BlockListViewController: UITableViewDataSource, UITableViewDelegate {
                 self.blockUser = user
                 cell.nameLabel.text = user.name
                 cell.profileImgView.loadImage(user.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+                cell.unblockButton.addTarget(self, action: #selector(self.removeFromBlockList), for: .touchUpInside)
             case .failure(let error):
                 print(error)
             }

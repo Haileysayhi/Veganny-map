@@ -16,7 +16,6 @@ class BlockListTableViewCell: UITableViewCell {
         }
     }
     @IBOutlet weak var nameLabel: UILabel!
-    
     @IBOutlet weak var unblockButton: UIButton! {
         didSet {
             unblockButton.layer.cornerRadius = 5

@@ -27,6 +27,7 @@ class SignInViewController: UIViewController {
         self.observeAppleIDState()
         self.checkAppleIDCredentialState(userID: appleUserID ?? "")
         setupAnimationView()
+        print("===JWT===\(JWTid().getJWTClientSecret())")
     }
     
     // MARK: - Function
@@ -65,7 +66,8 @@ class SignInViewController: UIViewController {
                     vc: self,
                     actionHandler: nil)
             case .notFound: // 無此用戶
-                CustomFunc.customAlert(title: "", message: "使用者尚未使用過 Apple ID 登入！", vc: self, actionHandler: nil)
+                print("使用者尚未使用過 Apple ID 登入！")
+//                CustomFunc.customAlert(title: "", message: "使用者尚未使用過 Apple ID 登入！", vc: self, actionHandler: nil)
                 // 跳轉到登入畫面
             case .transferred:
                 CustomFunc.customAlert(title: "請與開發者團隊進行聯繫，以利進行使用者遷移！", message: "", vc: self, actionHandler: nil)
@@ -192,6 +194,12 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
             // 與 Firebase Auth 進行串接
             firebaseSignInWithApple(credential: credential, fullName: appleIDCredential.fullName?.givenName ?? "User")
+            
+            // authorizationCode
+            if let authorizationCode = appleIDCredential.authorizationCode,
+               let codeString = String(data: authorizationCode, encoding: .utf8) {
+                print("===JWT--authorizationCode===\(codeString)")
+            }
         }
     }
     

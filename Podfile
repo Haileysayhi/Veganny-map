@@ -43,4 +43,7 @@ pod 'lottie-ios'
   # Pods for MJRefresh
 pod 'MJRefresh'
 
+  # Pods for SwiftJWT
+pod 'SwiftJWT'
+
 end

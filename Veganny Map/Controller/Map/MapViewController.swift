@@ -50,13 +50,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
         clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm, renderer: renderer)
         clusterManager.setMapDelegate(self) // Register self to listen to GMSMapViewDelegate events.
         
-        
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        guard let restaurantVC = storyboard.instantiateViewController(withIdentifier: String(describing: RestaurantViewController.self))
-//                as? RestaurantViewController
-//        else { fatalError("Could not instantiate RestaurantViewController") }
-        
-        
         searchAreaButton.setTitle("search this area", for: .normal)
         searchAreaButton.tintColor = .white
         searchAreaButton.backgroundColor = .orange

@@ -62,6 +62,16 @@ class DetailViewController: UIViewController {
         didTapButton.toggle()
     }
     
+    
+    @objc func showSignInVC() {
+        
+        guard let signInVC = storyboard?.instantiateViewController(withIdentifier: String(describing: SignInViewController.self))
+                as? SignInViewController
+        else { fatalError("Could not instantiate SignInViewController") }
+        
+        present(signInVC, animated: true)
+    }
+    
     @IBAction func callRestaurant(_ sender: Any) {
         let controller = UIAlertController(title: "店家資訊", message: infoResult?.name, preferredStyle: .actionSheet)
         let phoneNumber = infoResult!.internationalPhoneNumber as! String
@@ -133,20 +143,25 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                 withIdentifier: "InfoTableViewCell",
                 for: indexPath) as? InfoTableViewCell else { fatalError("Could not create Cell") }
 
-            dataBase.collection("User").document(getUserID()).addSnapshotListener { snapshot, error in
-                guard let snapshot = snapshot else { return }
-                guard let user = try? snapshot.data(as: User.self) else { return }
-                
-                if user.savedRestaurants.contains(self.infoResult!.placeId) {
-                    cell.saveButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                    cell.saveButton.tintColor = .systemPink
-                } else {
-                    cell.saveButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                    cell.saveButton.tintColor = .systemOrange
+            if getUserID().isEmpty {
+                cell.saveButton.addTarget(self, action: #selector(showSignInVC), for: .touchUpInside)
+            } else {
+                dataBase.collection("User").document(getUserID()).addSnapshotListener { snapshot, error in
+                    guard let snapshot = snapshot else { return }
+                    guard let user = try? snapshot.data(as: User.self) else { return }
+                    
+                    if user.savedRestaurants.contains(self.infoResult!.placeId) {
+                        cell.saveButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                        cell.saveButton.tintColor = .systemPink
+                    } else {
+                        cell.saveButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                        cell.saveButton.tintColor = .systemOrange
+                    }
                 }
+                
+                cell.saveButton.addTarget(self, action: #selector(saveRestaurantId), for: .touchUpInside)
             }
-            
-            cell.saveButton.addTarget(self, action: #selector(saveRestaurantId), for: .touchUpInside)
+ 
             cell.nameLabel.text = infoResult.name
             cell.addressLabel.text = infoResult.formattedAddress
             cell.workHourLabel.text = infoResult.currentOpeningHours.weekdayText.map({$0}).joined(separator: "\n")

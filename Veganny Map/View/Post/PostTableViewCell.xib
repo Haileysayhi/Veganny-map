@@ -95,14 +95,13 @@
                         <buttonConfiguration key="configuration" style="plain" image="message" catalog="system"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Me0-b0-ecQ">
-                        <rect key="frame" x="50" y="46.5" width="41" height="15.5"/>
+                        <rect key="frame" x="50" y="46.5" width="42.5" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="tintColor" systemColor="systemOrangeColor"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2" maxY="0.0"/>
                         <state key="normal" title="Taipei">
                             <color key="titleColor" systemColor="systemOrangeColor"/>
                             <imageReference key="image" image="mappin" catalog="system" symbolScale="small"/>
-                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15"/>
                         </state>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kim-8u-fNf">

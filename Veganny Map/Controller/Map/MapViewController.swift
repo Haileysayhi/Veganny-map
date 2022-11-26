@@ -120,8 +120,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
                 }
                 
                 if let result = response?.firstResult() {
-                    print("IDIDID target \(position.target)")
-                    print("IDIDID line 0 \(result.lines?[0])")
                     self.moveLocation = "\(position.target.latitude),\(position.target.longitude)"
                 }
             }
@@ -134,8 +132,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
         self.mapView.clear()
         GoogleMapListController.shared.fetchNearbySearch(location: self.moveLocation, keyword: "vegan", radius: 3000) { listresponse in
             self.listResponse = listresponse
-            print("==位置<moveLocation>有沒有吃到\(self.userLocation)")
-            print("==<moveLocation><MapViewController>\(listresponse)")
             self.delegate.manager(self, didGet: listresponse!.results)
             listresponse?.results.forEach({ result in
                 let marker = GMSMarker()

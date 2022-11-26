@@ -156,7 +156,7 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as? CommentTableViewCell else { fatalError("Could not creat Cell.") }
-        
+
         self.getUserData(userId: self.comments[indexPath.row].userId)
         self.group.notify(queue: DispatchQueue.main) {
             cell.nameLabel.text = self.user?.name
@@ -176,7 +176,6 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         if Auth.auth().currentUser?.uid == commentUserID {
             let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, complete) in
                 self.deleteCommentData(indexPath: indexPath.row)
-                print("deleteCommentData===\(indexPath.row)")
                 self.comments.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .top)
                 complete(true)

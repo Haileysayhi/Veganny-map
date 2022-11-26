@@ -135,7 +135,6 @@ class PostViewController: UIViewController {
                         guard let user = self.user else { return }
                         if !user.blockId.contains(post.authorId) {
                             self.posts.append(post)
-                            print("===firebase:\(post)")
                         }
                     } catch {
                         print(error)
@@ -165,6 +164,30 @@ class PostViewController: UIViewController {
     @IBAction func changePost(_ sender: UISegmentedControl) {
         tableView.reloadData() // 點選時重新load資料
     }
+    
+    @objc func goToDetailVC(_ sender: UIButton) {
+        let point = sender.convert(CGPoint.zero, to: tableView) // 找出button的座標
+        guard let indexpath = tableView.indexPathForRow(at: point) else { return } // 座標轉換成 indexpath
+        
+        guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
+        else { fatalError("ERROR") }
+        
+        if changePage.selectedSegmentIndex == 0 {
+            GoogleMapListController.shared.fetchPlaceDetail(placeId: posts[indexpath.row].placeId) { detailResponse in
+                
+                guard let detailResponse = detailResponse else { fatalError("ERROR") }
+                tableVC.infoResult = detailResponse.result
+                self.present(tableVC, animated: true)
+            }
+        } else {
+            GoogleMapListController.shared.fetchPlaceDetail(placeId: myPosts[indexpath.row].placeId) { detailResponse in
+                
+                guard let detailResponse = detailResponse else { fatalError("ERROR") }
+                tableVC.infoResult = detailResponse.result
+                self.present(tableVC, animated: true)
+            }
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
@@ -184,7 +207,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             for: indexPath) as? PostTableViewCell else { fatalError("Could not creat Cell.") }
         cell.delegate = self // 註delegate
         if changePage.selectedSegmentIndex == 0 {
-            
+                        
             cell.setupPullDownButton(userID: posts[indexPath.row].authorId )
             
             if posts[indexPath.row].likes.contains(getUserID()) {
@@ -239,6 +262,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 cell.locationButton.isHidden = false
                 cell.locationButton.setTitle("\(posts[indexPath.row].location)", for: .normal)
+                cell.locationButton.addTarget(self, action: #selector(goToDetailVC), for: .touchUpInside)
             }
             let timeStamp = posts[indexPath.row].time
             let timeInterval = TimeInterval(Double(timeStamp.seconds))

@@ -41,6 +41,7 @@ struct Post: Codable {
     var likes: [String] // 按讚人的id -->為了讓按讚的人畫面可以顯示已按過讚
     var comments: [Comment]
     var location: String // 存地點
+    var placeId: String  // 存地點Id
 }
 
 enum MediaType: String {

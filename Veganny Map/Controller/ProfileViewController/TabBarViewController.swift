@@ -36,7 +36,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
             } else if viewController == viewControllers?[2] {
                 signInVC.tabBarItem = UITabBarItem(title: "Save", image: UIImage(systemName: "heart"), tag: 2)
                 viewControllers?.replaceSubrange(2...2, with: [signInVC])
-            }  else if viewController == viewControllers?[1] {
+            } else if viewController == viewControllers?[1] {
                 signInVC.tabBarItem = UITabBarItem(title: "Social", image: UIImage(systemName: "person.2"), tag: 1)
                 viewControllers?.replaceSubrange(1...1, with: [signInVC])
             }

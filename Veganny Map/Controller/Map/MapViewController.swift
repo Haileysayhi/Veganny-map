@@ -146,6 +146,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
                 
                 marker.snippet = result.name
                 marker.icon = GMSMarker.markerImage(with: .green)
+                marker.icon = UIImage(named: "location")
                 marker.accessibilityLabel = result.placeId // 儲存每個pin自己的id
                 self.clusterManager.add(marker)
                 self.clusterManager.cluster()

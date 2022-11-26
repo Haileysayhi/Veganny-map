@@ -100,7 +100,6 @@ class CommentViewController: UIViewController {
         ]
         document.updateData([
             "comments": FieldValue.arrayRemove([comment]) // 刪掉留言
-            
         ])
     }
     
@@ -185,7 +184,6 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
             deleteAction.image = UIImage(systemName: "trash")
             let trailingSwipConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
             return trailingSwipConfiguration
-            
         } else {
             return nil
         }

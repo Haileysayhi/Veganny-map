@@ -810,6 +810,7 @@ PODS:
   - GTMSessionFetcher/Core (2.2.0)
   - IQKeyboardManagerSwift (6.5.10)
   - JGProgressHUD (2.2)
+  - KeychainSwift (20.0.0)
   - Kingfisher (7.3.2)
   - KituraContracts (1.2.1):
     - LoggerAPI (~> 1.7)
@@ -852,6 +853,7 @@ DEPENDENCIES:
   - GooglePlaces
   - IQKeyboardManagerSwift
   - JGProgressHUD
+  - KeychainSwift (~> 20.0)
   - Kingfisher
   - lottie-ios
   - MJRefresh
@@ -892,6 +894,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - IQKeyboardManagerSwift
     - JGProgressHUD
+    - KeychainSwift
     - Kingfisher
     - KituraContracts
     - leveldb-library
@@ -938,6 +941,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: d62ffccea5108bb9e7762ee121ae63bbdd2c6303
   IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
+  KeychainSwift: 0ce6a4d13f7228054d1a71bb1b500448fb2ab837
   Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
   KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
@@ -952,6 +956,6 @@ SPEC CHECKSUMS:
   SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: 35f944b1e1acf70af1dd9470d923c9707a88368c
+PODFILE CHECKSUM: f49393c091693ce998a2753188cad90324f61b8d
 
 COCOAPODS: 1.11.3

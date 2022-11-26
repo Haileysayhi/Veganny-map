@@ -11,6 +11,9 @@ import AuthenticationServices // Sign in with apple
 import CryptoKit // Create random String (Nonce)
 import Firebase
 import Lottie
+import SwiftUI
+import KeychainSwift
+import SafariServices
 
 class SignInViewController: UIViewController {
     
@@ -19,6 +22,7 @@ class SignInViewController: UIViewController {
     var appleUserID: String?
     var animationView: AnimationView!
     var dataBase = Firestore.firestore()
+    let keychain = KeychainSwift()
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -27,10 +31,30 @@ class SignInViewController: UIViewController {
         self.observeAppleIDState()
         self.checkAppleIDCredentialState(userID: appleUserID ?? "")
         setupAnimationView()
-        print("===JWT===\(JWTid().getJWTClientSecret())")
+        
+        let privacyButton = UIButton()
+        privacyButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
+        privacyButton.tintColor = .systemOrange
+        privacyButton.layer.cornerRadius = 15
+        privacyButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(privacyButton)
+        
+        NSLayoutConstraint.activate([
+            privacyButton.widthAnchor.constraint(equalToConstant: 50),
+            privacyButton.heightAnchor.constraint(equalToConstant: 50),
+            privacyButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
+            privacyButton.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor, constant: 10)
+        ])
+        privacyButton.addTarget(self, action: #selector(privacyPolicy), for: .touchUpInside)
     }
     
     // MARK: - Function
+    @objc func privacyPolicy() {
+        if let url = URL(string: "https://www.privacypolicies.com/live/551f2624-e971-4107-84da-175188788ebb") {
+            let vc = SFSafariViewController(url: url)
+            present(vc, animated: true)
+        }
+    }
     
     func setupAnimationView() {
         animationView = .init(name: "84914-purple")
@@ -67,7 +91,7 @@ class SignInViewController: UIViewController {
                     actionHandler: nil)
             case .notFound: // 無此用戶
                 print("使用者尚未使用過 Apple ID 登入！")
-//                CustomFunc.customAlert(title: "", message: "使用者尚未使用過 Apple ID 登入！", vc: self, actionHandler: nil)
+                //                CustomFunc.customAlert(title: "", message: "使用者尚未使用過 Apple ID 登入！", vc: self, actionHandler: nil)
                 // 跳轉到登入畫面
             case .transferred:
                 CustomFunc.customAlert(title: "請與開發者團隊進行聯繫，以利進行使用者遷移！", message: "", vc: self, actionHandler: nil)
@@ -189,7 +213,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
             else { fatalError("Could not instantiate tabController") }
             viewController?.replaceSubrange(3...3, with: [tabBarControllers[3]])
             self.tabBarController?.viewControllers = viewController
-
+            
             // 產生 Apple ID 登入的 Credential
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
             // 與 Firebase Auth 進行串接
@@ -199,6 +223,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
             if let authorizationCode = appleIDCredential.authorizationCode,
                let codeString = String(data: authorizationCode, encoding: .utf8) {
                 print("===JWT--authorizationCode===\(codeString)")
+                getRefreshToken(codeString: codeString)
             }
         }
     }
@@ -225,6 +250,41 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
             break
         }
     }
+    
+    
+    func getRefreshToken(codeString: String) {
+        let url = URL(string: "https://appleid.apple.com/auth/token?client_id=\(Bundle.main.bundleIdentifier!)&client_secret=\(JWTid().getJWTClientSecret())&code=\(codeString)&grant_type=authorization_code")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest)  { (data, response, error) in
+            guard let response = response as? HTTPURLResponse, error == nil else {
+                print("error", error ?? URLError(.badServerResponse))
+                return
+            }
+            if let data = data {
+                let decoder = JSONDecoder()
+                do {
+                    let tokenResponse = try decoder.decode(TokenResponse.self, from: data)
+                    print("===tokenResponse:\(tokenResponse)")
+                    self.keychain.set(tokenResponse.refreshToken, forKey: "refreshToken")
+                } catch {
+                    print("\(error)")
+                }
+            }
+            guard (200 ... 299) ~= response.statusCode else {
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+            if let error = error {
+                print(error)
+            } else {
+                print("deleted accont")
+            }
+        }
+        task.resume()
+    }
 }
 
 // MARK: - ASAuthorizationControllerPresentationContextProviding
@@ -234,7 +294,6 @@ extension SignInViewController: ASAuthorizationControllerPresentationContextProv
         return view.window!
     }
 }
-
 
 // 透過 Credential 與 Firebase Auth 串接
 extension SignInViewController {

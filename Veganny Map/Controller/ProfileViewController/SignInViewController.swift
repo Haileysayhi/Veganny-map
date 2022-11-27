@@ -190,11 +190,11 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                 fatalError("Invalid state: A login callback was received, but no login request was sent.")
             }
             guard let appleIDToken = appleIDCredential.identityToken else {
-                CustomFunc.customAlert(title: "", message: "Unable to fetch identity token", vc: self, actionHandler: nil)
+                print("Unable to fetch identity token")
                 return
             }
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                CustomFunc.customAlert(title: "", message: "Unable to serialize token string from data\n\(appleIDToken.debugDescription)", vc: self, actionHandler: nil)
+                print("Unable to serialize token string from data\n\(appleIDToken.debugDescription)")
                 return
             }
             print("user: \(appleIDCredential.user)")
@@ -211,8 +211,10 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                     as? TabBarViewController,
                 let tabBarControllers = tabController.viewControllers
             else { fatalError("Could not instantiate tabController") }
+            
             viewController?.replaceSubrange(3...3, with: [tabBarControllers[3]])
             self.tabBarController?.viewControllers = viewController
+            self.tabBarController?.selectedIndex = 3
             
             // 產生 Apple ID 登入的 Credential
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
@@ -340,6 +342,6 @@ extension SignInViewController {
         }
         let uid = user.uid
         let email = user.email
-        CustomFunc.customAlert(title: "使用者資訊", message: "UID：\(uid)\nEmail：\(email!)", vc: self, actionHandler: nil)
+        print("使用者資訊:UID：\(uid)\nEmail：\(email!)")
     }
 }

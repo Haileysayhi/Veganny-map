@@ -43,8 +43,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
         manager.distanceFilter = kCLLocationAccuracyNearestTenMeters // update data after move ten meters
         manager.desiredAccuracy = kCLLocationAccuracyBest
         
-        //    生成 Cluster Manager
-        let iconGenerator = GMUDefaultClusterIconGenerator.init(buckets: [99999], backgroundColors: [UIColor.green])
+        // 生成 Cluster Manager
+        let iconGenerator = GMUDefaultClusterIconGenerator.init(buckets: [99999], backgroundColors: [UIColor(hexString: "FFA500", alpha: 1.0)])
         let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
         let renderer = GMUDefaultClusterRenderer(mapView: mapView, clusterIconGenerator: iconGenerator)
         clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm, renderer: renderer)
@@ -88,7 +88,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
                 )
                 
                 marker.snippet = result.name
-                marker.icon = GMSMarker.markerImage(with: .green)
+                marker.icon = GMSMarker.markerImage(with: UIColor(hexString: "FFA500", alpha: 0.5))
                 marker.accessibilityLabel = result.placeId // 儲存每個pin自己的id
                 self.clusterManager.add(marker)
                 self.clusterManager.cluster()
@@ -120,8 +120,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
                 }
                 
                 if let result = response?.firstResult() {
-                    print("IDIDID target \(position.target)")
-                    print("IDIDID line 0 \(result.lines?[0])")
                     self.moveLocation = "\(position.target.latitude),\(position.target.longitude)"
                 }
             }
@@ -134,8 +132,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
         self.mapView.clear()
         GoogleMapListController.shared.fetchNearbySearch(location: self.moveLocation, keyword: "vegan", radius: 3000) { listresponse in
             self.listResponse = listresponse
-            print("==位置<moveLocation>有沒有吃到\(self.userLocation)")
-            print("==<moveLocation><MapViewController>\(listresponse)")
             self.delegate.manager(self, didGet: listresponse!.results)
             listresponse?.results.forEach({ result in
                 let marker = GMSMarker()
@@ -145,8 +141,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
                 )
                 
                 marker.snippet = result.name
-                marker.icon = GMSMarker.markerImage(with: .green)
-                marker.icon = UIImage(named: "location")
+                marker.icon = GMSMarker.markerImage(with: UIColor(hexString: "FFA500", alpha: 0.5))
+//                marker.icon = UIImage(named: "location")
                 marker.accessibilityLabel = result.placeId // 儲存每個pin自己的id
                 self.clusterManager.add(marker)
                 self.clusterManager.cluster()

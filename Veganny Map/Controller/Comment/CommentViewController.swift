@@ -70,17 +70,14 @@ class CommentViewController: UIViewController {
     }
     
     func getCommentData() {
-        group.enter()
         dataBase.collection("Post").document(postId).getDocument(as: Post.self) { result in
             switch result {
             case .success(let post):
                 print(post)
                 self.comments = post.comments
                 print("===comments\(self.comments)")
-                self.group.leave()
             case .failure(let error):
                 print(error)
-                self.group.leave()
             }
             DispatchQueue.main.async {
                 self.tableView.endHeaderRefreshing()
@@ -101,21 +98,6 @@ class CommentViewController: UIViewController {
         document.updateData([
             "comments": FieldValue.arrayRemove([comment]) // 刪掉留言
         ])
-    }
-    
-    func getUserData(userId: String) {
-        group.enter()
-        dataBase.collection("User").document(userId).getDocument(as: User.self) { result in
-            switch result {
-            case .success(let user):
-                print(user)
-                self.user = user
-                self.group.leave()
-            case .failure(let error):
-                print(error)
-                self.group.leave()
-            }
-        }
     }
     
     func getReadableDate(timeStamp: TimeInterval) -> String? {
@@ -156,16 +138,21 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as? CommentTableViewCell else { fatalError("Could not creat Cell.") }
-        
-        self.getUserData(userId: self.comments[indexPath.row].userId)
-        self.group.notify(queue: DispatchQueue.main) {
-            cell.nameLabel.text = self.user?.name
-            cell.photoImgView.loadImage(self.user?.userPhotoURL, placeHolder: UIImage(named: "placeholder"))
-            cell.contentLabel.text = self.comments[indexPath.row].content
-            let timeStamp = self.comments[indexPath.row].time
-            let timeInterval = TimeInterval(Double(timeStamp.seconds))
-            cell.timeLabel.text = timeInterval.getReadableDate()
+
+        dataBase.collection("User").document(self.comments[indexPath.row].userId).getDocument(as: User.self) { result in
+            switch result {
+            case .success(let user):
+                print(user)
+                cell.nameLabel.text = user.name
+                cell.photoImgView.loadImage(user.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+            case .failure(let error):
+                print(error)
+            }
         }
+        cell.contentLabel.text = self.comments[indexPath.row].content
+        let timeStamp = self.comments[indexPath.row].time
+        let timeInterval = TimeInterval(Double(timeStamp.seconds))
+        cell.timeLabel.text = timeInterval.getReadableDate()
         return cell
     }
     
@@ -176,7 +163,6 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         if Auth.auth().currentUser?.uid == commentUserID {
             let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, complete) in
                 self.deleteCommentData(indexPath: indexPath.row)
-                print("deleteCommentData===\(indexPath.row)")
                 self.comments.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .top)
                 complete(true)

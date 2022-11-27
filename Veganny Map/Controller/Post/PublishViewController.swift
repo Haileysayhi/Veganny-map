@@ -51,6 +51,7 @@ class PublishViewController: UIViewController {
     let storage = Storage.storage().reference()
     let dataBase = Firestore.firestore()
     var urlString = [String]()
+    var placeId = ""
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -94,7 +95,6 @@ class PublishViewController: UIViewController {
     
     func addData() {
         let document = dataBase.collection("Post").document()
-        print("===>>document ID \(document.documentID)")
         
         let post = Post(
             authorId: getUserID(),
@@ -105,7 +105,8 @@ class PublishViewController: UIViewController {
             time: Timestamp(date: Date()),
             likes: [],
             comments: [],
-            location: locationLabel.text ?? ""
+            location: locationLabel.text ?? "",
+            placeId: placeId
         )
         do {
             try document.setData(from: post)
@@ -123,11 +124,21 @@ class PublishViewController: UIViewController {
         let locationData = segue.destination as! CheckinViewController
         
         if segue.identifier == "segue" {
+            locationData.placeId = { [weak self] input in
+                guard let self = self else { return }
+                if input != nil {
+                    self.placeId = input
+                    print("===要傳的placeId***\(input)")
+                }
+            }
+            
+            
             locationData.name = { [weak self] input in
                 guard let self = self else { return }
                 if input != nil {
                     self.locationBaground.isHidden = false
                     self.locationLabel.text = input
+                    print("===要傳的placeId---\(input)")
                 }
             }
         }

@@ -64,11 +64,11 @@ class DetailViewController: UIViewController {
     
     
     @objc func showSignInVC() {
-        
-        guard let signInVC = storyboard?.instantiateViewController(withIdentifier: String(describing: SignInViewController.self))
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let signInVC = storyboard.instantiateViewController(withIdentifier: String(describing: SignInViewController.self))
                 as? SignInViewController
         else { fatalError("Could not instantiate SignInViewController") }
-        
+
         present(signInVC, animated: true)
     }
     
@@ -134,7 +134,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: "PhotoTableViewCell",
                 for: indexPath) as? PhotoTableViewCell else { fatalError("Could not create Cell") }
-
+            
             cell.photos = infoResult.photos // 傳資料給 PhotoTableViewCell
             return cell
             
@@ -142,7 +142,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: "InfoTableViewCell",
                 for: indexPath) as? InfoTableViewCell else { fatalError("Could not create Cell") }
-
+            
             if getUserID().isEmpty {
                 cell.saveButton.addTarget(self, action: #selector(showSignInVC), for: .touchUpInside)
             } else {
@@ -161,11 +161,11 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 cell.saveButton.addTarget(self, action: #selector(saveRestaurantId), for: .touchUpInside)
             }
- 
+            
             cell.nameLabel.text = infoResult.name
             cell.addressLabel.text = infoResult.formattedAddress
             cell.workHourLabel.text = infoResult.currentOpeningHours.weekdayText.map({$0}).joined(separator: "\n")
-        
+            
             cell.phoneLabel.text = infoResult.internationalPhoneNumber
             cell.reviewsLabel.text = "\(infoResult.rating)"
             return cell

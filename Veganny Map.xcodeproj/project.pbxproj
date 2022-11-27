@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9AA29B7418E4474B76273911 /* Pods_Veganny_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D9CDEC786808BA4B9EA007 /* Pods_Veganny_Map.framework */; };
+		D211BCBF293319C800423065 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D211BCBE293319C800423065 /* UIColor+Extension.swift */; };
 		D242FDA929135CE200C56DCE /* RestaurantCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDA829135CE200C56DCE /* RestaurantCollectionViewCell.swift */; };
 		D242FDAD29138B5700C56DCE /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDAC29138B5700C56DCE /* HeaderView.swift */; };
 		D242FDAF2913D90B00C56DCE /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDAE2913D90B00C56DCE /* DetailViewController.swift */; };
@@ -58,6 +59,7 @@
 		0F65300785C72F81C38D5308 /* Pods-Veganny Map.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Veganny Map.release.xcconfig"; path = "Target Support Files/Pods-Veganny Map/Pods-Veganny Map.release.xcconfig"; sourceTree = "<group>"; };
 		7154E386B18B67A32248E8D7 /* Pods-Veganny Map.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Veganny Map.debug.xcconfig"; path = "Target Support Files/Pods-Veganny Map/Pods-Veganny Map.debug.xcconfig"; sourceTree = "<group>"; };
 		98D9CDEC786808BA4B9EA007 /* Pods_Veganny_Map.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Veganny_Map.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D211BCBE293319C800423065 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		D242FDA829135CE200C56DCE /* RestaurantCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCollectionViewCell.swift; sourceTree = "<group>"; };
 		D242FDAC29138B5700C56DCE /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		D242FDAE2913D90B00C56DCE /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				D2D180E7291F848000661B4C /* TimeInterval+Extension.swift */,
+				D211BCBE293319C800423065 /* UIColor+Extension.swift */,
 				D2A6131D2923431A0095AED2 /* CustomFunc.swift */,
 			);
 			path = Extension;
@@ -373,6 +376,7 @@
 				46B403BD2094E60C53154FAE /* [CP] Copy Pods Resources */,
 				D2A0677B290F5C0200988C56 /* ShellScript */,
 				FA5365BE82D801F5C863084F /* [CP] Embed Pods Frameworks */,
+				D211BCBD293234B400423065 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -472,6 +476,25 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Veganny Map/Pods-Veganny Map-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D211BCBD293234B400423065 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		D2A0677B290F5C0200988C56 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -549,6 +572,7 @@
 				D26F2591291A364B00A8CF1B /* KingFisherWrapper.swift in Sources */,
 				D242FDBA2913E46700C56DCE /* PhotoCollectionViewCell.swift in Sources */,
 				D2A0678429113BEE00988C56 /* RestaurantViewController.swift in Sources */,
+				D211BCBF293319C800423065 /* UIColor+Extension.swift in Sources */,
 				D2A0677E290F96CF00988C56 /* PlaceSearch.swift in Sources */,
 				D2A06782290FCD6A00988C56 /* GoogleMapListController.swift in Sources */,
 			);
@@ -699,6 +723,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Veganny Map/Veganny Map.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = B683C2644L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Veganny Map/Info.plist";

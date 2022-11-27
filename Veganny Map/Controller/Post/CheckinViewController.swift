@@ -16,7 +16,8 @@ class CheckinViewController: UIViewController, CLLocationManagerDelegate {
     let listController = GoogleMapListController()
     var userLocation = UserDefaults.standard.object(forKey: "userLocation") as? String
     var name: ((String) -> ())? // 傳餐廳名字
-    
+    var placeId: ((String) -> ())? // 傳餐廳id
+
     // MARK: - IBOutlet
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -32,7 +33,6 @@ class CheckinViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         title = "Locations"
         listSearchBar.delegate = self
-        print("CheckinViewController ===\(self.userLocation)")
         getRestaurantData()
     }
     
@@ -68,6 +68,7 @@ extension CheckinViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         name?((listResponse?.results[indexPath.row].name)!)
+        placeId?((listResponse?.results[indexPath.row].placeId)!)
         self.dismiss(animated: true)
     }
 }

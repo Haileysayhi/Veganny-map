@@ -52,6 +52,12 @@ class PostTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        userImgView.image = nil
+        userNameLabel.text = nil
+    }
+    
     // MARK: - Function
     @IBAction func changePage(_ sender: UIPageControl) {
         let point = CGPoint(x: scrollView.bounds.width * CGFloat(sender.currentPage), y: 0)

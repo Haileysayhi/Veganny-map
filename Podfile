@@ -25,6 +25,8 @@ pod 'Firebase/Core'
 pod 'FirebaseFirestoreSwift'
 pod 'Firebase/Storage'
 pod 'Firebase/Auth'
+pod 'Firebase/Crashlytics'
+pod 'Firebase/Analytics'
 
   # Pods for Kingfisher
 pod 'Kingfisher'

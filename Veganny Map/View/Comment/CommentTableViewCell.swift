@@ -32,6 +32,5 @@ class CommentTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         photoImgView.image = nil
-        nameLabel.text = nil
     }
 }

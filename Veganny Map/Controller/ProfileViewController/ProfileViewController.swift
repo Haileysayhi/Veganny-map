@@ -141,7 +141,6 @@ class ProfileViewController: UIViewController {
                 print("response = \(response)")
                 return
             }
-            
             print("刪除帳號成功！")
             CustomFunc.customAlert(title: "已刪除帳號", message: "使用者資料已刪除", vc: self, actionHandler: nil)
             
@@ -171,7 +170,6 @@ class ProfileViewController: UIViewController {
                                     "userId": comment.userId,
                                     "time": comment.time
                                 ]
-                                print("===刪除留言 \(deleteComment)")
                                 self.dataBase.collection("Post").document(post.postId).updateData([
                                     "comments": FieldValue.arrayRemove([deleteComment]) // 刪掉留言
                                 ])
@@ -268,7 +266,6 @@ class ProfileViewController: UIViewController {
         }.joined()
         return hashString
     }
-    
 }
 
 extension ProfileViewController: ASAuthorizationControllerDelegate {
@@ -282,11 +279,11 @@ extension ProfileViewController: ASAuthorizationControllerDelegate {
                 fatalError("Invalid state: A login callback was received, but no login request was sent.")
             }
             guard let appleIDToken = appleIDCredential.identityToken else {
-                CustomFunc.customAlert(title: "", message: "Unable to fetch identity token", vc: self, actionHandler: nil)
+                print("Unable to fetch identity token")
                 return
             }
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                CustomFunc.customAlert(title: "", message: "Unable to serialize token string from data\n\(appleIDToken.debugDescription)", vc: self, actionHandler: nil)
+                print("Unable to serialize token string from data\n\(appleIDToken.debugDescription)")
                 return
             }
             print("user: \(appleIDCredential.user)")

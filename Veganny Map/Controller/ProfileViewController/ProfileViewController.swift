@@ -159,7 +159,6 @@ class ProfileViewController: UIViewController {
         
         // 1.刪除留言
         self.dataBase.collection("Post").getDocuments { (querySnapshot, error) in
-            print("===刪除留言")
             if let querySnapshot = querySnapshot {
                 for document in querySnapshot.documents {
                     do {
@@ -185,50 +184,16 @@ class ProfileViewController: UIViewController {
             }
         }
         // 2.刪除貼文
-        print("======刪除貼文getUserID \(getUserID())")
-        dataBase.collection("User").whereField("userId", isEqualTo: getUserID()).getDocuments { snapshot, error in
-            print("===刪除貼文")
-            if let error = error {
-                print("===刪除貼文 error \(error)")
-            } else {
-                guard
-                    let snapshot = snapshot,
-                    let document = snapshot.documents.first
-                else {
-                    print("===刪除貼文 沒有這個人")
-                    return
-                }
-                do {
-                    let user = try document.data(as: User.self)
-                    for postId in user.postIds {
-                        self.dataBase.collection("Post").document(postId).delete()
-                    }
-                    print("===刪除貼文 user \(user)")
-                } catch {
-                    print("===刪除貼文 catch")
-                }
-            }
+        guard let user = user else { return }
+        for postId in user.postIds {
+            self.dataBase.collection("Post").document(postId).delete()
         }
-//        self.dataBase.collection("User").document(getUserID()).getDocument(as: User.self) { result in
-//            print("===刪除貼文\(result)")
-//            switch result {
-//            case .success(let user):
-//                print("===刪除貼文user\(user)")
-//                for postId in user.postIds {
-//                    self.dataBase.collection("Post").document(postId).delete()
-//                }
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
         // 3. 刪黑名單
         self.dataBase.collection("User").getDocuments { (querySnapshot, error) in
-            print("===刪黑名單")
             if let querySnapshot = querySnapshot {
                 for doc in querySnapshot.documents {
                     do {
                         let user = try doc.data(as: User.self)
-                        print("===刪黑名單 user \(user)")
                         self.dataBase.collection("User").document(user.userId).updateData([
                             "blockId": FieldValue.arrayRemove([getUserID()])
                         ])
@@ -240,9 +205,8 @@ class ProfileViewController: UIViewController {
         }
         // 4. 刪使用者
         self.dataBase.collection("User").document(getUserID()).delete()
-        
-        let user = Auth.auth().currentUser
-        user?.delete { error in
+        let currentUser = Auth.auth().currentUser
+        currentUser?.delete { error in
             if let error = error {
                 print("An error happened.")
             } else {

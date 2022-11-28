@@ -977,13 +977,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VOt-gr-nVw">
-                                                    <rect key="frame" x="52" y="52" width="322" height="16"/>
+                                                    <rect key="frame" x="52" y="49.5" width="322" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" systemColor="systemGray2Color"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJe-n4-8dJ">
-                                                    <rect key="frame" x="30" y="50" width="20" height="20"/>
+                                                    <rect key="frame" x="30" y="47.5" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="9LY-46-P3h"/>
                                                         <constraint firstAttribute="width" constant="20" id="yYh-Wf-YWB"/>
@@ -998,12 +998,12 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="VOt-gr-nVw" secondAttribute="trailing" constant="20" id="8Hz-ik-3VO"/>
                                                 <constraint firstItem="lJe-n4-8dJ" firstAttribute="centerY" secondItem="VOt-gr-nVw" secondAttribute="centerY" id="AnV-o8-Rey"/>
-                                                <constraint firstItem="VOt-gr-nVw" firstAttribute="top" secondItem="J9p-Yc-3bs" secondAttribute="bottom" constant="7.5" id="Cku-hI-19G"/>
+                                                <constraint firstItem="VOt-gr-nVw" firstAttribute="top" secondItem="J9p-Yc-3bs" secondAttribute="bottom" constant="5" id="Cku-hI-19G"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="NnT-9s-9pX" secondAttribute="bottom" constant="10" id="G0Y-EX-9kh"/>
                                                 <constraint firstItem="lJe-n4-8dJ" firstAttribute="leading" secondItem="qaG-CN-T1G" secondAttribute="leadingMargin" constant="10" id="KMr-k4-AZD"/>
                                                 <constraint firstItem="VOt-gr-nVw" firstAttribute="leading" secondItem="lJe-n4-8dJ" secondAttribute="trailing" constant="2" id="PHZ-3C-WqH"/>
                                                 <constraint firstItem="J9p-Yc-3bs" firstAttribute="leading" secondItem="qaG-CN-T1G" secondAttribute="leadingMargin" constant="12" id="XV3-Av-Bk2"/>
-                                                <constraint firstItem="NnT-9s-9pX" firstAttribute="top" secondItem="VOt-gr-nVw" secondAttribute="bottom" constant="10" id="dYL-yO-f90"/>
+                                                <constraint firstItem="NnT-9s-9pX" firstAttribute="top" secondItem="VOt-gr-nVw" secondAttribute="bottom" constant="12.5" id="Zvx-hE-7Q1"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="J9p-Yc-3bs" secondAttribute="trailing" constant="20" id="gOg-TO-TdU"/>
                                                 <constraint firstItem="J9p-Yc-3bs" firstAttribute="top" secondItem="qaG-CN-T1G" secondAttribute="topMargin" constant="8" id="n86-NU-e9O"/>
                                                 <constraint firstItem="NnT-9s-9pX" firstAttribute="centerX" secondItem="qaG-CN-T1G" secondAttribute="centerX" id="nM6-vo-pw6"/>

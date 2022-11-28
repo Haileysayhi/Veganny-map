@@ -218,7 +218,6 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.likeButton.tintColor = .black
             }
             cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
-            cell.numberOfCommentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             
             cell.stackView.subviews.forEach { subView in
@@ -256,7 +255,13 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            cell.numberOfCommentButton.setTitle("\(posts[indexPath.row].comments.count)", for: .normal)
+            if posts[indexPath.row].comments.isEmpty {
+                cell.numberOfCommentButton.isHidden = true
+            } else {
+                cell.numberOfCommentButton.isHidden = false
+                cell.numberOfCommentButton.text = "\(posts[indexPath.row].comments.count)"
+            }
+            
             if posts[indexPath.row].location.isEmpty {
                 cell.locationButton.isHidden = true
             } else {
@@ -291,7 +296,6 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.likeButton.tintColor = .black
             }
             cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
-            cell.numberOfCommentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             
             cell.stackView.subviews.forEach { subView in
@@ -329,8 +333,13 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            cell.numberOfCommentButton.setTitle("\(myPosts[indexPath.row].comments.count)", for: .normal)
-            
+            if posts[indexPath.row].comments.isEmpty {
+                cell.numberOfCommentButton.isHidden = true
+            } else {
+                cell.numberOfCommentButton.isHidden = false
+                cell.numberOfCommentButton.text = "\(myPosts[indexPath.row].comments.count)"
+            }
+                        
             if myPosts[indexPath.row].location.isEmpty {
                 cell.locationButton.isHidden = true
             } else {

@@ -30,7 +30,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var numberOfLikeLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var numberOfCommentButton: UIButton!
+    @IBOutlet weak var numberOfCommentButton: UILabel!
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var stackView: UIStackView!

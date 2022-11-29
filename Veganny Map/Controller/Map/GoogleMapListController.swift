@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class GoogleMapListController {
-    static let key = "AIzaSyA-dW0mEggsDkA8t_N2fNQATewTfmorE6E"
+    static let key = "AIzaSyC8IQNR378ak19gj7fEHbuQoU4txNS6jic"
     static var shared = GoogleMapListController()
     
     // Place Search - NearbySearch

@@ -15,8 +15,8 @@ import FirebaseStorage
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        GMSServices.provideAPIKey("AIzaSyA-dW0mEggsDkA8t_N2fNQATewTfmorE6E")
-        GMSPlacesClient.provideAPIKey("AIzaSyA-dW0mEggsDkA8t_N2fNQATewTfmorE6E")
+        GMSServices.provideAPIKey("AIzaSyC8IQNR378ak19gj7fEHbuQoU4txNS6jic")
+        GMSPlacesClient.provideAPIKey("AIzaSyC8IQNR378ak19gj7fEHbuQoU4txNS6jic")
         
         IQKeyboardManager.shared.enable = true
         

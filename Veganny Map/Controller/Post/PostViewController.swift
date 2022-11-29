@@ -48,7 +48,6 @@ class PostViewController: UIViewController {
         navigationItem.standardAppearance = barAppearance
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = .systemOrange
-        
         tableView.register(UINib(nibName: "PostTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "PostTableViewCell")
         tableView.beginHeaderRefreshing() // 出現轉圈圈圖案
@@ -73,6 +72,7 @@ class PostViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
         getPostData()
         getUserData(userId: getUserID())
     }

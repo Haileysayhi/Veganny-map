@@ -1126,10 +1126,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InfoTableViewCell" id="iiO-Rt-Sua" customClass="InfoTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="446.5" width="414" height="325"/>
+                                        <rect key="frame" x="0.0" y="446.5" width="414" height="340"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iiO-Rt-Sua" id="5sv-fT-QAK">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="325"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="340"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNg-Ug-ZAh">
@@ -1139,19 +1139,19 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XtJ-7u-M8K">
-                                                    <rect key="frame" x="30" y="146" width="354" height="20.5"/>
+                                                    <rect key="frame" x="30" y="151" width="354" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Work hour" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Brb-ie-oCi">
-                                                    <rect key="frame" x="30" y="214.5" width="314" height="20.5"/>
+                                                    <rect key="frame" x="30" y="224.5" width="314" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="too-xJ-c52">
-                                                    <rect key="frame" x="30" y="283.5" width="200" height="20.5"/>
+                                                    <rect key="frame" x="30" y="298.5" width="200" height="20.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="lKv-oS-SOZ"/>
                                                     </constraints>
@@ -1166,13 +1166,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="營業時間" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i22-e3-Y6Z">
-                                                    <rect key="frame" x="30" y="191.5" width="61.5" height="18"/>
+                                                    <rect key="frame" x="30" y="196.5" width="61.5" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" systemColor="systemGray2Color"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="聯絡電話" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9u-MW-Tda">
-                                                    <rect key="frame" x="30" y="260.5" width="61.5" height="18"/>
+                                                    <rect key="frame" x="30" y="270.5" width="61.5" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" systemColor="systemGray2Color"/>
                                                     <nil key="highlightedColor"/>
@@ -1215,7 +1215,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="C9u-MW-Tda" firstAttribute="top" secondItem="Brb-ie-oCi" secondAttribute="bottom" constant="25.5" id="0PX-30-Uho"/>
-                                                <constraint firstItem="Brb-ie-oCi" firstAttribute="top" secondItem="i22-e3-Y6Z" secondAttribute="bottom" constant="5" id="4nV-ys-EZh"/>
+                                                <constraint firstItem="Brb-ie-oCi" firstAttribute="top" secondItem="i22-e3-Y6Z" secondAttribute="bottom" constant="10" id="4nV-ys-EZh"/>
                                                 <constraint firstItem="XtJ-7u-M8K" firstAttribute="leading" secondItem="5sv-fT-QAK" secondAttribute="leadingMargin" constant="10" id="Et4-tH-jsW"/>
                                                 <constraint firstItem="Jj9-tN-VcC" firstAttribute="top" secondItem="zNg-Ug-ZAh" secondAttribute="bottom" constant="22" id="GE8-rq-Bil"/>
                                                 <constraint firstItem="apI-sN-6GR" firstAttribute="leading" secondItem="5sv-fT-QAK" secondAttribute="leadingMargin" constant="10" id="MHc-z0-ssM"/>
@@ -1234,7 +1234,7 @@
                                                 <constraint firstItem="F6K-o9-6Km" firstAttribute="width" secondItem="16h-eE-eWt" secondAttribute="width" multiplier="0.873874" id="itB-rK-DtQ"/>
                                                 <constraint firstAttribute="trailing" secondItem="16h-eE-eWt" secondAttribute="trailing" constant="20" id="kNQ-pz-M1B"/>
                                                 <constraint firstItem="i22-e3-Y6Z" firstAttribute="top" secondItem="XtJ-7u-M8K" secondAttribute="bottom" constant="25" id="lbm-Dc-Rgh"/>
-                                                <constraint firstItem="XtJ-7u-M8K" firstAttribute="top" secondItem="apI-sN-6GR" secondAttribute="bottom" constant="5" id="m0T-QS-2U6"/>
+                                                <constraint firstItem="XtJ-7u-M8K" firstAttribute="top" secondItem="apI-sN-6GR" secondAttribute="bottom" constant="10" id="m0T-QS-2U6"/>
                                                 <constraint firstItem="F6K-o9-6Km" firstAttribute="height" secondItem="16h-eE-eWt" secondAttribute="height" id="maK-kY-cf0"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Brb-ie-oCi" secondAttribute="trailing" constant="50" id="q2f-6e-9g1"/>
                                                 <constraint firstItem="zNg-Ug-ZAh" firstAttribute="top" secondItem="5sv-fT-QAK" secondAttribute="topMargin" constant="10" id="qLh-0b-7Qf"/>
@@ -1242,7 +1242,7 @@
                                                 <constraint firstItem="Brb-ie-oCi" firstAttribute="leading" secondItem="5sv-fT-QAK" secondAttribute="leadingMargin" constant="10" id="swm-lj-9eb"/>
                                                 <constraint firstItem="16h-eE-eWt" firstAttribute="top" secondItem="zNg-Ug-ZAh" secondAttribute="bottom" constant="5" id="vUc-BF-nYh"/>
                                                 <constraint firstItem="too-xJ-c52" firstAttribute="leading" secondItem="5sv-fT-QAK" secondAttribute="leadingMargin" constant="10" id="vwC-z8-N7s"/>
-                                                <constraint firstItem="too-xJ-c52" firstAttribute="top" secondItem="C9u-MW-Tda" secondAttribute="bottom" constant="5" id="wX1-Zk-UYo"/>
+                                                <constraint firstItem="too-xJ-c52" firstAttribute="top" secondItem="C9u-MW-Tda" secondAttribute="bottom" constant="10" id="wX1-Zk-UYo"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1256,7 +1256,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReviewTableViewCell" id="O9x-MZ-ssZ" customClass="ReviewTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="771.5" width="414" height="200"/>
+                                        <rect key="frame" x="0.0" y="786.5" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O9x-MZ-ssZ" id="bxb-z1-4dO">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>

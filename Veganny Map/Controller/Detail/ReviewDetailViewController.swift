@@ -25,6 +25,7 @@ class ReviewDetailViewController: UIViewController {
             backGroundView.clipsToBounds = false
         }
     }
+    
     // MARK: - Properties
     var review: Reviews?
     var dateFormatter = DateFormatter()
@@ -32,16 +33,10 @@ class ReviewDetailViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(clickExitButton))
         getReview()
     }
     
-    
     // MARK: - Function
-    //    @objc func clickExitButton() {
-    //        dismiss(animated: true)
-    //    }
-    
     func getReview() {
         guard let review = review else { return }
     

@@ -50,7 +50,22 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getUserData()
+        
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
+
+        dataBase.collection("User").document(userId).getDocument(as: User.self) { result in
+            switch result {
+            case .success(let user):
+                print(user)
+                self.user = user
+                self.profileImgView.loadImage(self.user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+                self.nameLabel.text = self.user?.name
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     // MARK: - Function
@@ -91,23 +106,6 @@ class ProfileViewController: UIViewController {
     @IBAction func showEditProfilePage(_ sender: Any) {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "EditProfileViewController") as? EditProfileViewController else { return }
         navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func getUserData() {
-        guard let userId = Auth.auth().currentUser?.uid else {
-            return
-        }
-        dataBase.collection("User").document(userId).getDocument(as: User.self) { result in
-            switch result {
-            case .success(let user):
-                print(user)
-                self.user = user
-                self.profileImgView.loadImage(self.user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
-                self.nameLabel.text = self.user?.name
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
     
     @IBAction func deleteAccount(_ sender: Any) {

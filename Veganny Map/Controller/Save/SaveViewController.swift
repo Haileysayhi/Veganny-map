@@ -54,7 +54,6 @@ class SaveViewController: UIViewController {
         dataBase.collection("User").document(getUserID()).getDocument(as: User.self) { result in
             switch result {
             case .success(let user):
-                print("===SaveViewController資料===\(user)")
                 self.user = user
                 self.fetchPlaceId()
             case .failure(let error):

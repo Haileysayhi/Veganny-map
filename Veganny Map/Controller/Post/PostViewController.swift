@@ -373,67 +373,89 @@ extension PostViewController: PostTableViewCellDelegate {
     func deletePost(_ cell: PostTableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("ERROR") }
         
-        if changePage.selectedSegmentIndex == 0 {
-            dataBase.collection("Post").document(posts[indexPath.row].postId).delete()
-            let deletePostId = dataBase.collection("User").document(getUserID())
-            deletePostId.updateData([
-                "postIds": FieldValue.arrayRemove([posts[indexPath.row].postId])
-            ])
-            guard let postIndex = myPosts.firstIndex(where: { $0.postId == posts[indexPath.row].postId }) else { return }
-            myPosts.remove(at: postIndex)
-            posts.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            CustomFunc.customAlert(title: "已刪除貼文", message: "", vc: self, actionHandler: nil)
-        } else {
-            dataBase.collection("Post").document(myPosts[indexPath.row].postId).delete()
-            let deletePostId = dataBase.collection("User").document(getUserID())
-            deletePostId.updateData([
-                "postIds": FieldValue.arrayRemove([myPosts[indexPath.row].postId])
-            ])
-            guard let postIndex = posts.firstIndex(where: { $0.postId == myPosts[indexPath.row].postId }) else { return }
-            posts.remove(at: postIndex)
-            myPosts.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            CustomFunc.customAlert(title: "已刪除貼文", message: "", vc: self, actionHandler: nil)
+        
+        let controller = UIAlertController(title: "確定刪除貼文嗎？", message: "你將不會再看到已刪除的貼文", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
+            if self.changePage.selectedSegmentIndex == 0 {
+                self.dataBase.collection("Post").document(self.posts[indexPath.row].postId).delete()
+                let deletePostId = self.dataBase.collection("User").document(getUserID())
+                deletePostId.updateData([
+                    "postIds": FieldValue.arrayRemove([self.posts[indexPath.row].postId])
+                ])
+                guard let postIndex = self.myPosts.firstIndex(where: { $0.postId == self.posts[indexPath.row].postId }) else { return }
+                self.myPosts.remove(at: postIndex)
+                self.posts.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                CustomFunc.customAlert(title: "已刪除貼文", message: "", vc: self, actionHandler: nil)
+            } else {
+                self.dataBase.collection("Post").document(self.myPosts[indexPath.row].postId).delete()
+                let deletePostId = self.dataBase.collection("User").document(getUserID())
+                deletePostId.updateData([
+                    "postIds": FieldValue.arrayRemove([self.myPosts[indexPath.row].postId])
+                ])
+                guard let postIndex = self.posts.firstIndex(where: { $0.postId == self.myPosts[indexPath.row].postId }) else { return }
+                self.posts.remove(at: postIndex)
+                self.myPosts.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                CustomFunc.customAlert(title: "已刪除貼文", message: "", vc: self, actionHandler: nil)
+            }
         }
+        controller.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true)
     }
     
     func reportPost(_ cell: PostTableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("ERROR") }
         
-        if changePage.selectedSegmentIndex == 0 {
-            let document = dataBase.collection("Report").document()
-            
-            let report = Report(
-                userId: getUserID(),
-                postId: posts[indexPath.row].postId,
-                time: Timestamp(date: Date())
-            )
-            CustomFunc.customAlert(title: "已檢舉完成", message: "謝謝你的意見", vc: self, actionHandler: nil)
-            do {
-                try document.setData(from: report)
-            } catch {
-                print("ERROR")
+        let controller = UIAlertController(title: "確定檢舉這則貼文嗎？", message: "你的檢舉將會匿名", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
+            if self.changePage.selectedSegmentIndex == 0 {
+                let document = self.dataBase.collection("Report").document()
+                
+                let report = Report(
+                    userId: getUserID(),
+                    postId: self.posts[indexPath.row].postId,
+                    time: Timestamp(date: Date())
+                )
+                CustomFunc.customAlert(title: "已檢舉完成", message: "謝謝你的意見", vc: self, actionHandler: nil)
+                do {
+                    try document.setData(from: report)
+                } catch {
+                    print("ERROR")
+                }
             }
         }
+        controller.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true)
     }
     
     func blockPeople(_ cell: PostTableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("ERROR") }
         
-        if changePage.selectedSegmentIndex == 0 {
-            let document = dataBase.collection("User").document(getUserID())
-            let authorId = posts[indexPath.row].authorId
-            
-            document.updateData([
-                "blockId": FieldValue.arrayUnion([authorId]) // 存入封鎖人的id
-            ])
-            
-            getUserData(userId: getUserID())
-            getPostData()
-            CustomFunc.customAlert(title: "已封鎖該使用者", message: "你將不會再看到該使用者的貼文", vc: self, actionHandler: nil)
+        let controller = UIAlertController(title: "確定封鎖該使用者嗎？", message: "你將不會再看到該使用者的貼文", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
+            if self.changePage.selectedSegmentIndex == 0 {
+                let document = self.dataBase.collection("User").document(getUserID())
+                let authorId = self.posts[indexPath.row].authorId
+                
+                document.updateData([
+                    "blockId": FieldValue.arrayUnion([authorId]) // 存入封鎖人的id
+                ])
+                
+                self.getUserData(userId: getUserID())
+                self.getPostData()
+                CustomFunc.customAlert(title: "已封鎖該使用者", message: "你將不會再看到該使用者的貼文", vc: self, actionHandler: nil)
+            }
         }
+        controller.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true)
     }
 }

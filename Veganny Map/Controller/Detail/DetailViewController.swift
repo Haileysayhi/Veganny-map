@@ -28,6 +28,7 @@ class DetailViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.keyboardDismissMode = .onDrag
     }
     
     // MARK: - function

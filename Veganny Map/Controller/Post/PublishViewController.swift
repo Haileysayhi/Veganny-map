@@ -22,7 +22,6 @@ class PublishViewController: UIViewController {
         }
     }
     @IBOutlet var photoImgViews: [UIImageView]!
-    
     @IBOutlet weak var contentTextView: UITextView! {
         didSet {
             contentTextView.layer.cornerRadius = 20
@@ -38,7 +37,6 @@ class PublishViewController: UIViewController {
     }
     
     @IBOutlet weak var locationLabel: UILabel!
-    
     @IBOutlet weak var locationBaground: UIView! {
         didSet {
             locationBaground.layer.cornerRadius = 10
@@ -58,6 +56,11 @@ class PublishViewController: UIViewController {
         super.viewDidLoad()
         locationBaground.isHidden = true
         selectPhotos()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
     }
     
     // MARK: - Function
@@ -148,39 +151,43 @@ class PublishViewController: UIViewController {
 // MARK: - PHPickerViewControllerDelegate
 extension PublishViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true)
-        stackView.subviews.forEach { subView in
-            subView.removeFromSuperview()
-        }
-        
-        let itemProviders = results.map(\.itemProvider)
-        for (i, itemProvider) in itemProviders.enumerated() where itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
-                guard let self = self, let image = image as? UIImage else { return }
-                guard let imageData = image.jpegData(compressionQuality: 0.3) else { return }
-                let photoReference = self.storage.child(UUID().uuidString + ".jpg")
-                photoReference.putData(imageData, metadata: nil, completion: { _, error in
-                    guard error == nil else {
-                        print("Failed to upload")
-                        return
-                    }
-                    
-                    photoReference.downloadURL(completion: { url, error in
-                        guard let url = url, error == nil else {
+        if results.isEmpty {
+            picker.dismiss(animated: true)
+        } else {
+            picker.dismiss(animated: true)
+            stackView.subviews.forEach { subView in
+                subView.removeFromSuperview()
+            }
+            
+            let itemProviders = results.map(\.itemProvider)
+            for (i, itemProvider) in itemProviders.enumerated() where itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+                    guard let self = self, let image = image as? UIImage else { return }
+                    guard let imageData = image.jpegData(compressionQuality: 0.3) else { return }
+                    let photoReference = self.storage.child(UUID().uuidString + ".jpg")
+                    photoReference.putData(imageData, metadata: nil, completion: { _, error in
+                        guard error == nil else {
+                            print("Failed to upload")
                             return
                         }
                         
-                        self.urlString.append(url.absoluteString)
-                        DispatchQueue.main.async {
-                            let imageView = UIImageView(image: image)
-                            imageView.contentMode = .scaleAspectFill
-                            imageView.translatesAutoresizingMaskIntoConstraints = false
-                            imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
-                            self.stackView.addArrangedSubview(imageView)
-                        }
-                        print("Download URL: \(self.urlString)")
+                        photoReference.downloadURL(completion: { url, error in
+                            guard let url = url, error == nil else {
+                                return
+                            }
+                            
+                            self.urlString.append(url.absoluteString)
+                            DispatchQueue.main.async {
+                                let imageView = UIImageView(image: image)
+                                imageView.contentMode = .scaleAspectFill
+                                imageView.translatesAutoresizingMaskIntoConstraints = false
+                                imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+                                self.stackView.addArrangedSubview(imageView)
+                            }
+                            print("Download URL: \(self.urlString)")
+                        })
                     })
-                })
+                }
             }
         }
     }

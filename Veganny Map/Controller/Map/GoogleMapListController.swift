@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class GoogleMapListController {
     static let key = "AIzaSyCE3u5KCT169xXdo96QsrlyO6emFgyJYKo"
@@ -91,7 +92,10 @@ class GoogleMapListController {
     func fetchPhotos(photoReference: String, completion: @escaping (UIImage?) -> Void) {
         
         if let url = URL(string: "https://maps.googleapis.com/maps/api/place/photo?photo_reference=\(photoReference)&maxwidth=1600&key=\(GoogleMapListController.key)"){
-            
+//            let imageView = UIImageView()
+//            imageView.kf.indicatorType = .activity
+//            imageView.kf.setImage(with: url)
+//            completion(imageView.image)
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data,
                    let response = response as? HTTPURLResponse,

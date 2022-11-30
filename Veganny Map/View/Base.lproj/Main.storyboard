@@ -55,7 +55,7 @@
                                 <color key="barTintColor" red="1" green="0.60879793439999996" blue="0.1099349152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1Ax-AF-b7b">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1Ax-AF-b7b">
                                 <rect key="frame" x="0.0" y="95" width="414" height="767"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="separatorColor" red="1" green="0.65195513549999995" blue="0.24387190659999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -68,8 +68,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="232.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gTE-PP-oXo">
-                                                    <rect key="frame" x="20" y="11" width="374" height="210.5"/>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gTE-PP-oXo">
+                                                    <rect key="frame" x="0.0" y="11" width="414" height="210.5"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="210" id="ncX-Be-mFy"/>
@@ -108,11 +108,11 @@
                                                         </collectionViewCell>
                                                     </cells>
                                                     <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="HeaderView" id="fNF-zs-8pu" customClass="HeaderView" customModule="Veganny_Map" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="75"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FD-iN-Dnc">
-                                                                <rect key="frame" x="339" y="8" width="25" height="19"/>
+                                                                <rect key="frame" x="379" y="8" width="25" height="19"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="25" id="iiF-9X-bRS"/>
                                                                 </constraints>
@@ -121,7 +121,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zbr-Nw-dcy">
-                                                                <rect key="frame" x="8" y="8" width="294" height="20"/>
+                                                                <rect key="frame" x="8" y="8" width="334" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="20" id="H4k-lQ-3aB"/>
                                                                     <constraint firstAttribute="width" constant="290" id="e0o-0e-PuN"/>
@@ -138,7 +138,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9b6-yY-Juk">
-                                                                <rect key="frame" x="312" y="5" width="25" height="25"/>
+                                                                <rect key="frame" x="352" y="5" width="25" height="25"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="25" id="YvR-k8-657"/>
                                                                     <constraint firstAttribute="height" constant="25" id="iVP-ig-KU0"/>
@@ -150,7 +150,7 @@
                                                                 </buttonConfiguration>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pd8-xj-vYz">
-                                                                <rect key="frame" x="8" y="31.5" width="354" height="17"/>
+                                                                <rect key="frame" x="8" y="31.5" width="394" height="17"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <color key="textColor" systemColor="systemGray2Color"/>
                                                                 <nil key="highlightedColor"/>
@@ -203,9 +203,9 @@
                                                 </collectionView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="gTE-PP-oXo" secondAttribute="trailing" id="AYU-sw-acu"/>
+                                                <constraint firstItem="gTE-PP-oXo" firstAttribute="leading" secondItem="BqJ-gk-eP3" secondAttribute="leading" id="GVd-Ni-lTa"/>
                                                 <constraint firstItem="gTE-PP-oXo" firstAttribute="top" secondItem="BqJ-gk-eP3" secondAttribute="topMargin" id="K9g-mH-Jek"/>
-                                                <constraint firstItem="gTE-PP-oXo" firstAttribute="leading" secondItem="BqJ-gk-eP3" secondAttribute="leadingMargin" id="Vdu-Yh-foT"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="gTE-PP-oXo" secondAttribute="trailing" id="ogZ-5w-Egd"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="gTE-PP-oXo" secondAttribute="bottom" id="zx3-Qm-4mM"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1058,24 +1058,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Hvv-Ts-vdx">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Hvv-Ts-vdx">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="separatorColor" red="1" green="0.60879793439999996" blue="0.1099349152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PhotoTableViewCell" id="riD-cd-rOd" customClass="PhotoTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="372"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="402"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="riD-cd-rOd" id="uIe-nQ-bdP">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="372"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="402"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="plD-vU-inM">
-                                                    <rect key="frame" x="20" y="11" width="374" height="350"/>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="plD-vU-inM">
+                                                    <rect key="frame" x="0.0" y="11" width="414" height="380"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="350" id="xPf-yu-xJh"/>
+                                                        <constraint firstAttribute="height" constant="380" id="xPf-yu-xJh"/>
                                                     </constraints>
                                                     <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xvf-iP-b3t">
                                                         <size key="itemSize" width="180" height="180"/>
@@ -1115,9 +1115,9 @@
                                                 </collectionView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="plD-vU-inM" firstAttribute="leading" secondItem="uIe-nQ-bdP" secondAttribute="leadingMargin" id="AsV-4O-Jz7"/>
+                                                <constraint firstItem="plD-vU-inM" firstAttribute="leading" secondItem="uIe-nQ-bdP" secondAttribute="leading" id="IXC-4y-pCr"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="plD-vU-inM" secondAttribute="bottom" id="T5c-0q-kZX"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="plD-vU-inM" secondAttribute="trailing" id="m3c-vX-cLK"/>
+                                                <constraint firstAttribute="trailing" secondItem="plD-vU-inM" secondAttribute="trailing" id="dSU-rz-yeK"/>
                                                 <constraint firstItem="plD-vU-inM" firstAttribute="top" secondItem="uIe-nQ-bdP" secondAttribute="topMargin" id="vcn-Z6-1x3"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1126,7 +1126,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InfoTableViewCell" id="iiO-Rt-Sua" customClass="InfoTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="416.5" width="414" height="325"/>
+                                        <rect key="frame" x="0.0" y="446.5" width="414" height="325"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iiO-Rt-Sua" id="5sv-fT-QAK">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="325"/>
@@ -1256,7 +1256,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReviewTableViewCell" id="O9x-MZ-ssZ" customClass="ReviewTableViewCell" customModule="Veganny_Map" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="741.5" width="414" height="200"/>
+                                        <rect key="frame" x="0.0" y="771.5" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O9x-MZ-ssZ" id="bxb-z1-4dO">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>

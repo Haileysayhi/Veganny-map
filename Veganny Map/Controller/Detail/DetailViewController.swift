@@ -35,6 +35,8 @@ class DetailViewController: UIViewController {
     @objc func saveRestaurantId(_ sender: UIButton) {
         let document = dataBase.collection("User").document(getUserID())
         let placeId = infoResult?.placeId as! String
+
+        didTapButton.toggle()
         
         if didTapButton {
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
@@ -60,7 +62,6 @@ class DetailViewController: UIViewController {
             alertView.duration = 0.5
             alertView.present()
         }
-        didTapButton.toggle()
     }
     
     

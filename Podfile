@@ -51,4 +51,8 @@ pod 'SwiftJWT'
   # Pods for KeychainSwift
 pod 'KeychainSwift', '~> 20.0'
 
+  # Pods for Floating Button
+pod 'MaterialComponents/Buttons'
+
+
 end

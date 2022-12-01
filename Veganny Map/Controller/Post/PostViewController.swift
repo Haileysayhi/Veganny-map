@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import MaterialComponents.MaterialButtons
 
 class PostViewController: UIViewController {
     
@@ -36,6 +37,8 @@ class PostViewController: UIViewController {
     var user: User?
     let dataBase = Firestore.firestore()
     var didTapButton = false
+    let floatingButton = MDCFloatingButton(shape: .default)
+    var lastContentOffset: CGFloat = 0
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -52,17 +55,12 @@ class PostViewController: UIViewController {
                            forCellReuseIdentifier: "PostTableViewCell")
         tableView.beginHeaderRefreshing() // 出現轉圈圈圖案
         
-        let floatingButton = UIButton()
         floatingButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        floatingButton.tintColor = .white
-        floatingButton.backgroundColor = .orange
-        floatingButton.layer.cornerRadius = 25
+        floatingButton.setImageTintColor(.white, for: .normal)
+        floatingButton.backgroundColor = .systemOrange
         view.addSubview(floatingButton)
         floatingButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
-            floatingButton.widthAnchor.constraint(equalToConstant: 50),
-            floatingButton.heightAnchor.constraint(equalToConstant: 50),
             floatingButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
             floatingButton.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor, constant: -10)
         ])
@@ -364,6 +362,24 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         return cell
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.lastContentOffset = scrollView.contentOffset.y
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if self.lastContentOffset < scrollView.contentOffset.y {
+            // did move up
+//            floatingButton.mode = .normal
+            floatingButton.setMode(.normal, animated: true)
+            floatingButton.setTitle("", for: .normal)
+        } else if self.lastContentOffset > scrollView.contentOffset.y {
+            // did move down
+            floatingButton.setTitle("New Post", for: .normal)
+//            floatingButton.setMode(.expanded, animated: true)
+            floatingButton.mode = .expanded
+        }
     }
 }
 

@@ -307,6 +307,7 @@ extension SignInViewController {
             viewController?.replaceSubrange(3...3, with: [tabBarControllers[3]])
             self.tabBarController?.viewControllers = viewController
             self.tabBarController?.selectedIndex = 3
+            self.dismiss(animated: true)
             
             guard let user = authResult?.user else { return }
             let email = user.email ?? ""

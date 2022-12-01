@@ -25,7 +25,6 @@ class RestaurantViewController: UIViewController, MapViewControllerDelegate {
     // MARK: - Properties
     var itemResults: [ItemResult] = [] {
         didSet {
-            print("===>RestaurantViewController拿到的資料\(itemResults)")
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -39,6 +38,7 @@ class RestaurantViewController: UIViewController, MapViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.searchBar.delegate = self
+        self.tableView.keyboardDismissMode = .onDrag
     }
 }
 

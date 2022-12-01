@@ -35,13 +35,13 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var pageControl: UIPageControl! 
+    @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var pullDownButton: UIButton!
     
     // MARK: - Properties
     let dataBase = Firestore.firestore()
     weak var delegate: PostTableViewCellDelegate?
-
+    
     // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -86,7 +86,7 @@ class PostTableViewCell: UITableViewCell {
                     self.delegate?.reportPost(self)
                 })
             ])
-        }  
+        }
     }
 }
 

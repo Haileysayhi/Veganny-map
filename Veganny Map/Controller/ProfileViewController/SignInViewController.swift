@@ -204,18 +204,6 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
             print("appleIDToken: \(String(describing: appleIDCredential.identityToken))")
             print("idTokenString: \(idTokenString)")
             
-            var viewController = self.tabBarController?.viewControllers
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard
-                let tabController = storyboard.instantiateViewController(withIdentifier: String(describing: TabBarViewController.self))
-                    as? TabBarViewController,
-                let tabBarControllers = tabController.viewControllers
-            else { fatalError("Could not instantiate tabController") }
-            
-            viewController?.replaceSubrange(3...3, with: [tabBarControllers[3]])
-            self.tabBarController?.viewControllers = viewController
-            self.tabBarController?.selectedIndex = 3
-            
             // 產生 Apple ID 登入的 Credential
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
             // 與 Firebase Auth 進行串接
@@ -306,6 +294,19 @@ extension SignInViewController {
                 return
             }
             CustomFunc.customAlert(title: "登入成功！", message: "", vc: self, actionHandler: self.getFirebaseUserInfo)
+            
+            // 跳轉頁面
+            var viewController = self.tabBarController?.viewControllers
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard
+                let tabController = storyboard.instantiateViewController(withIdentifier: String(describing: TabBarViewController.self))
+                    as? TabBarViewController,
+                let tabBarControllers = tabController.viewControllers
+            else { fatalError("Could not instantiate tabController") }
+            
+            viewController?.replaceSubrange(3...3, with: [tabBarControllers[3]])
+            self.tabBarController?.viewControllers = viewController
+            self.tabBarController?.selectedIndex = 3
             
             guard let user = authResult?.user else { return }
             let email = user.email ?? ""

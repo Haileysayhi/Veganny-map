@@ -21,7 +21,6 @@ class GoogleMapListController {
      key：個人的api key */
     
     func fetchNearbySearch(location: String, keyword: String, radius: Int, completion: @escaping (ListResponse?) -> Void) {
-        print("===\(location)")
         if let url = URL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(location)&radius=\(radius)&keyword=\(keyword)&language=zh-TW&key=\(GoogleMapListController.key)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data,

@@ -35,9 +35,18 @@ class DetailViewController: UIViewController {
     @objc func saveRestaurantId(_ sender: UIButton) {
         let document = dataBase.collection("User").document(getUserID())
         let placeId = infoResult?.placeId as! String
-
-        didTapButton.toggle()
+//        var placeIds: [String] = []
+//
+//       dataBase.collection("User").document(getUserID()).getDocument(as: User.self) { result in
+//            switch result {
+//            case .success(let user):
+//                placeIds = user.savedRestaurants
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
         
+//        if didTapButton && placeIds.contains(placeId) {
         if didTapButton {
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
             sender.tintColor = .systemOrange
@@ -62,6 +71,9 @@ class DetailViewController: UIViewController {
             alertView.duration = 0.5
             alertView.present()
         }
+        
+        didTapButton.toggle()
+
     }
     
     

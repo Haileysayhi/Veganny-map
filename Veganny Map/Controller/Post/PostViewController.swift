@@ -371,13 +371,11 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.lastContentOffset < scrollView.contentOffset.y {
             // did move up
-//            floatingButton.mode = .normal
             floatingButton.setMode(.normal, animated: true)
             floatingButton.setTitle("", for: .normal)
         } else if self.lastContentOffset > scrollView.contentOffset.y {
             // did move down
             floatingButton.setTitle("New Post", for: .normal)
-//            floatingButton.setMode(.expanded, animated: true)
             floatingButton.mode = .expanded
         }
     }

@@ -123,7 +123,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
         }
     }
     
-    
     func showTableView() {
         fpc = FloatingPanelController()
         fpc.delegate = self // Optional

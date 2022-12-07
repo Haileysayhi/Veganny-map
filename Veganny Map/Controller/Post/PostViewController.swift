@@ -391,7 +391,6 @@ extension PostViewController: PostTableViewCellDelegate {
     func deletePost(_ cell: PostTableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("ERROR") }
         
-        
         let controller = UIAlertController(title: "確定刪除貼文嗎？", message: "你將不會再看到已刪除的貼文", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
             if self.changePage.selectedSegmentIndex == 0 {

@@ -9,8 +9,8 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 import KeychainSwift
-import AuthenticationServices // Sign in with apple
-import CryptoKit // Create random String (Nonce)
+import AuthenticationServices
+import CryptoKit
 
 
 class ProfileViewController: UIViewController {

@@ -30,7 +30,6 @@ class RestaurantViewController: UIViewController, MapViewControllerDelegate {
             }
         }
     }
-    
     var searching = false
     var searchedRestaurants = [ItemResult]()
     

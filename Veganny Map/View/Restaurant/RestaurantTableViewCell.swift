@@ -20,9 +20,7 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     
     // MARK: - Properties
     var detail: DetailResponse?
-    
     var itemResult: ItemResult? // 傳地址到DetailVC
-    
     weak var viewController: UIViewController?
     
     // MARK: - Function
@@ -92,7 +90,8 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
 
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil) // 去UIStoryboard中
 
-        guard let tableVC = mainStoryBoard.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
+        guard let tableVC = mainStoryBoard.instantiateViewController(withIdentifier: "DetailViewController") as?
+                DetailViewController else { return }
                 
         if let sheet = tableVC.sheetPresentationController {
             sheet.detents = [.large()]

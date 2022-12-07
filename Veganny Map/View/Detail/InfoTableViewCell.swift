@@ -25,4 +25,27 @@ class InfoTableViewCell: UITableViewCell {
             callButton.layer.cornerRadius = 10
         }
     }
+    
+    // MARK: - Properties
+    var savedRestaurants: [String] = []
+    var placeId: String?
+    
+    // MARK: - function
+    func layoutCell(name: String, address: String, workHour: String, phone: String, reviews: String) {
+        nameLabel.text = name
+        addressLabel.text = address
+        workHourLabel.text = workHour
+        phoneLabel.text = phone
+        reviewsLabel.text = reviews
+    }
+    
+    func setupButton(savedRestaurants: [String], placeId: String) {
+        if savedRestaurants.contains(placeId) {
+            saveButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            saveButton.tintColor = .systemPink
+        } else {
+            saveButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            saveButton.tintColor = .systemOrange
+        }
+    }
 }

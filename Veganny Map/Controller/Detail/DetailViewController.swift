@@ -35,18 +35,7 @@ class DetailViewController: UIViewController {
     @objc func saveRestaurantId(_ sender: UIButton) {
         let document = dataBase.collection("User").document(getUserID())
         let placeId = infoResult?.placeId as! String
-//        var placeIds: [String] = []
-//
-//       dataBase.collection("User").document(getUserID()).getDocument(as: User.self) { result in
-//            switch result {
-//            case .success(let user):
-//                placeIds = user.savedRestaurants
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-        
-//        if didTapButton && placeIds.contains(placeId) {
+
         if didTapButton {
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
             sender.tintColor = .systemOrange
@@ -58,7 +47,6 @@ class DetailViewController: UIViewController {
             let alertView = SPAlertView(title: "Remove from save", preset: .done)
             alertView.duration = 0.5
             alertView.present()
-            
         } else {
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             sender.tintColor = .systemPink
@@ -71,9 +59,7 @@ class DetailViewController: UIViewController {
             alertView.duration = 0.5
             alertView.present()
         }
-        
         didTapButton.toggle()
-
     }
     
     
@@ -82,7 +68,6 @@ class DetailViewController: UIViewController {
         guard let signInVC = storyboard.instantiateViewController(withIdentifier: String(describing: SignInViewController.self))
                 as? SignInViewController
         else { fatalError("Could not instantiate SignInViewController") }
-        
         present(signInVC, animated: true)
     }
     
@@ -155,24 +140,18 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                     guard let snapshot = snapshot else { return }
                     guard let user = try? snapshot.data(as: User.self) else { return }
                     
-                    if user.savedRestaurants.contains(self.infoResult!.placeId) {
-                        cell.saveButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                        cell.saveButton.tintColor = .systemPink
-                    } else {
-                        cell.saveButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                        cell.saveButton.tintColor = .systemOrange
-                    }
+                    cell.setupButton(savedRestaurants: user.savedRestaurants, placeId: self.infoResult!.placeId)
                 }
-                
                 cell.saveButton.addTarget(self, action: #selector(saveRestaurantId), for: .touchUpInside)
             }
             
-            cell.nameLabel.text = infoResult.name
-            cell.addressLabel.text = infoResult.formattedAddress
-            cell.workHourLabel.text = infoResult.currentOpeningHours.weekdayText.map({$0}).joined(separator: "\n")
-            
-            cell.phoneLabel.text = infoResult.internationalPhoneNumber
-            cell.reviewsLabel.text = "\(infoResult.rating)"
+            cell.layoutCell(
+                name: infoResult.name,
+                address: infoResult.formattedAddress,
+                workHour: infoResult.currentOpeningHours.weekdayText.map({$0}).joined(separator: "\n"),
+                phone: infoResult.internationalPhoneNumber,
+                reviews: "\(infoResult.rating)"
+            )
             return cell
             
         } else if indexPath.section == 1 {
@@ -181,7 +160,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                 for: indexPath) as? ReviewTableViewCell else { fatalError("Could not create Cell") }
             cell.viewController = self
             cell.reviews = infoResult.reviews // 傳資料給 ReviewTableViewCell
-            print("真正的傳資料給 ReviewTableViewCell\(infoResult.reviews)")
             return cell
             
         } else { fatalError("ERROR") }

@@ -42,6 +42,7 @@ class SaveViewController: UIViewController {
         self.searchBar.delegate = self
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = .systemOrange
+        self.tableView.keyboardDismissMode = .onDrag
     }
     
     override func viewWillAppear(_ animated: Bool) {

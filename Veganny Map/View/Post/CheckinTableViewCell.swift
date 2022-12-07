@@ -12,4 +12,10 @@ class CheckinTableViewCell: UITableViewCell {
     // MARK: - IBOutlet
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    
+    // MARK: - Function
+    func layoutCell(name: String, address: String) {
+        nameLabel.text = name
+        addressLabel.text = address
+    }
 }

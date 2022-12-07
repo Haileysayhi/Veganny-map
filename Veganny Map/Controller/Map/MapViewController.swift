@@ -77,8 +77,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
     func getData() {
         GoogleMapListController.shared.fetchNearbySearch(location: self.userLocation, keyword: "vegan", radius: 3000) { listresponse in
             self.listResponse = listresponse
-            print("==位置<MapViewController>有沒有吃到\(self.userLocation)")
-            print("==<MapViewController>\(listresponse)")
+            print("==位置:\(self.userLocation)")
+            print("==Listresponse:\(listresponse)")
             self.delegate.manager(self, didGet: listresponse!.results)
             listresponse?.results.forEach({ result in
                 let marker = GMSMarker()
@@ -204,7 +204,6 @@ extension MapViewController: GMUClusterManagerDelegate {
         if marker.userData is GMUCluster {
             // zoom in on tapped cluster
             mapView.animate(toZoom: mapView.camera.zoom + 1)
-            print("Did tap cluster")
             return true
         } else {
             let placeId = marker.accessibilityLabel
@@ -219,8 +218,6 @@ extension MapViewController: GMUClusterManagerDelegate {
                 self.present(tableVC, animated: true)
             }
         }
-
-        print("Did tap a normal marker")
         return false
     }
 }

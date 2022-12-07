@@ -44,7 +44,6 @@ class BlockListViewController: UIViewController {
             switch result {
             case .success(let user):
                 self.user = user
-                print("===BlockListViewController\(user)")
                 DispatchQueue.main.async {
                     self.tableView.endHeaderRefreshing()
                     self.tableView.reloadData()
@@ -80,6 +79,8 @@ extension BlockListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "BlockListTableViewCell", for: indexPath) as? BlockListTableViewCell
         else { fatalError("Could not create Cell.") }
+        
+        
         guard let user = self.user else { fatalError("ERROR") }
         
         dataBase.collection("User").document(user.blockId[indexPath.row]).getDocument(as: User.self) { result in

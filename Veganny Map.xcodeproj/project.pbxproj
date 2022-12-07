@@ -81,7 +81,7 @@
 		D28A5BF0290BE37B005F5D50 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D28A5BF3290BE37B005F5D50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D28A5BF5290BE37B005F5D50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D290F86D292F16D30031D84F /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockListViewController.swift; path = "Veganny Map/Controller/ProfileViewController/BlockListViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D290F86D292F16D30031D84F /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListViewController.swift; sourceTree = "<group>"; };
 		D290F870292F22930031D84F /* BlockListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListTableViewCell.swift; sourceTree = "<group>"; };
 		D290F873292F61940031D84F /* JWTid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTid.swift; sourceTree = "<group>"; };
 		D29F59F929160BEE00513A63 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 		D2A6131A292335BD0095AED2 /* Veganny Map.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Veganny Map.entitlements"; sourceTree = "<group>"; };
 		D2A6131B2923381F0095AED2 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		D2A6131D2923431A0095AED2 /* CustomFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFunc.swift; sourceTree = "<group>"; };
-		D2A6131F292381BC0095AED2 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarViewController.swift; path = "Veganny Map/Controller/ProfileViewController/TabBarViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D2A6131F292381BC0095AED2 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		D2AA73002926740600628BD8 /* 84914-purple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "84914-purple.json"; sourceTree = "<group>"; };
 		D2B21DE4292758C000592FBA /* CheckinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinViewController.swift; sourceTree = "<group>"; };
 		D2B21DE629275B8F00592FBA /* CheckinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTableViewCell.swift; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 		D2DEC449291C8AB4001328CE /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveViewController.swift; path = "Veganny Map/Controller/Save/SaveViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D2DEC44E291C8F1F001328CE /* SaveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveTableViewCell.swift; sourceTree = "<group>"; };
 		D2DEC452291DF4CE001328CE /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		D2F477EB2924B92F00B56067 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditProfileViewController.swift; path = ../ProfileViewController/EditProfileViewController.swift; sourceTree = "<group>"; };
+		D2F477EB2924B92F00B56067 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		D2FC5F232914D66D00ADBBEB /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -261,7 +261,7 @@
 		D28A5BFC290D1632005F5D50 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D2F477EA2924B4DC00B56067 /* ProfileViewController */,
+				D2F477EA2924B4DC00B56067 /* Profile */,
 				D2DEC451291CD31F001328CE /* Save */,
 				D284239B291B92BC001E336F /* Post */,
 				D26F2594291A628400A8CF1B /* Comment */,
@@ -342,7 +342,7 @@
 			path = Save;
 			sourceTree = "<group>";
 		};
-		D2F477EA2924B4DC00B56067 /* ProfileViewController */ = {
+		D2F477EA2924B4DC00B56067 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				D2A6131B2923381F0095AED2 /* SignInViewController.swift */,
@@ -351,7 +351,7 @@
 				D2A6131F292381BC0095AED2 /* TabBarViewController.swift */,
 				D290F86D292F16D30031D84F /* BlockListViewController.swift */,
 			);
-			path = ProfileViewController;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		D97259CB2DBA56203E735308 /* Frameworks */ = {

@@ -121,7 +121,6 @@ class ProfileViewController: UIViewController {
     
     func revokeToken() {
         guard let refreshToken = keychain.get("refreshToken") else {
-            print("===no refresh token")
             return
         }
         let url = URL(string: "https://appleid.apple.com/auth/revoke?client_id=\(Bundle.main.bundleIdentifier!)&client_secret=\(JWTid().getJWTClientSecret())&token=\(refreshToken)&token_type_hint=refresh_token")!

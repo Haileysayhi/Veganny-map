@@ -70,7 +70,6 @@ class SaveViewController: UIViewController {
             GoogleMapListController.shared.fetchPlaceDetail(placeId: placeId) { detailResponse in
                 guard let detailResponse = detailResponse else { return }
                 self.detail.append(detailResponse)
-                print("===SaveViewController資料2:\(self.detail)")
                 DispatchQueue.main.async {
                     self.tableView.endHeaderRefreshing()
                     self.tableView.reloadData()

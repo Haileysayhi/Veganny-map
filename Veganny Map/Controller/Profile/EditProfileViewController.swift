@@ -49,7 +49,6 @@ class EditProfileViewController: UIViewController {
         imagePickerController.delegate = self
         imagePickerController.allowsEditing = true
         getUserData()
-        print("===urlString\(urlString)")
     }
     
     // MARK: - Function
@@ -66,7 +65,6 @@ class EditProfileViewController: UIViewController {
             let alertView = SPAlertView(title: "Done", preset: .done)
             alertView.duration = 0.5
             alertView.present()
-            print("===urlString\(urlString)")
         }
     }
     

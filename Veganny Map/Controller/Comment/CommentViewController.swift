@@ -77,7 +77,6 @@ class CommentViewController: UIViewController {
             case .success(let post):
                 print(post)
                 self.comments = post.comments
-                print("===comments\(self.comments)")
             case .failure(let error):
                 print(error)
             }

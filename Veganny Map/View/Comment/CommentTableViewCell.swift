@@ -8,7 +8,6 @@
 import UIKit
 
 class CommentTableViewCell: UITableViewCell {
-
     
     @IBOutlet weak var photoImgView: UIImageView! {
         didSet {
@@ -18,17 +17,8 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-
     
-    // MARK: - awakeFromNib
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
+    // MARK: - prepareForReuse
     override func prepareForReuse() {
         super.prepareForReuse()
         photoImgView.image = nil

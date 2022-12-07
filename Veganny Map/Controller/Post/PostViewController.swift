@@ -55,17 +55,8 @@ class PostViewController: UIViewController {
                            forCellReuseIdentifier: "PostTableViewCell")
         tableView.beginHeaderRefreshing() // 出現轉圈圈圖案
         
-        floatingButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        floatingButton.setImageTintColor(.white, for: .normal)
-        floatingButton.backgroundColor = .systemOrange
-        view.addSubview(floatingButton)
-        floatingButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            floatingButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            floatingButton.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor, constant: -10)
-        ])
-        
-        floatingButton.addTarget(self, action: #selector(goToPublishPage), for: .touchUpInside)
+        setupFloatingButton(button: floatingButton)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,6 +67,19 @@ class PostViewController: UIViewController {
     }
     
     // MARK: - Function
+    func setupFloatingButton(button: MDCFloatingButton) {
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.setImageTintColor(.white, for: .normal)
+        button.backgroundColor = .systemOrange
+        view.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            button.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            button.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor, constant: -10)
+        ])
+        button.addTarget(self, action: #selector(goToPublishPage), for: .touchUpInside)
+    }
+    
     @objc func goToPublishPage() {
         if let controller = storyboard?.instantiateViewController(withIdentifier: "PublishViewController") {
             navigationController?.pushViewController(controller, animated: true)

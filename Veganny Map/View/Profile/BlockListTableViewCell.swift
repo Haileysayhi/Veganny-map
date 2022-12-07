@@ -21,4 +21,10 @@ class BlockListTableViewCell: UITableViewCell {
             unblockButton.layer.cornerRadius = 5
         }
     }
+    
+    // MARK: - Function
+    func layoutCell(image: String, name: String) {
+        profileImgView.loadImage(image, placeHolder: UIImage(systemName: "person.circle"))
+        nameLabel.text = name
+    }
 }

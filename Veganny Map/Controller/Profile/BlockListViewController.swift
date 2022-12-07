@@ -80,15 +80,16 @@ extension BlockListViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "BlockListTableViewCell", for: indexPath) as? BlockListTableViewCell
         else { fatalError("Could not create Cell.") }
         
-        
         guard let user = self.user else { fatalError("ERROR") }
         
         dataBase.collection("User").document(user.blockId[indexPath.row]).getDocument(as: User.self) { result in
             switch result {
             case .success(let user):
                 self.blockUser = user
-                cell.nameLabel.text = user.name
-                cell.profileImgView.loadImage(user.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+                cell.layoutCell(
+                    image: user.userPhotoURL,
+                    name: user.name
+                )
                 cell.unblockButton.addTarget(self, action: #selector(self.removeFromBlockList), for: .touchUpInside)
             case .failure(let error):
                 print(error)

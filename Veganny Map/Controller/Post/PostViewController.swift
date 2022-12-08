@@ -219,10 +219,17 @@ class PostViewController: UIViewController {
 // MARK: - UITableViewDelegate & UITableViewDataSource
 extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     
+    enum ChangePage: Int {
+        case all, mine
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if changePage.selectedSegmentIndex == 0 {
+        guard let changePages = ChangePage(rawValue: self.changePage.selectedSegmentIndex)
+        else { fatalError("ERROR") }
+        switch changePages {
+        case .all:
             return posts.count
-        } else {
+        case .mine:
             return myPosts.count
         }
     }
@@ -232,8 +239,11 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: "PostTableViewCell",
             for: indexPath) as? PostTableViewCell else { fatalError("Could not creat Cell.") }
         cell.delegate = self // 註delegate
-        if changePage.selectedSegmentIndex == 0 {
-            
+        
+        guard let changePages = ChangePage(rawValue: self.changePage.selectedSegmentIndex)
+        else { fatalError("ERROR") }
+        switch changePages {
+        case .all:
             cell.setupPullDownButton(userID: posts[indexPath.row].authorId )
             cell.setupButton(likes: posts[indexPath.row].likes, userId: getUserID())
             cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
@@ -259,15 +269,14 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             cell.locationButton.addTarget(self, action: #selector(goToDetailVC), for: .touchUpInside)
-        } else {
             
+        case .mine:
             cell.setupPullDownButton(userID: getUserID())
             cell.setupButton(likes: myPosts[indexPath.row].likes, userId: getUserID())
-            
             cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             cell.setupStackView(mediaURL: myPosts[indexPath.row].mediaURL)
-
+            
             dataBase.collection("User").document(myPosts[indexPath.row].authorId).getDocument(as: User.self) { result in
                 switch result {
                 case .success(let user):
@@ -297,11 +306,9 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.lastContentOffset < scrollView.contentOffset.y {
-            // did move up
             floatingButton.setMode(.normal, animated: true)
             floatingButton.setTitle("", for: .normal)
         } else if self.lastContentOffset > scrollView.contentOffset.y {
-            // did move down
             floatingButton.setTitle("New Post", for: .normal)
             floatingButton.mode = .expanded
         }

@@ -55,11 +55,13 @@ class PostTableViewCell: UITableViewCell {
     
     // MARK: - Function
     @IBAction func changePage(_ sender: UIPageControl) {
+        
         let point = CGPoint(x: scrollView.bounds.width * CGFloat(sender.currentPage), y: 0)
         scrollView.setContentOffset(point, animated: true)
     }
     
     func setupPullDownButton(userID: String) {
+        
         pullDownButton.showsMenuAsPrimaryAction = true
         
         if userID == Auth.auth().currentUser?.uid {
@@ -85,6 +87,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func setupButton(likes: [String], userId: String) {
+        
         if likes.contains(userId) {
             likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             likeButton.tintColor = .systemOrange

@@ -240,51 +240,25 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             cell.setupStackView(mediaURL: posts[indexPath.row].mediaURL)
             
-
-            
-            cell.contentLabel.text = posts[indexPath.row].content
-            
             dataBase.collection("User").document(posts[indexPath.row].authorId).getDocument(as: User.self) { result in
                 switch result {
                 case .success(let user):
                     print(user)
                     self.user = user
-                    cell.userNameLabel.text = user.name
-                    cell.userImgView.loadImage(user.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+                    cell.setupPost(
+                        name: user.name,
+                        image: user.userPhotoURL,
+                        content: self.posts[indexPath.row].content,
+                        comments: self.posts[indexPath.row].comments,
+                        timeStamp: self.posts[indexPath.row].time,
+                        postId: self.posts[indexPath.row].postId,
+                        location: self.posts[indexPath.row].location
+                    )
                 case .failure(let error):
                     print(error)
                 }
             }
-            
-            if posts[indexPath.row].comments.isEmpty {
-                cell.numberOfCommentButton.isHidden = true
-            } else {
-                cell.numberOfCommentButton.isHidden = false
-                cell.numberOfCommentButton.text = "\(posts[indexPath.row].comments.count)"
-            }
-            
-            if posts[indexPath.row].location.isEmpty {
-                cell.locationButton.isHidden = true
-            } else {
-                cell.locationButton.isHidden = false
-                cell.locationButton.setTitle("\(posts[indexPath.row].location)", for: .normal)
-                cell.locationButton.addTarget(self, action: #selector(goToDetailVC), for: .touchUpInside)
-            }
-            let timeStamp = posts[indexPath.row].time
-            let timeInterval = TimeInterval(Double(timeStamp.seconds))
-            cell.timeLabel.text = timeInterval.getReadableDate()
-            
-            dataBase.collection("Post").document(posts[indexPath.row].postId).addSnapshotListener { snapshot, error in
-                guard let snapshot = snapshot else { return }
-                guard let post = try? snapshot.data(as: Post.self) else { return }
-                
-                if post.likes.isEmpty {
-                    cell.numberOfLikeLabel.isHidden = true
-                } else {
-                    cell.numberOfLikeLabel.isHidden = false
-                    cell.numberOfLikeLabel.text = "\(post.likes.count)"
-                }
-            }
+            cell.locationButton.addTarget(self, action: #selector(goToDetailVC), for: .touchUpInside)
         } else {
             
             cell.setupPullDownButton(userID: getUserID())
@@ -294,51 +268,25 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             cell.setupStackView(mediaURL: myPosts[indexPath.row].mediaURL)
 
-            
-            
-            cell.contentLabel.text = myPosts[indexPath.row].content
-            
             dataBase.collection("User").document(myPosts[indexPath.row].authorId).getDocument(as: User.self) { result in
                 switch result {
                 case .success(let user):
                     print(user)
                     self.user = user
-                    cell.userNameLabel.text = user.name
-                    cell.userImgView.loadImage(user.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+                    cell.setupPost(
+                        name: user.name,
+                        image: user.userPhotoURL,
+                        content: self.myPosts[indexPath.row].content,
+                        comments: self.myPosts[indexPath.row].comments,
+                        timeStamp: self.myPosts[indexPath.row].time,
+                        postId: self.myPosts[indexPath.row].postId,
+                        location: self.myPosts[indexPath.row].location
+                    )
                 case .failure(let error):
                     print(error)
                 }
             }
-            
-            if myPosts[indexPath.row].comments.isEmpty {
-                cell.numberOfCommentButton.isHidden = true
-            } else {
-                cell.numberOfCommentButton.isHidden = false
-                cell.numberOfCommentButton.text = "\(myPosts[indexPath.row].comments.count)"
-            }
-            
-            if myPosts[indexPath.row].location.isEmpty {
-                cell.locationButton.isHidden = true
-            } else {
-                cell.locationButton.isHidden = false
-                cell.locationButton.setTitle("\(myPosts[indexPath.row].location)", for: .normal)
-            }
-            
-            let timeStamp = myPosts[indexPath.row].time
-            let timeInterval = TimeInterval(Double(timeStamp.seconds))
-            cell.timeLabel.text = timeInterval.getReadableDate()
-            
-            dataBase.collection("Post").document(myPosts[indexPath.row].postId).addSnapshotListener { snapshot, error in
-                guard let snapshot = snapshot else { return }
-                guard let post = try? snapshot.data(as: Post.self) else { return }
-                
-                if post.likes.isEmpty {
-                    cell.numberOfLikeLabel.isHidden = true
-                } else {
-                    cell.numberOfLikeLabel.isHidden = false
-                    cell.numberOfLikeLabel.text = "\(post.likes.count)"
-                }
-            }
+            cell.locationButton.addTarget(self, action: #selector(goToDetailVC), for: .touchUpInside)
         }
         return cell
     }

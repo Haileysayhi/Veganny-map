@@ -8,7 +8,6 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 protocol PostTableViewCellDelegate: AnyObject {
     func deletePost(_ cell: PostTableViewCell)
@@ -39,8 +38,8 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var pullDownButton: UIButton!
     
     // MARK: - Properties
-    let dataBase = Firestore.firestore()
     weak var delegate: PostTableViewCellDelegate?
+    let dataBase = Firestore.firestore()
     
     // MARK: - awakeFromNib & prepareForReuse
     override func awakeFromNib() {
@@ -118,12 +117,47 @@ class PostTableViewCell: UITableViewCell {
             pageControl.isHidden = false
         }
     }
-}
-
-// MARK: - UIScrollViewDelegate
-extension PostTableViewCell: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let page = scrollView.contentOffset.x / scrollView.bounds.width
-        pageControl.currentPage = Int(page)
+    
+    func setupPost(name: String, image: String, content: String, comments: [Comment], timeStamp: Timestamp, postId: String, location: String ) {
+        let timeInterval = TimeInterval(Double(timeStamp.seconds))
+        
+        userNameLabel.text = name
+        userImgView.loadImage(image, placeHolder: UIImage(systemName: "person.circle"))
+        contentLabel.text = content
+        timeLabel.text = timeInterval.getReadableDate()
+        
+        if comments.isEmpty {
+            numberOfCommentButton.isHidden = true
+        } else {
+            numberOfCommentButton.isHidden = false
+            numberOfCommentButton.text = "\(comments.count)"
+        }
+        
+        dataBase.collection("Post").document(postId).addSnapshotListener { snapshot, error in
+            guard let snapshot = snapshot else { return }
+            guard let post = try? snapshot.data(as: Post.self) else { return }
+            
+            if post.likes.isEmpty {
+                self.numberOfLikeLabel.isHidden = true
+            } else {
+                self.numberOfLikeLabel.isHidden = false
+                self.numberOfLikeLabel.text = "\(post.likes.count)"
+            }
+        }
+        
+        if location.isEmpty {
+            locationButton.isHidden = true
+        } else {
+            locationButton.isHidden = false
+            locationButton.setTitle("\(location)", for: .normal)
+        }
     }
 }
+    
+    // MARK: - UIScrollViewDelegate
+    extension PostTableViewCell: UIScrollViewDelegate {
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            let page = scrollView.contentOffset.x / scrollView.bounds.width
+            pageControl.currentPage = Int(page)
+        }
+    }

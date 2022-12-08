@@ -28,15 +28,6 @@ class ReviewTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
     var dateFormatter = DateFormatter()
     weak var viewController: UIViewController?
     
-    // MARK: - awakeFromNib
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
     // MARK: - Function
     func generateLayout() -> UICollectionViewLayout {
         UICollectionViewCompositionalLayout { [unowned self] sectionIndex, environment in
@@ -59,7 +50,6 @@ class ReviewTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         GoogleMapListController.shared.getPhoto(url: reviews[indexPath.row].profilePhotoURL) { image in
             DispatchQueue.main.async {
                 cell.profileImgView.image = image
-                print("======image\(image)")
             }
         }
         

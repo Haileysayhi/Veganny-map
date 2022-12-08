@@ -60,9 +60,12 @@ extension CheckinViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CheckinTableViewCell", for: indexPath) as? CheckinTableViewCell
-        else { fatalError("Could not creat Cell.")}        
-        cell.nameLabel.text = listResponse?.results[indexPath.row].name
-        cell.addressLabel.text = listResponse?.results[indexPath.row].vicinity
+        else { fatalError("Could not creat Cell.")}
+        guard let listResponse = self.listResponse else { fatalError("ERROR")}
+        cell.layoutCell(
+            name: listResponse.results[indexPath.row].name,
+            address: listResponse.results[indexPath.row].vicinity
+        )
         return cell
     }
     
@@ -76,7 +79,6 @@ extension CheckinViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - UISearchBarDelegate
 extension CheckinViewController: UISearchBarDelegate {
     
-    // 搜尋文字改變時會觸發
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             getRestaurantData()
@@ -91,7 +93,6 @@ extension CheckinViewController: UISearchBarDelegate {
         }
     }
     
-    // 點擊search後會觸發
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // 收鍵盤
         searchBar.resignFirstResponder()

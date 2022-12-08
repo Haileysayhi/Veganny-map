@@ -55,17 +55,8 @@ class PostViewController: UIViewController {
                            forCellReuseIdentifier: "PostTableViewCell")
         tableView.beginHeaderRefreshing() // 出現轉圈圈圖案
         
-        floatingButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        floatingButton.setImageTintColor(.white, for: .normal)
-        floatingButton.backgroundColor = .systemOrange
-        view.addSubview(floatingButton)
-        floatingButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            floatingButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            floatingButton.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor, constant: -10)
-        ])
+        setupFloatingButton(button: floatingButton)
         
-        floatingButton.addTarget(self, action: #selector(goToPublishPage), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,6 +67,19 @@ class PostViewController: UIViewController {
     }
     
     // MARK: - Function
+    func setupFloatingButton(button: MDCFloatingButton) {
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.setImageTintColor(.white, for: .normal)
+        button.backgroundColor = .systemOrange
+        view.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            button.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            button.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor, constant: -10)
+        ])
+        button.addTarget(self, action: #selector(goToPublishPage), for: .touchUpInside)
+    }
+    
     @objc func goToPublishPage() {
         if let controller = storyboard?.instantiateViewController(withIdentifier: "PublishViewController") {
             navigationController?.pushViewController(controller, animated: true)
@@ -99,24 +103,48 @@ class PostViewController: UIViewController {
     @objc func tapLike(_ sender: UIButton) {
         let point = sender.convert(CGPoint.zero, to: tableView) // 找出button的座標
         guard let indexpath = tableView.indexPathForRow(at: point) else { return } // 座標轉換成 indexpath
-        let document = dataBase.collection("Post").document(posts[indexpath.row].postId)
         
-        if didTapButton {
-            sender.setImage(UIImage(systemName: "heart"), for: .normal)
-            sender.tintColor = .black
+        if changePage.selectedSegmentIndex == 0 {
+            let document = dataBase.collection("Post").document(posts[indexpath.row].postId)
             
-            document.updateData([
-                "likes": FieldValue.arrayRemove([getUserID()])
-            ])
+            if didTapButton {
+                sender.setImage(UIImage(systemName: "heart"), for: .normal)
+                sender.tintColor = .black
+                
+                document.updateData([
+                    "likes": FieldValue.arrayRemove([getUserID()])
+                ])
+            } else {
+                sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                sender.tintColor = .systemOrange
+                
+                document.updateData([
+                    "likes": FieldValue.arrayUnion([getUserID()])
+                ])
+            }
+            didTapButton.toggle()
+            
         } else {
-            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            sender.tintColor = .systemOrange
+            let document = dataBase.collection("Post").document(myPosts[indexpath.row].postId)
             
-            document.updateData([
-                "likes": FieldValue.arrayUnion([getUserID()])
-            ])
+            if didTapButton {
+                sender.setImage(UIImage(systemName: "heart"), for: .normal)
+                sender.tintColor = .black
+                
+                document.updateData([
+                    "likes": FieldValue.arrayRemove([getUserID()])
+                ])
+            } else {
+                sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                sender.tintColor = .systemOrange
+                
+                document.updateData([
+                    "likes": FieldValue.arrayUnion([getUserID()])
+                ])
+            }
+            didTapButton.toggle()
+            
         }
-        didTapButton.toggle()
     }
     
     func getPostData() {
@@ -170,16 +198,18 @@ class PostViewController: UIViewController {
         guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
         else { fatalError("ERROR") }
         
-        if changePage.selectedSegmentIndex == 0 {
+        guard let changePages = ChangePage(rawValue: self.changePage.selectedSegmentIndex)
+        else { fatalError("ERROR") }
+        switch changePages {
+        case .all:
             GoogleMapListController.shared.fetchPlaceDetail(placeId: posts[indexpath.row].placeId) { detailResponse in
-                
                 guard let detailResponse = detailResponse else { fatalError("ERROR") }
                 tableVC.infoResult = detailResponse.result
                 self.present(tableVC, animated: true)
             }
-        } else {
+            
+        case .mine:
             GoogleMapListController.shared.fetchPlaceDetail(placeId: myPosts[indexpath.row].placeId) { detailResponse in
-                
                 guard let detailResponse = detailResponse else { fatalError("ERROR") }
                 tableVC.infoResult = detailResponse.result
                 self.present(tableVC, animated: true)
@@ -191,10 +221,17 @@ class PostViewController: UIViewController {
 // MARK: - UITableViewDelegate & UITableViewDataSource
 extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     
+    enum ChangePage: Int {
+        case all, mine
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if changePage.selectedSegmentIndex == 0 {
+        guard let changePages = ChangePage(rawValue: self.changePage.selectedSegmentIndex)
+        else { fatalError("ERROR") }
+        switch changePages {
+        case .all:
             return posts.count
-        } else {
+        case .mine:
             return myPosts.count
         }
     }
@@ -204,162 +241,63 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: "PostTableViewCell",
             for: indexPath) as? PostTableViewCell else { fatalError("Could not creat Cell.") }
         cell.delegate = self // 註delegate
-        if changePage.selectedSegmentIndex == 0 {
-                        
+        
+        guard let changePages = ChangePage(rawValue: self.changePage.selectedSegmentIndex)
+        else { fatalError("ERROR") }
+        switch changePages {
+        case .all:
             cell.setupPullDownButton(userID: posts[indexPath.row].authorId )
-            
-            if posts[indexPath.row].likes.contains(getUserID()) {
-                cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                cell.likeButton.tintColor = .systemOrange
-            } else {
-                cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                cell.likeButton.tintColor = .black
-            }
+            cell.setupButton(likes: posts[indexPath.row].likes, userId: getUserID())
             cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
-            
-            cell.stackView.subviews.forEach { subView in
-                subView.removeFromSuperview()
-                cell.pageControl.numberOfPages = 0
-            }
-            
-            posts[indexPath.row].mediaURL.forEach { imageURL in
-                let imageView = UIImageView()
-                imageView.loadImage(imageURL, placeHolder: UIImage(named: "placeholder"))
-                imageView.contentMode = .scaleAspectFill
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-                imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
-                cell.stackView.addArrangedSubview(imageView)
-                cell.pageControl.numberOfPages += 1
-            }
-            
-            if posts[indexPath.row].mediaURL.count == 1 {
-                cell.pageControl.isHidden = true
-            } else {
-                cell.pageControl.isHidden = false
-            }
-            
-            cell.contentLabel.text = posts[indexPath.row].content
+            cell.setupStackView(mediaURL: posts[indexPath.row].mediaURL)
             
             dataBase.collection("User").document(posts[indexPath.row].authorId).getDocument(as: User.self) { result in
                 switch result {
                 case .success(let user):
                     print(user)
                     self.user = user
-                    cell.userNameLabel.text = user.name
-                    cell.userImgView.loadImage(user.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+                    cell.setupPost(
+                        name: user.name,
+                        image: user.userPhotoURL,
+                        content: self.posts[indexPath.row].content,
+                        comments: self.posts[indexPath.row].comments,
+                        timeStamp: self.posts[indexPath.row].time,
+                        postId: self.posts[indexPath.row].postId,
+                        location: self.posts[indexPath.row].location
+                    )
                 case .failure(let error):
                     print(error)
                 }
             }
+            cell.locationButton.addTarget(self, action: #selector(goToDetailVC), for: .touchUpInside)
             
-            if posts[indexPath.row].comments.isEmpty {
-                cell.numberOfCommentButton.isHidden = true
-            } else {
-                cell.numberOfCommentButton.isHidden = false
-                cell.numberOfCommentButton.text = "\(posts[indexPath.row].comments.count)"
-            }
-            
-            if posts[indexPath.row].location.isEmpty {
-                cell.locationButton.isHidden = true
-            } else {
-                cell.locationButton.isHidden = false
-                cell.locationButton.setTitle("\(posts[indexPath.row].location)", for: .normal)
-                cell.locationButton.addTarget(self, action: #selector(goToDetailVC), for: .touchUpInside)
-            }
-            let timeStamp = posts[indexPath.row].time
-            let timeInterval = TimeInterval(Double(timeStamp.seconds))
-            cell.timeLabel.text = timeInterval.getReadableDate()
-            
-            dataBase.collection("Post").document(posts[indexPath.row].postId).addSnapshotListener { snapshot, error in
-                guard let snapshot = snapshot else { return }
-                guard let post = try? snapshot.data(as: Post.self) else { return }
-                
-                if post.likes.isEmpty {
-                    cell.numberOfLikeLabel.isHidden = true
-                } else {
-                    cell.numberOfLikeLabel.isHidden = false
-                    cell.numberOfLikeLabel.text = "\(post.likes.count)"
-                }
-            }
-        } else {
-            
+        case .mine:
             cell.setupPullDownButton(userID: getUserID())
-            
-            if myPosts[indexPath.row].likes.contains(getUserID()) {
-                cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                cell.likeButton.tintColor = .systemOrange
-            } else {
-                cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                cell.likeButton.tintColor = .black
-            }
+            cell.setupButton(likes: myPosts[indexPath.row].likes, userId: getUserID())
             cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
-            
-            cell.stackView.subviews.forEach { subView in
-                subView.removeFromSuperview()
-                cell.pageControl.numberOfPages = 0
-            }
-            
-            myPosts[indexPath.row].mediaURL.forEach { imageURL in
-                let imageView = UIImageView()
-                imageView.loadImage(imageURL, placeHolder: UIImage(named: "placeholder"))
-                imageView.contentMode = .scaleAspectFill
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-                imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
-                cell.stackView.addArrangedSubview(imageView)
-                cell.pageControl.numberOfPages += 1
-            }
-            
-            if myPosts[indexPath.row].mediaURL.count == 1 {
-                cell.pageControl.isHidden = true
-            } else {
-                cell.pageControl.isHidden = false
-            }
-            
-            cell.contentLabel.text = myPosts[indexPath.row].content
+            cell.setupStackView(mediaURL: myPosts[indexPath.row].mediaURL)
             
             dataBase.collection("User").document(myPosts[indexPath.row].authorId).getDocument(as: User.self) { result in
                 switch result {
                 case .success(let user):
                     print(user)
                     self.user = user
-                    cell.userNameLabel.text = user.name
-                    cell.userImgView.loadImage(user.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+                    cell.setupPost(
+                        name: user.name,
+                        image: user.userPhotoURL,
+                        content: self.myPosts[indexPath.row].content,
+                        comments: self.myPosts[indexPath.row].comments,
+                        timeStamp: self.myPosts[indexPath.row].time,
+                        postId: self.myPosts[indexPath.row].postId,
+                        location: self.myPosts[indexPath.row].location
+                    )
                 case .failure(let error):
                     print(error)
                 }
             }
-            
-            if posts[indexPath.row].comments.isEmpty {
-                cell.numberOfCommentButton.isHidden = true
-            } else {
-                cell.numberOfCommentButton.isHidden = false
-                cell.numberOfCommentButton.text = "\(myPosts[indexPath.row].comments.count)"
-            }
-                        
-            if myPosts[indexPath.row].location.isEmpty {
-                cell.locationButton.isHidden = true
-            } else {
-                cell.locationButton.isHidden = false
-                cell.locationButton.setTitle("\(myPosts[indexPath.row].location)", for: .normal)
-            }
-            
-            let timeStamp = myPosts[indexPath.row].time
-            let timeInterval = TimeInterval(Double(timeStamp.seconds))
-            cell.timeLabel.text = timeInterval.getReadableDate()
-            
-            dataBase.collection("Post").document(myPosts[indexPath.row].postId).addSnapshotListener { snapshot, error in
-                guard let snapshot = snapshot else { return }
-                guard let post = try? snapshot.data(as: Post.self) else { return }
-                
-                if post.likes.isEmpty {
-                    cell.numberOfLikeLabel.isHidden = true
-                } else {
-                    cell.numberOfLikeLabel.isHidden = false
-                    cell.numberOfLikeLabel.text = "\(post.likes.count)"
-                }
-            }
+            cell.locationButton.addTarget(self, action: #selector(goToDetailVC), for: .touchUpInside)
         }
         return cell
     }
@@ -370,11 +308,9 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.lastContentOffset < scrollView.contentOffset.y {
-            // did move up
             floatingButton.setMode(.normal, animated: true)
             floatingButton.setTitle("", for: .normal)
         } else if self.lastContentOffset > scrollView.contentOffset.y {
-            // did move down
             floatingButton.setTitle("New Post", for: .normal)
             floatingButton.mode = .expanded
         }
@@ -386,7 +322,6 @@ extension PostViewController: PostTableViewCellDelegate {
     
     func deletePost(_ cell: PostTableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("ERROR") }
-        
         
         let controller = UIAlertController(title: "確定刪除貼文嗎？", message: "你將不會再看到已刪除的貼文", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in

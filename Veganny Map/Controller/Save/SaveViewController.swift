@@ -42,6 +42,7 @@ class SaveViewController: UIViewController {
         self.searchBar.delegate = self
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = .systemOrange
+        self.tableView.keyboardDismissMode = .onDrag
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,7 +71,6 @@ class SaveViewController: UIViewController {
             GoogleMapListController.shared.fetchPlaceDetail(placeId: placeId) { detailResponse in
                 guard let detailResponse = detailResponse else { return }
                 self.detail.append(detailResponse)
-                print("===SaveViewController資料2:\(self.detail)")
                 DispatchQueue.main.async {
                     self.tableView.endHeaderRefreshing()
                     self.tableView.reloadData()
@@ -97,27 +97,20 @@ extension SaveViewController: UITableViewDelegate, UITableViewDataSource {
         else { fatalError("Could not creat Cell.") }
         
         cell.photoImgView.image = nil
-        
+        self.saveCountLabel.text = "You have saved \(self.detail.count) locations"
+
         if searching {
-            GoogleMapListController.shared.fetchPhotos(photoReference: searchedSave[indexPath.row].result.photos[indexPath.row].photoReference) { image in
-                DispatchQueue.main.async {
-                    cell.nameLabel.text = self.searchedSave[indexPath.row].result.name
-                    cell.addressLabel.text = self.searchedSave[indexPath.row].result.formattedAddress
-                    cell.photoImgView.image = image
-                    cell.photoImgView.layer.cornerRadius = 5
-                    self.saveCountLabel.text = "You have saved \(self.detail.count) locations"
-                }
-            }
+                cell.layoutCell(
+                    photoReference: self.searchedSave[indexPath.row].result.photos[indexPath.row].photoReference,
+                    name: self.searchedSave[indexPath.row].result.name,
+                    address: self.searchedSave[indexPath.row].result.formattedAddress
+                )
         } else {
-            GoogleMapListController.shared.fetchPhotos(photoReference: detail[indexPath.row].result.photos[indexPath.row].photoReference) { image in
-                DispatchQueue.main.async {
-                    cell.nameLabel.text = self.detail[indexPath.row].result.name
-                    cell.addressLabel.text = self.detail[indexPath.row].result.formattedAddress
-                    cell.photoImgView.image = image
-                    cell.photoImgView.layer.cornerRadius = 5
-                    self.saveCountLabel.text = "You have saved \(self.detail.count) locations"
-                }
-            }
+                 cell.layoutCell(
+                    photoReference: self.detail[indexPath.row].result.photos[indexPath.row].photoReference,
+                     name: self.detail[indexPath.row].result.name,
+                     address: self.detail[indexPath.row].result.formattedAddress
+                 )
         }
         return cell
     }

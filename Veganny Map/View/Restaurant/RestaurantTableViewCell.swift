@@ -21,17 +21,7 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     // MARK: - Properties
     var detail: DetailResponse?
     var itemResult: ItemResult? // 傳地址到DetailVC
-    
     weak var viewController: UIViewController?
-    
-    // MARK: - awakeFromNib
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
     // MARK: - Function
     func layoutCell(result: ItemResult) {
@@ -39,7 +29,6 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
        let item = result.placeId
         GoogleMapListController.shared.fetchPlaceDetail(placeId: item) { detailResponse in
             self.detail = detailResponse
-            print("===detail\(self.detail)")
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -101,7 +90,8 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
 
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil) // 去UIStoryboard中
 
-        guard let tableVC = mainStoryBoard.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
+        guard let tableVC = mainStoryBoard.instantiateViewController(withIdentifier: "DetailViewController") as?
+                DetailViewController else { return }
                 
         if let sheet = tableVC.sheetPresentationController {
             sheet.detents = [.large()]

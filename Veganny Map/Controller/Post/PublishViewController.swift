@@ -131,7 +131,6 @@ class PublishViewController: UIViewController {
                 guard let self = self else { return }
                 if input != nil {
                     self.placeId = input
-                    print("===要傳的placeId***\(input)")
                 }
             }
             
@@ -141,7 +140,6 @@ class PublishViewController: UIViewController {
                 if input != nil {
                     self.locationBaground.isHidden = false
                     self.locationLabel.text = input
-                    print("===要傳的placeId---\(input)")
                 }
             }
         }

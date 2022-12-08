@@ -22,15 +22,6 @@ class PhotoTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     // MARK: - Properties
     var photos: [PhotosResults] = []
     
-    // MARK: - awakeFromNib
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
     // MARK: - Function
     func generateLayout() -> UICollectionViewLayout {
         UICollectionViewCompositionalLayout { [unowned self] sectionIndex, environment in

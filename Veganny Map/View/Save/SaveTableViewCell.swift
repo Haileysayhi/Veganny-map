@@ -8,19 +8,24 @@
 import UIKit
 
 class SaveTableViewCell: UITableViewCell {
-
     
     // MARK: - IBOutlet
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var photoImgView: UIImageView!
+    @IBOutlet weak var photoImgView: UIImageView! {
+        didSet {
+            photoImgView.layer.cornerRadius = 5
+        }
+    }
     @IBOutlet weak var addressLabel: UILabel!
     
-    // MARK: - awakeFromNib
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    // MARK: - Function
+    func layoutCell(photoReference: String, name: String, address: String) {
+        GoogleMapListController.shared.fetchPhotos(photoReference: photoReference) { image in
+            DispatchQueue.main.async {
+            self.nameLabel.text = name
+            self.photoImgView.image = (image ?? UIImage(named: "placeholder"))!
+            self.addressLabel.text = address
+            }
+        }
     }
 }

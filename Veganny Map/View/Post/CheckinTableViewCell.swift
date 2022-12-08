@@ -13,12 +13,9 @@ class CheckinTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     
-    // MARK: - awakeFromNib
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    // MARK: - Function
+    func layoutCell(name: String, address: String) {
+        nameLabel.text = name
+        addressLabel.text = address
     }
 }

@@ -77,7 +77,6 @@ class CommentViewController: UIViewController {
             case .success(let post):
                 print(post)
                 self.comments = post.comments
-                print("===comments\(self.comments)")
             case .failure(let error):
                 print(error)
             }
@@ -101,34 +100,6 @@ class CommentViewController: UIViewController {
             "comments": FieldValue.arrayRemove([comment]) // 刪掉留言
         ])
     }
-    
-    func getReadableDate(timeStamp: TimeInterval) -> String? {
-        let date = Date(timeIntervalSince1970: timeStamp)
-        let dateFormatter = DateFormatter()
-        
-        if Calendar.current.isDateInTomorrow(date) {
-            return "Tomorrow"
-        } else if Calendar.current.isDateInYesterday(date) {
-            return "Yesterday"
-        } else if dateFallsInCurrentWeek(date: date) {
-            if Calendar.current.isDateInToday(date) {
-                dateFormatter.dateFormat = "h:mm a"
-                return dateFormatter.string(from: date)
-            } else {
-                dateFormatter.dateFormat = "EEEE"
-                return dateFormatter.string(from: date)
-            }
-        } else {
-            dateFormatter.dateFormat = "MMM d, yyyy"
-            return dateFormatter.string(from: date)
-        }
-    }
-    
-    func dateFallsInCurrentWeek(date: Date) -> Bool {
-        let currentWeek = Calendar.current.component(Calendar.Component.weekOfYear, from: Date())
-        let datesWeek = Calendar.current.component(Calendar.Component.weekOfYear, from: date)
-        return (currentWeek == datesWeek)
-    }
 }
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
@@ -140,21 +111,21 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as? CommentTableViewCell else { fatalError("Could not creat Cell.") }
-
+  
         dataBase.collection("User").document(self.comments[indexPath.row].userId).getDocument(as: User.self) { result in
             switch result {
             case .success(let user):
                 print(user)
-                cell.nameLabel.text = user.name
-                cell.photoImgView.loadImage(user.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+                cell.layoutCell(
+                    imgView: user.userPhotoURL,
+                    name: user.name,
+                    content: self.comments[indexPath.row].content,
+                    timeStamp: self.comments[indexPath.row].time
+                )
             case .failure(let error):
                 print(error)
             }
         }
-        cell.contentLabel.text = self.comments[indexPath.row].content
-        let timeStamp = self.comments[indexPath.row].time
-        let timeInterval = TimeInterval(Double(timeStamp.seconds))
-        cell.timeLabel.text = timeInterval.getReadableDate()
         return cell
     }
     

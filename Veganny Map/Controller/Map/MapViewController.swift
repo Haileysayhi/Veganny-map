@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MapViewController.swift
 //  Veganny Map
 //
 //  Created by Hailey on 2022/10/28.
@@ -38,6 +38,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
         super.viewDidLoad()
         showTableView()
         
+        setupSearchButton(button: searchAreaButton)
+
         manager.delegate = self
         manager.requestWhenInUseAuthorization() // request user authorize
         manager.distanceFilter = kCLLocationAccuracyNearestTenMeters // update data after move ten meters
@@ -49,22 +51,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
         let renderer = GMUDefaultClusterRenderer(mapView: mapView, clusterIconGenerator: iconGenerator)
         clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm, renderer: renderer)
         clusterManager.setMapDelegate(self) // Register self to listen to GMSMapViewDelegate events.
-        
-        searchAreaButton.setTitle("search this area", for: .normal)
-        searchAreaButton.tintColor = .white
-        searchAreaButton.backgroundColor = .orange
-        searchAreaButton.layer.cornerRadius = 5
-        view.insertSubview(searchAreaButton, at: 1)
-        searchAreaButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            searchAreaButton.widthAnchor.constraint(equalToConstant: 150),
-            searchAreaButton.heightAnchor.constraint(equalToConstant: 35),
-            searchAreaButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            searchAreaButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
-        ])
-        searchAreaButton.isHidden = true
-        searchAreaButton.addTarget(self, action: #selector(search), for: .touchUpInside)
     }
     
     // MARK: - viewDidAppear
@@ -74,11 +60,51 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
     }
     
     // MARK: - Function
+    func setupSearchButton(button: UIButton) {
+        button.setTitle("search this area", for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .orange
+        button.layer.cornerRadius = 5
+        view.insertSubview(button, at: 1)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: 150),
+            button.heightAnchor.constraint(equalToConstant: 35),
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
+        ])
+        button.isHidden = true
+        button.addTarget(self, action: #selector(search), for: .touchUpInside)
+    }
+    
+    @objc func search() {
+        self.searchAreaButton.isHidden = true
+        self.mapView.clear()
+        GoogleMapListController.shared.fetchNearbySearch(location: self.moveLocation, keyword: "vegan", radius: 3000) { listresponse in
+            self.listResponse = listresponse
+            self.delegate.manager(self, didGet: listresponse!.results)
+            listresponse?.results.forEach({ result in
+                let marker = GMSMarker()
+                marker.position = CLLocationCoordinate2D(
+                    latitude: result.geometry.location.lat,
+                    longitude: result.geometry.location.lng
+                )
+                marker.snippet = result.name
+                marker.icon = GMSMarker.markerImage(with: UIColor(hexString: "FFA500", alpha: 0.5))
+                marker.accessibilityLabel = result.placeId // 儲存每個pin自己的id
+                self.clusterManager.add(marker)
+                self.clusterManager.cluster()
+                marker.map = self.mapView
+            })
+        }
+    }
+    
     func getData() {
         GoogleMapListController.shared.fetchNearbySearch(location: self.userLocation, keyword: "vegan", radius: 3000) { listresponse in
             self.listResponse = listresponse
-            print("==位置<MapViewController>有沒有吃到\(self.userLocation)")
-            print("==<MapViewController>\(listresponse)")
+            print("==位置:\(self.userLocation)")
+            print("==Listresponse:\(listresponse)")
             self.delegate.manager(self, didGet: listresponse!.results)
             listresponse?.results.forEach({ result in
                 let marker = GMSMarker()
@@ -96,7 +122,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
             })
         }
     }
-    
     
     func showTableView() {
         fpc = FloatingPanelController()
@@ -125,30 +150,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
             }
         }
         isStartCamara = false
-    }
-    
-    @objc func search() {
-        self.searchAreaButton.isHidden = true
-        self.mapView.clear()
-        GoogleMapListController.shared.fetchNearbySearch(location: self.moveLocation, keyword: "vegan", radius: 3000) { listresponse in
-            self.listResponse = listresponse
-            self.delegate.manager(self, didGet: listresponse!.results)
-            listresponse?.results.forEach({ result in
-                let marker = GMSMarker()
-                marker.position = CLLocationCoordinate2D(
-                    latitude: result.geometry.location.lat,
-                    longitude: result.geometry.location.lng
-                )
-                
-                marker.snippet = result.name
-                marker.icon = GMSMarker.markerImage(with: UIColor(hexString: "FFA500", alpha: 0.5))
-//                marker.icon = UIImage(named: "location")
-                marker.accessibilityLabel = result.placeId // 儲存每個pin自己的id
-                self.clusterManager.add(marker)
-                self.clusterManager.cluster()
-                marker.map = self.mapView
-            })
-        }
     }
 }
 
@@ -204,7 +205,6 @@ extension MapViewController: GMUClusterManagerDelegate {
         if marker.userData is GMUCluster {
             // zoom in on tapped cluster
             mapView.animate(toZoom: mapView.camera.zoom + 1)
-            print("Did tap cluster")
             return true
         } else {
             let placeId = marker.accessibilityLabel
@@ -219,8 +219,6 @@ extension MapViewController: GMUClusterManagerDelegate {
                 self.present(tableVC, animated: true)
             }
         }
-
-        print("Did tap a normal marker")
         return false
     }
 }

@@ -38,5 +38,3 @@ extension TimeInterval {
         return (currentWeek == datesWeek)
     }
 }
-
-

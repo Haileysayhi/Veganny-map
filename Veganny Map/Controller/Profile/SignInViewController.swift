@@ -91,7 +91,6 @@ class SignInViewController: UIViewController {
                     actionHandler: nil)
             case .notFound: // 無此用戶
                 print("使用者尚未使用過 Apple ID 登入！")
-                //                CustomFunc.customAlert(title: "", message: "使用者尚未使用過 Apple ID 登入！", vc: self, actionHandler: nil)
                 // 跳轉到登入畫面
             case .transferred:
                 CustomFunc.customAlert(title: "請與開發者團隊進行聯繫，以利進行使用者遷移！", message: "", vc: self, actionHandler: nil)

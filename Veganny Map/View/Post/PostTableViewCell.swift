@@ -41,8 +41,9 @@ class PostTableViewCell: UITableViewCell {
     // MARK: - Properties
     let dataBase = Firestore.firestore()
     weak var delegate: PostTableViewCellDelegate?
+    var likes: [String] = []
     
-    // MARK: - awakeFromNib
+    // MARK: - awakeFromNib & prepareForReuse
     override func awakeFromNib() {
         super.awakeFromNib()
         scrollView.delegate = self
@@ -82,6 +83,16 @@ class PostTableViewCell: UITableViewCell {
                     self.delegate?.reportPost(self)
                 })
             ])
+        }
+    }
+    
+    func setupButton(likes: [String], userId: String) {
+        if likes.contains(userId) {
+            likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            likeButton.tintColor = .systemOrange
+        } else {
+            likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            likeButton.tintColor = .black
         }
     }
 }

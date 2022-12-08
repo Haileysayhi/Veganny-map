@@ -56,7 +56,7 @@ class PostViewController: UIViewController {
         tableView.beginHeaderRefreshing() // 出現轉圈圈圖案
         
         setupFloatingButton(button: floatingButton)
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,24 +103,48 @@ class PostViewController: UIViewController {
     @objc func tapLike(_ sender: UIButton) {
         let point = sender.convert(CGPoint.zero, to: tableView) // 找出button的座標
         guard let indexpath = tableView.indexPathForRow(at: point) else { return } // 座標轉換成 indexpath
-        let document = dataBase.collection("Post").document(posts[indexpath.row].postId)
         
-        if didTapButton {
-            sender.setImage(UIImage(systemName: "heart"), for: .normal)
-            sender.tintColor = .black
+        if changePage.selectedSegmentIndex == 0 {
+            let document = dataBase.collection("Post").document(posts[indexpath.row].postId)
             
-            document.updateData([
-                "likes": FieldValue.arrayRemove([getUserID()])
-            ])
+            if didTapButton {
+                sender.setImage(UIImage(systemName: "heart"), for: .normal)
+                sender.tintColor = .black
+                
+                document.updateData([
+                    "likes": FieldValue.arrayRemove([getUserID()])
+                ])
+            } else {
+                sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                sender.tintColor = .systemOrange
+                
+                document.updateData([
+                    "likes": FieldValue.arrayUnion([getUserID()])
+                ])
+            }
+            didTapButton.toggle()
+            
         } else {
-            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            sender.tintColor = .systemOrange
+            let document = dataBase.collection("Post").document(myPosts[indexpath.row].postId)
             
-            document.updateData([
-                "likes": FieldValue.arrayUnion([getUserID()])
-            ])
+            if didTapButton {
+                sender.setImage(UIImage(systemName: "heart"), for: .normal)
+                sender.tintColor = .black
+                
+                document.updateData([
+                    "likes": FieldValue.arrayRemove([getUserID()])
+                ])
+            } else {
+                sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                sender.tintColor = .systemOrange
+                
+                document.updateData([
+                    "likes": FieldValue.arrayUnion([getUserID()])
+                ])
+            }
+            didTapButton.toggle()
+            
         }
-        didTapButton.toggle()
     }
     
     func getPostData() {
@@ -209,16 +233,11 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             for: indexPath) as? PostTableViewCell else { fatalError("Could not creat Cell.") }
         cell.delegate = self // 註delegate
         if changePage.selectedSegmentIndex == 0 {
-                        
-            cell.setupPullDownButton(userID: posts[indexPath.row].authorId )
             
-            if posts[indexPath.row].likes.contains(getUserID()) {
-                cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                cell.likeButton.tintColor = .systemOrange
-            } else {
-                cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                cell.likeButton.tintColor = .black
-            }
+            cell.setupPullDownButton(userID: posts[indexPath.row].authorId )
+            cell.setupButton(likes: posts[indexPath.row].likes, userId: getUserID())
+            
+            
             cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             
@@ -289,14 +308,8 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             
             cell.setupPullDownButton(userID: getUserID())
+            cell.setupButton(likes: myPosts[indexPath.row].likes, userId: getUserID())
             
-            if myPosts[indexPath.row].likes.contains(getUserID()) {
-                cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                cell.likeButton.tintColor = .systemOrange
-            } else {
-                cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                cell.likeButton.tintColor = .black
-            }
             cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             
@@ -335,13 +348,13 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            if posts[indexPath.row].comments.isEmpty {
+            if myPosts[indexPath.row].comments.isEmpty {
                 cell.numberOfCommentButton.isHidden = true
             } else {
                 cell.numberOfCommentButton.isHidden = false
                 cell.numberOfCommentButton.text = "\(myPosts[indexPath.row].comments.count)"
             }
-                        
+            
             if myPosts[indexPath.row].location.isEmpty {
                 cell.locationButton.isHidden = true
             } else {

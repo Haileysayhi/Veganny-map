@@ -26,10 +26,6 @@ class InfoTableViewCell: UITableViewCell {
         }
     }
     
-    // MARK: - Properties
-    var savedRestaurants: [String] = []
-    var placeId: String?
-    
     // MARK: - function
     func layoutCell(name: String, address: String, workHour: String, phone: String, reviews: String) {
         nameLabel.text = name

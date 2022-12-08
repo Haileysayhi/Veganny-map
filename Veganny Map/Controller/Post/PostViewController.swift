@@ -198,16 +198,18 @@ class PostViewController: UIViewController {
         guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
         else { fatalError("ERROR") }
         
-        if changePage.selectedSegmentIndex == 0 {
+        guard let changePages = ChangePage(rawValue: self.changePage.selectedSegmentIndex)
+        else { fatalError("ERROR") }
+        switch changePages {
+        case .all:
             GoogleMapListController.shared.fetchPlaceDetail(placeId: posts[indexpath.row].placeId) { detailResponse in
-                
                 guard let detailResponse = detailResponse else { fatalError("ERROR") }
                 tableVC.infoResult = detailResponse.result
                 self.present(tableVC, animated: true)
             }
-        } else {
+            
+        case .mine:
             GoogleMapListController.shared.fetchPlaceDetail(placeId: myPosts[indexpath.row].placeId) { detailResponse in
-                
                 guard let detailResponse = detailResponse else { fatalError("ERROR") }
                 tableVC.infoResult = detailResponse.result
                 self.present(tableVC, animated: true)

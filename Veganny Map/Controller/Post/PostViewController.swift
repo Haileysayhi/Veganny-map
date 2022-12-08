@@ -236,31 +236,11 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.setupPullDownButton(userID: posts[indexPath.row].authorId )
             cell.setupButton(likes: posts[indexPath.row].likes, userId: getUserID())
-            
-            
             cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
+            cell.setupStackView(mediaURL: posts[indexPath.row].mediaURL)
             
-            cell.stackView.subviews.forEach { subView in
-                subView.removeFromSuperview()
-                cell.pageControl.numberOfPages = 0
-            }
-            
-            posts[indexPath.row].mediaURL.forEach { imageURL in
-                let imageView = UIImageView()
-                imageView.loadImage(imageURL, placeHolder: UIImage(named: "placeholder"))
-                imageView.contentMode = .scaleAspectFill
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-                imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
-                cell.stackView.addArrangedSubview(imageView)
-                cell.pageControl.numberOfPages += 1
-            }
-            
-            if posts[indexPath.row].mediaURL.count == 1 {
-                cell.pageControl.isHidden = true
-            } else {
-                cell.pageControl.isHidden = false
-            }
+
             
             cell.contentLabel.text = posts[indexPath.row].content
             
@@ -312,27 +292,9 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.likeButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
+            cell.setupStackView(mediaURL: myPosts[indexPath.row].mediaURL)
+
             
-            cell.stackView.subviews.forEach { subView in
-                subView.removeFromSuperview()
-                cell.pageControl.numberOfPages = 0
-            }
-            
-            myPosts[indexPath.row].mediaURL.forEach { imageURL in
-                let imageView = UIImageView()
-                imageView.loadImage(imageURL, placeHolder: UIImage(named: "placeholder"))
-                imageView.contentMode = .scaleAspectFill
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-                imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
-                cell.stackView.addArrangedSubview(imageView)
-                cell.pageControl.numberOfPages += 1
-            }
-            
-            if myPosts[indexPath.row].mediaURL.count == 1 {
-                cell.pageControl.isHidden = true
-            } else {
-                cell.pageControl.isHidden = false
-            }
             
             cell.contentLabel.text = myPosts[indexPath.row].content
             

@@ -41,7 +41,6 @@ class PostTableViewCell: UITableViewCell {
     // MARK: - Properties
     let dataBase = Firestore.firestore()
     weak var delegate: PostTableViewCellDelegate?
-    var likes: [String] = []
     
     // MARK: - awakeFromNib & prepareForReuse
     override func awakeFromNib() {
@@ -93,6 +92,30 @@ class PostTableViewCell: UITableViewCell {
         } else {
             likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
             likeButton.tintColor = .black
+        }
+    }
+    
+    func setupStackView(mediaURL: [String]) {
+        
+        stackView.subviews.forEach { subView in
+            subView.removeFromSuperview()
+            pageControl.numberOfPages = 0
+        }
+        
+        mediaURL.forEach { imageURL in
+            let imageView = UIImageView()
+            imageView.loadImage(imageURL, placeHolder: UIImage(named: "placeholder"))
+            imageView.contentMode = .scaleAspectFill
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+            stackView.addArrangedSubview(imageView)
+            pageControl.numberOfPages += 1
+        }
+        
+        if mediaURL.count == 1 {
+            pageControl.isHidden = true
+        } else {
+            pageControl.isHidden = false
         }
     }
 }

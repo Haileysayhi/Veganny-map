@@ -50,7 +50,6 @@ class PostTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         userImgView.image = nil
-        userNameLabel.text = nil
     }
     
     // MARK: - Function

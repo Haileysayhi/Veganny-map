@@ -35,7 +35,6 @@ class PublishViewController: UIViewController {
             postButton.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-    
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var locationBaground: UIView! {
         didSet {
@@ -69,7 +68,7 @@ class PublishViewController: UIViewController {
     }
     
     @IBAction func post(_ sender: Any) {
-        if self.urlString == nil {
+        if !canPost() {
             CustomFunc.customAlert(title: "照片不可為空", message: "", vc: self, actionHandler: nil)
         } else {
             let alertView = SPAlertView(title: "Done", preset: .done)
@@ -85,6 +84,14 @@ class PublishViewController: UIViewController {
             }
             // 傳資料到firebase
             addData()
+        }
+    }
+
+    func canPost() -> Bool {
+        if self.urlString.isEmpty {
+            return false
+        } else {
+            return true
         }
     }
     
@@ -133,7 +140,6 @@ class PublishViewController: UIViewController {
                     self.placeId = input
                 }
             }
-            
             
             locationData.name = { [weak self] input in
                 guard let self = self else { return }

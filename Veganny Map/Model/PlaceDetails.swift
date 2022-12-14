@@ -14,13 +14,13 @@ struct DetailResponse: Codable {
 struct InfoResult: Codable {
     
     var placeId: String
-    var name: String                // 餐廳名稱
-    var photos: [PhotosResults]     // 照片
-    var reviews: [Reviews]          // 評論
-    var currentOpeningHours: CurrentOpeningHours // 營業資訊
+    var name: String
+    var photos: [PhotosResults]
+    var reviews: [Reviews]
+    var currentOpeningHours: CurrentOpeningHours
     var rating: Double
     var internationalPhoneNumber: String
-    var formattedAddress: String // 地址
+    var formattedAddress: String
     
     enum CodingKeys: String, CodingKey {
         

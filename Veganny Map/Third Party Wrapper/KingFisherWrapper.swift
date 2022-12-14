@@ -5,7 +5,6 @@
 //  Created by Hailey on 2022/11/8.
 //
 
-import Foundation
 import Kingfisher
 
 extension UIImageView {

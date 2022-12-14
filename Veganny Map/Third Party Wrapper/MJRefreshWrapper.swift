@@ -5,7 +5,6 @@
 //  Created by Hailey on 2022/11/18.
 //
 
-import Foundation
 import MJRefresh
 
 extension UITableView {

@@ -25,7 +25,7 @@ This’s an app for people who want to find vegan restaurants. With this app, yo
 
 ![screenshot-4](https://user-images.githubusercontent.com/94528020/207555479-95ed4933-768f-4130-a805-07d790027fdf.jpg) ![screenshot-5](https://user-images.githubusercontent.com/94528020/207555698-1a4f29f5-89ac-4db5-a132-d297d08afff8.jpg) 
 
-![screenshot-1](https://user-images.githubusercontent.com/94528020/207555899-d81cf220-301b-400a-9aa4-ef4b164d2c98.jpg) ![screenshot-2](https://user-images.githubusercontent.com/94528020/207556135-9527b403-ff0e-4d89-9a44-bba7ec4e2db4.jpg) ![screenshot-3](https://user-images.githubusercontent.com/94528020/207556354-2b20fb35-debf-45fe-9f83-c2aa5b17eaf0.jpg)
+![screenshot-2](https://user-images.githubusercontent.com/94528020/207566510-dbf034d9-037e-4690-a17b-9eab9f0ac50e.jpg) ![screenshot-3](https://user-images.githubusercontent.com/94528020/207566528-ad9df0eb-22e2-469a-b696-573e5344b039.jpg) ![screenshot-1](https://user-images.githubusercontent.com/94528020/207568498-55fa6b0a-473a-4113-9197-6ce14d0c5e64.jpg)
 
 
 

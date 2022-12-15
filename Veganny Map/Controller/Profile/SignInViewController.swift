@@ -9,9 +9,7 @@ import UIKit
 import FirebaseAuth // Connect with firebase
 import AuthenticationServices // Sign in with apple
 import CryptoKit // Create random String (Nonce)
-import Firebase
 import Lottie
-import SwiftUI
 import KeychainSwift
 import SafariServices
 
@@ -21,7 +19,7 @@ class SignInViewController: UIViewController {
     var currentNonce: String?
     var appleUserID: String?
     var animationView: AnimationView!
-    var dataBase = Firestore.firestore()
+    let firestoreService = FirestoreService.shared
     let keychain = KeychainSwift()
     
     // MARK: - viewDidLoad
@@ -74,7 +72,6 @@ class SignInViewController: UIViewController {
         
         animationView.play()
     }
-    
     // 監聽目前的 Apple ID 的登入狀況
     // 主動監聽
     func checkAppleIDCredentialState(userID: String) {
@@ -99,14 +96,12 @@ class SignInViewController: UIViewController {
             }
         }
     }
-    
     // 被動監聽 (使用 Apple ID 登入或登出都會觸發)
     func observeAppleIDState() {
         NotificationCenter.default.addObserver(forName: ASAuthorizationAppleIDProvider.credentialRevokedNotification, object: nil, queue: nil) { (notification: Notification) in
             CustomFunc.customAlert(title: "使用者登入或登出", message: "", vc: self, actionHandler: nil)
         }
     }
-    
     // 使用ASAuthorizationAppleIDButton來建立button
     func setSignInWithAppleButton() {
         let signInWithAppleButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn, authorizationButtonStyle: chooseAppleButtonStyle())
@@ -240,7 +235,6 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
         }
     }
     
-    
     func getRefreshToken(codeString: String) {
         let url = URL(string: "https://appleid.apple.com/auth/token?client_id=\(Bundle.main.bundleIdentifier!)&client_secret=\(JWTid().getJWTClientSecret())&code=\(codeString)&grant_type=authorization_code")!
         var request = URLRequest(url: url)
@@ -311,25 +305,19 @@ extension SignInViewController {
             guard let user = authResult?.user else { return }
             let email = user.email ?? ""
             guard let uid = Auth.auth().currentUser?.uid else { return }
-            self.dataBase.collection("User").document(getUserID()).getDocument { documentSnapshot, error in
-                if let documentSnapshot = documentSnapshot, documentSnapshot.exists {
-                    return
-                } else {
-                    let userData = User(
-                        name: fullName,
-                        userPhotoURL: "",
-                        userId: getUserID(),
-                        email: email,
-                        postIds: [],
-                        savedRestaurants: [],
-                        blockId: []
-                    )
-                    do {
-                        try self.dataBase.collection("User").document(getUserID()).setData(from: userData)
-                    } catch {
-                        print("ERROR")
-                    }
-                }
+            let docRef = VMEndpoint.user.ref.document(getUserID())
+            self.firestoreService.getDocument(docRef) { [weak self] (user: User?) in
+                guard let self = self else { return }
+                let userData = User(
+                    name: fullName,
+                    userPhotoURL: "",
+                    userId: getUserID(),
+                    email: email,
+                    postIds: [],
+                    savedRestaurants: [],
+                    blockId: []
+                )
+                self.firestoreService.setData(userData, at: docRef)
             }
         }
     }

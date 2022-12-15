@@ -7,7 +7,6 @@
 
 import UIKit
 import FirebaseAuth
-import FirebaseFirestore
 import KeychainSwift
 import AuthenticationServices
 import CryptoKit

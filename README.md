@@ -1,6 +1,14 @@
 # Veganny Map
-![180](https://user-images.githubusercontent.com/94528020/207561201-727eb150-dbd0-436b-82e8-9bbada3fb8de.png)
 
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/94528020/207561201-727eb150-dbd0-436b-82e8-9bbada3fb8de.png">
+</p>
+
+<p align="center">
+    <img src="https://img.shields.io/badge/platform-iOS-green">
+    <img src="https://img.shields.io/badge/release-v1.0.4-orange">
+    <img src="https://img.shields.io/badge/license-MIT-green">
+</p>
 ## About
 This’s an app for people who want to find vegan restaurants. With this app, you can do food search, connect with the community, and get all the inspirations you need!
 

@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController {
     
     
     // MARK: - Properties
-    let dataBase = Firestore.firestore()
+    let firestoreService = FirestoreService.shared
     var currentNonce: String?
     var user: User?
     var container = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -50,21 +50,15 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         guard let userId = Auth.auth().currentUser?.uid else {
             return
         }
-
-        dataBase.collection("User").document(userId).getDocument(as: User.self) { result in
-            switch result {
-            case .success(let user):
-                print(user)
-                self.user = user
-                self.profileImgView.loadImage(self.user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
-                self.nameLabel.text = self.user?.name
-            case .failure(let error):
-                print(error)
-            }
+        let docRef = VMEndpoint.user.ref.document(userId)
+        firestoreService.getDocument(docRef) { [weak self] (user: User?) in
+            guard let self = self else { return }
+            self.user = user
+            self.profileImgView.loadImage(self.user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+            self.nameLabel.text = self.user?.name
         }
     }
     
@@ -116,6 +110,16 @@ class ProfileViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
         controller.addAction(action)
+        if let popoverController = controller.popoverPresentationController {
+                    popoverController.sourceView = self.view
+                    popoverController.sourceRect = CGRect(
+                        x: self.view.bounds.midX,
+                        y: self.view.bounds.midY,
+                        width: 0,
+                        height: 0
+                    )
+                    popoverController.permittedArrowDirections = []
+                }
         present(controller, animated: true, completion: nil)
     }
     
@@ -153,53 +157,41 @@ class ProfileViewController: UIViewController {
     
     func deleteFirebaseData() {
         
-        // 1.刪除留言
-        self.dataBase.collection("Post").getDocuments { (querySnapshot, error) in
-            if let querySnapshot = querySnapshot {
-                for document in querySnapshot.documents {
-                    do {
-                        let post = try document.data(as: Post.self)
-                        for comment in post.comments {
-                            if comment.userId == getUserID() {
-                                let deleteComment: [String: Any] = [
-                                    "content": comment.content,
-                                    "contentType": comment.contentType,
-                                    "userId": comment.userId,
-                                    "time": comment.time
-                                ]
-                                self.dataBase.collection("Post").document(post.postId).updateData([
-                                    "comments": FieldValue.arrayRemove([deleteComment]) // 刪掉留言
-                                ])
-                            }
-                        }
-                    } catch {
-                        print(error)
+        let postQuery = VMEndpoint.post.ref
+        // 刪除留言
+        firestoreService.getDocuments(postQuery) { [weak self] (posts: [Post]) in
+            guard let self = self else { return }
+            for post in posts {
+                for comment in post.comments {
+                    if comment.userId == getUserID() {
+                        let deleteComment: [String: Any] = [
+                            "content": comment.content,
+                            "contentType": comment.contentType,
+                            "userId": comment.userId,
+                            "time": comment.time
+                        ]
+                        self.firestoreService.arrayRemove(postQuery.document(post.postId), field: "comments", value: deleteComment) // 刪掉留言
                     }
                 }
             }
         }
-        // 2.刪除貼文
+        // 刪除貼文
         guard let user = user else { return }
         for postId in user.postIds {
-            self.dataBase.collection("Post").document(postId).delete()
+            let docRef = VMEndpoint.post.ref.document(postId)
+            firestoreService.delete(docRef)
         }
-        // 3. 刪黑名單
-        self.dataBase.collection("User").getDocuments { (querySnapshot, error) in
-            if let querySnapshot = querySnapshot {
-                for doc in querySnapshot.documents {
-                    do {
-                        let user = try doc.data(as: User.self)
-                        self.dataBase.collection("User").document(user.userId).updateData([
-                            "blockId": FieldValue.arrayRemove([getUserID()])
-                        ])
-                    } catch {
-                        print(error)
-                    }
-                }
+        // 刪黑名單
+        let userQuery = VMEndpoint.user.ref
+        firestoreService.getDocuments(userQuery) { [weak self] (users: [User]) in
+            guard let self = self else { return }
+            for user in users {
+                self.firestoreService.arrayRemove(userQuery.document(user.userId), field: "blockId", value: getUserID())
             }
         }
-        // 4. 刪使用者
-        self.dataBase.collection("User").document(getUserID()).delete()
+        // 刪使用者
+        let docRef = VMEndpoint.user.ref.document(getUserID())
+        firestoreService.delete(docRef)
         let currentUser = Auth.auth().currentUser
         currentUser?.delete { error in
             if let error = error {

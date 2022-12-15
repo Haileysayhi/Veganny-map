@@ -10,32 +10,26 @@ import FirebaseFirestoreSwift
 
 
 enum VMEndpoint {
-    case User
-    case Post
-    case Report
+    case user
+    case post
+    case report
 
     var ref: CollectionReference {
         let db = Firestore.firestore()
-        let users = db.collection("User")
 
         switch self {
-        case .User:
+        case .user:
             return db.collection("User")
-        case .Post:
+        case .post:
             return db.collection("Post")
-        case .Report:
+        case .report:
             return db.collection("Report")
         }
     }
 }
 
-struct FirestoreService {
-
-    enum UserList {
-        case friendList
-        case invitationList
-    }
-
+class FirestoreService {
+    static let shared = FirestoreService()
     var subscriptions: [ListenerRegistration] = []
 
     // MARK: - Methods
@@ -64,20 +58,20 @@ struct FirestoreService {
 
     func getDocument<T: Decodable>(_ docRef: DocumentReference, completion: @escaping (T?) -> Void) {
         docRef.getDocument { snapshot, error in
-            completion(parseDocument(snapshot: snapshot, error: error))
+            completion(self.parseDocument(snapshot: snapshot, error: error))
         }
     }
 
 
     func getDocuments<T: Decodable>(_ query: Query, completion: @escaping ([T]) -> Void) {
         query.getDocuments { snapshot, error in
-            completion(parseDocuments(snapshot: snapshot, error: error))
+            completion(self.parseDocuments(snapshot: snapshot, error: error))
         }
     }
 
     func listen<T: Decodable>(_ query: Query, listener: @escaping ([T]) -> Void) {
         query.addSnapshotListener { snapshot, error in
-            listener(parseDocuments(snapshot: snapshot, error: error))
+            listener(self.parseDocuments(snapshot: snapshot, error: error))
         }
     }
 
@@ -96,6 +90,13 @@ struct FirestoreService {
             print("DEBUG: Error encoding \(data.self) data -", error.localizedDescription)
         }
     }
+    
+    func arrayRemove(_ docRef: DocumentReference, field: String, value: Any ) {
+        docRef.updateData([
+            field : FieldValue.arrayRemove([value])
+        ])
+    }
+    
 
     // MARK: - Private
 

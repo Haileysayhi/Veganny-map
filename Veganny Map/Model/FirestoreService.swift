@@ -101,6 +101,12 @@ class FirestoreService {
         ])
     }
     
+    func arrayUnion(_ docRef: DocumentReference, field: String, value: Any ) {
+        docRef.updateData([
+            field : FieldValue.arrayUnion([value])
+        ])
+    }
+    
 
     // MARK: - Private
 

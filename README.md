@@ -9,6 +9,7 @@
     <img src="https://img.shields.io/badge/release-v1.0.4-orange">
     <img src="https://img.shields.io/badge/license-MIT-green">
 </p>
+
 ## About
 This’s an app for people who want to find vegan restaurants. With this app, you can do food search, connect with the community, and get all the inspirations you need!
 

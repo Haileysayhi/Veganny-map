@@ -36,6 +36,7 @@ class BlockListViewController: UIViewController {
         super.viewWillAppear(animated)
         getUserData()
     }
+    
     // MARK: - Function
     func getUserData() {
         let docRef = VMEndpoint.user.ref.document(getUserID())

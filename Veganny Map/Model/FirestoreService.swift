@@ -91,6 +91,10 @@ class FirestoreService {
         }
     }
     
+    func setDataMerge(_ documentData: [String: Any], at docRef: DocumentReference) {
+        docRef.setData(documentData, merge: true)
+    }
+    
     func arrayRemove(_ docRef: DocumentReference, field: String, value: Any ) {
         docRef.updateData([
             field : FieldValue.arrayRemove([value])

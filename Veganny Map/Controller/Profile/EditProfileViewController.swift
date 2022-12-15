@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseFirestore
 import FirebaseAuth
 import PhotosUI
 import FirebaseStorage
@@ -16,7 +15,7 @@ import SPAlert
 class EditProfileViewController: UIViewController {
     
     // MARK: - Properties
-    let dataBase = Firestore.firestore()
+    let firestoreService = FirestoreService.shared
     var user: User?
     var imagePickerController = UIImagePickerController()
     let storage = Storage.storage().reference()
@@ -61,33 +60,24 @@ class EditProfileViewController: UIViewController {
            text.isEmpty {
             CustomFunc.customAlert(title: "名字不可為空", message: "請輸入名字", vc: self, actionHandler: nil)
         } else {
-            changeData()
+            let docRef = VMEndpoint.user.ref.document(getUserID())
+            firestoreService.setDataMerge(["name": nameTextField.text,
+                                           "userPhotoURL": self.urlString], at: docRef)
             let alertView = SPAlertView(title: "Done", preset: .done)
             alertView.duration = 0.5
             alertView.present()
         }
     }
     
-    func changeData() {
-        dataBase.collection("User").document(getUserID()).setData([
-            "name": nameTextField.text,
-            "userPhotoURL": self.urlString
-        ], merge: true)
-    }
-    
     func getUserData() {
-        dataBase.collection("User").document(getUserID()).getDocument(as: User.self) { result in
-            switch result {
-            case .success(let user):
-                print(user)
-                self.urlString = user.userPhotoURL
-                self.user = user
-                self.userImgView.loadImage(self.user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
-                self.nameTextField.text = self.user?.name
-                self.nameTextField.font = UIFont.systemFont(ofSize: 18)
-            case .failure(let error):
-                print(error)
-            }
+        let docRef = VMEndpoint.user.ref.document(getUserID())
+        firestoreService.getDocument(docRef) { [weak self] (user: User?) in
+            guard let self = self else { return }
+            self.urlString = user?.userPhotoURL
+            self.user = user
+            self.userImgView.loadImage(self.user?.userPhotoURL, placeHolder: UIImage(systemName: "person.circle"))
+            self.nameTextField.text = self.user?.name
+            self.nameTextField.font = UIFont.systemFont(ofSize: 18)
         }
     }
     

@@ -26,6 +26,9 @@ class CommentViewController: UIViewController {
     
     // MARK: - Properties
     let dataBase = Firestore.firestore()
+    
+    let firestoreService = FirestoreService.shared
+    
     var postId = "" // 接postVC傳過來的資料
     var comments = [Comment]()
     var user: User?
@@ -56,49 +59,44 @@ class CommentViewController: UIViewController {
     }
     
     func addData() {
-        let document = dataBase.collection("Post").document(postId)
-        // 使用updateData因此資料不可以是自定義型別需改成dictionary
+        
+        let docRef = VMEndpoint.post.ref.document(postId)
         let comment: [String: Any] = [
             "content": textField.text ?? "",
             "contentType": ContentType.text.rawValue,
             "userId": getUserID(),
             "time": Timestamp(date: Date())
         ]
+        firestoreService.arrayUnion(docRef, field: "comments", value: comment)
         
-        document.updateData([
-            "comments": FieldValue.arrayUnion([comment])
-        ])
         textField.text = ""
     }
     
     func getCommentData() {
-        dataBase.collection("Post").document(postId).getDocument(as: Post.self) { result in
-            switch result {
-            case .success(let post):
-                print(post)
-                self.comments = post.comments
-            case .failure(let error):
-                print(error)
-            }
-            DispatchQueue.main.async {
-                self.tableView.endHeaderRefreshing()
-                self.tableView.reloadData()
-            }
+        
+        let docRef = VMEndpoint.post.ref.document(postId)
+        firestoreService.getDocument(docRef) { [weak self] (post: Post?) in
+            guard let self = self else { return }
+            guard let post = post else { return }
+            
+            self.comments = post.comments
+        }
+        DispatchQueue.main.async {
+            self.tableView.endHeaderRefreshing()
+            self.tableView.reloadData()
         }
     }
     
-    
     func deleteCommentData(indexPath: Int) {
-        let document = dataBase.collection("Post").document(postId)
+        
+        let docRef = VMEndpoint.post.ref.document(postId)
         let comment: [String: Any] = [
             "content": comments[indexPath].content,
             "contentType": comments[indexPath].contentType,
             "userId": comments[indexPath].userId,
             "time": comments[indexPath].time
         ]
-        document.updateData([
-            "comments": FieldValue.arrayRemove([comment]) // 刪掉留言
-        ])
+        firestoreService.arrayRemove(docRef, field: "comments", value: comment)
     }
 }
 
@@ -111,20 +109,18 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as? CommentTableViewCell else { fatalError("Could not creat Cell.") }
-  
-        dataBase.collection("User").document(self.comments[indexPath.row].userId).getDocument(as: User.self) { result in
-            switch result {
-            case .success(let user):
-                print(user)
-                cell.layoutCell(
-                    imgView: user.userPhotoURL,
-                    name: user.name,
-                    content: self.comments[indexPath.row].content,
-                    timeStamp: self.comments[indexPath.row].time
-                )
-            case .failure(let error):
-                print(error)
-            }
+        
+        let docRef = VMEndpoint.user.ref.document(self.comments[indexPath.row].userId)
+        firestoreService.getDocument(docRef) { [weak self] (user: User?) in
+            guard let self = self else { return }
+            guard let user = user else { return }
+            
+            cell.layoutCell(
+                imgView: user.userPhotoURL,
+                name: user.name,
+                content: self.comments[indexPath.row].content,
+                timeStamp: self.comments[indexPath.row].time
+            )
         }
         return cell
     }

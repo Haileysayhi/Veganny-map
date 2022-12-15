@@ -23,6 +23,9 @@ class DetailViewController: UIViewController {
     // MARK: - Properties
     var infoResult: InfoResult?
     let dataBase = Firestore.firestore()
+    
+    let firestoreService = FirestoreService.shared
+    
     var didTapButton = false
     
     // MARK: - viewDidLoad
@@ -33,16 +36,15 @@ class DetailViewController: UIViewController {
     
     // MARK: - function
     @objc func saveRestaurantId(_ sender: UIButton) {
-        let document = dataBase.collection("User").document(getUserID())
+        
+        let docRef = VMEndpoint.user.ref.document(getUserID())
         let placeId = infoResult?.placeId as! String
 
         if didTapButton {
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
             sender.tintColor = .systemOrange
             
-            document.updateData([
-                "savedRestaurants": FieldValue.arrayRemove([placeId]) // 刪掉餐廳的id
-            ])
+            firestoreService.arrayRemove(docRef, field: "savedRestaurants", value: placeId)
             
             let alertView = SPAlertView(title: "Remove from save", preset: .done)
             alertView.duration = 0.5
@@ -51,9 +53,7 @@ class DetailViewController: UIViewController {
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             sender.tintColor = .systemPink
             
-            document.updateData([
-                "savedRestaurants": FieldValue.arrayUnion([placeId]) // 存入餐廳的id
-            ])
+            firestoreService.arrayUnion(docRef, field: "savedRestaurants", value: placeId)
             
             let alertView = SPAlertView(title: "Add to save", preset: .heart)
             alertView.duration = 0.5

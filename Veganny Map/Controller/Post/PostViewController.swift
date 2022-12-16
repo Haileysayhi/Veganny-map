@@ -40,6 +40,8 @@ class PostViewController: UIViewController {
     var didTapButton = false
     let floatingButton = MDCFloatingButton(shape: .default)
     var lastContentOffset: CGFloat = 0
+    var authorDict: [String: User] = [:]
+    let group = DispatchGroup()
     
     enum ChangePage: Int {
         case all, mine
@@ -58,17 +60,13 @@ class PostViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .systemOrange
         tableView.register(UINib(nibName: "PostTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "PostTableViewCell")
-        tableView.beginHeaderRefreshing() // 出現轉圈圈圖案
-        
+        tableView.beginHeaderRefreshing()
         setupFloatingButton(button: floatingButton)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        getPostData()
-        getUserData()
     }
     
     // MARK: - Function
@@ -140,34 +138,37 @@ class PostViewController: UIViewController {
     }
     
     func getPostData() {
-        
-        let postQuery = VMEndpoint.post.ref.order(by: "time", descending: true)
-        firestoreService.getDocuments(postQuery) { [weak self] (posts: [Post]) in
-            guard let self = self else { return }
-            self.posts = [] // 清空資料，從其他頁面跳回來時不會重複取資料
-            self.myPosts = []
-            for post in posts {
-                if post.authorId == getUserID() { // 如果post中的authorId是等於現在登入的使用者ID
-                    self.myPosts.append(post)
-                }
-                guard let user = self.user else { return }
-                if !user.blockId.contains(post.authorId) {
-                    self.posts.append(post)
-                }
-            }
-            DispatchQueue.main.async {
-                self.tableView.endHeaderRefreshing()
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
-    func getUserData() {
-        
         let docRef = VMEndpoint.user.ref.document(getUserID())
         firestoreService.getDocument(docRef) { [weak self] (user: User?) in
             guard let self = self else { return }
             self.user = user
+
+            let postQuery = VMEndpoint.post.ref.order(by: "time", descending: true)
+            self.firestoreService.getDocuments(postQuery) { [weak self] (posts: [Post]) in
+                guard let self = self else { return }
+                self.posts = [] // 清空資料，從其他頁面跳回來時不會重複取資料
+                self.myPosts = []
+                for post in posts {
+                    if post.authorId == getUserID() { // 如果post中的authorId是等於現在登入的使用者ID
+                        self.myPosts.append(post)
+                    }
+                    guard let user = self.user else { return }
+                    if !user.blockId.contains(post.authorId) {
+                        self.posts.append(post)
+                    }
+
+                    self.group.enter()
+                    let docRef = VMEndpoint.user.ref.document(post.authorId)
+                    self.firestoreService.getDocument(docRef) { (user: User?) in
+                        self.authorDict[post.authorId] = user
+                        self.group.leave()
+                    }
+                }
+                self.group.notify(queue: DispatchQueue.main) {
+                    self.tableView.reloadData()
+                    self.tableView.endHeaderRefreshing()
+                }
+            }
         }
     }
     
@@ -229,21 +230,19 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             cell.setupStackView(mediaURL: posts[indexPath.row].mediaURL)
             
-            let docRef = VMEndpoint.user.ref.document(posts[indexPath.row].authorId)
+            guard let allAuthor = authorDict[posts[indexPath.row].authorId]
+            else { fatalError("ERROR")}
             
-            firestoreService.getDocument(docRef) { [weak self] (user: User?) in
-                guard let self = self else { return }
-                self.user = user
                 cell.setupPost(
-                    name: user!.name,
-                    image: user!.userPhotoURL,
+                    name: allAuthor.name,
+                    image: allAuthor.userPhotoURL,
                     content: self.posts[indexPath.row].content,
                     comments: self.posts[indexPath.row].comments,
                     timeStamp: self.posts[indexPath.row].time,
                     postId: self.posts[indexPath.row].postId,
                     location: self.posts[indexPath.row].location
                 )
-            }
+            
             cell.locationButton.addTarget(self, action: #selector(goToDetailVC), for: .touchUpInside)
             
         case .mine:
@@ -253,21 +252,18 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             cell.setupStackView(mediaURL: myPosts[indexPath.row].mediaURL)
             
-            let docRef = VMEndpoint.user.ref.document(myPosts[indexPath.row].authorId)
+            guard let author = authorDict[myPosts[indexPath.row].authorId]
+            else { fatalError("ERROR") }
             
-            firestoreService.getDocument(docRef) { [weak self] (user: User?) in
-                guard let self = self else { return }
-                self.user = user
                 cell.setupPost(
-                    name: user!.name,
-                    image: user!.userPhotoURL,
+                    name: author.name,
+                    image: author.userPhotoURL,
                     content: self.myPosts[indexPath.row].content,
                     comments: self.myPosts[indexPath.row].comments,
                     timeStamp: self.myPosts[indexPath.row].time,
                     postId: self.myPosts[indexPath.row].postId,
                     location: self.myPosts[indexPath.row].location
                 )
-            }
             cell.locationButton.addTarget(self, action: #selector(goToDetailVC), for: .touchUpInside)
         }
         return cell
@@ -368,7 +364,6 @@ extension PostViewController: PostTableViewCellDelegate {
                     let authorId = self.posts[indexPath.row].authorId
                     self.firestoreService.arrayUnion(docRef, field: "blockId", value: authorId)
  
-                    self.getUserData()
                     self.getPostData()
                     CustomFunc.customAlert(title: "已封鎖該使用者", message: "你將不會再看到該使用者的貼文", vc: self, actionHandler: nil)
                 case .mine:

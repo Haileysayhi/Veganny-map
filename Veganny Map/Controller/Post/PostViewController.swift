@@ -35,10 +35,17 @@ class PostViewController: UIViewController {
     var posts = [Post]()
     var myPosts = [Post]() // 存登入者自己的發文
     var user: User?
-    let dataBase = Firestore.firestore()
+    var currentPage = ChangePage.all
+    let firestoreService = FirestoreService.shared
     var didTapButton = false
     let floatingButton = MDCFloatingButton(shape: .default)
     var lastContentOffset: CGFloat = 0
+    var authorDict: [String: User] = [:]
+    let group = DispatchGroup()
+    
+    enum ChangePage: Int {
+        case all, mine
+    }
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -53,17 +60,13 @@ class PostViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .systemOrange
         tableView.register(UINib(nibName: "PostTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "PostTableViewCell")
-        tableView.beginHeaderRefreshing() // 出現轉圈圈圖案
-        
+        tableView.beginHeaderRefreshing()
         setupFloatingButton(button: floatingButton)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        getPostData()
-        getUserData(userId: getUserID())
     }
     
     // MARK: - Function
@@ -104,90 +107,74 @@ class PostViewController: UIViewController {
         let point = sender.convert(CGPoint.zero, to: tableView) // 找出button的座標
         guard let indexpath = tableView.indexPathForRow(at: point) else { return } // 座標轉換成 indexpath
         
-        if changePage.selectedSegmentIndex == 0 {
-            let document = dataBase.collection("Post").document(posts[indexpath.row].postId)
-            
+        guard let changePages = ChangePage(rawValue: self.changePage.selectedSegmentIndex)
+        else { fatalError("ERROR") }
+        switch changePages {
+        case .all:
+            let docRef = VMEndpoint.post.ref.document(posts[indexpath.row].postId)
             if didTapButton {
                 sender.setImage(UIImage(systemName: "heart"), for: .normal)
                 sender.tintColor = .black
-                
-                document.updateData([
-                    "likes": FieldValue.arrayRemove([getUserID()])
-                ])
+                firestoreService.arrayRemove(docRef, field: "likes", value: getUserID())
             } else {
                 sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 sender.tintColor = .systemOrange
-                
-                document.updateData([
-                    "likes": FieldValue.arrayUnion([getUserID()])
-                ])
+                firestoreService.arrayUnion(docRef, field: "likes", value: getUserID())
             }
             didTapButton.toggle()
-            
-        } else {
-            let document = dataBase.collection("Post").document(myPosts[indexpath.row].postId)
-            
+        case .mine:
+            let docRef = VMEndpoint.post.ref.document(myPosts[indexpath.row].postId)
             if didTapButton {
                 sender.setImage(UIImage(systemName: "heart"), for: .normal)
                 sender.tintColor = .black
-                
-                document.updateData([
-                    "likes": FieldValue.arrayRemove([getUserID()])
-                ])
+                firestoreService.arrayRemove(docRef, field: "likes", value: getUserID())
             } else {
                 sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 sender.tintColor = .systemOrange
-                
-                document.updateData([
-                    "likes": FieldValue.arrayUnion([getUserID()])
-                ])
+                firestoreService.arrayUnion(docRef, field: "likes", value: getUserID())
             }
             didTapButton.toggle()
-            
         }
     }
     
     func getPostData() {
-        dataBase.collection("Post").order(by: "time", descending: true).getDocuments { (querySnapshot, error) in
-            self.posts = [] // 清空資料，從其他頁面跳回來時不會重複取資料
-            self.myPosts = []
-            if let querySnapshot = querySnapshot {
-                for document in querySnapshot.documents {
-                    do {
-                        let post = try document.data(as: Post.self)
-                        if post.authorId == getUserID() { // 如果post中的authorId是等於現在登入的使用者ID
-                            self.myPosts.append(post)
-                        }
-                        guard let user = self.user else { return }
-                        if !user.blockId.contains(post.authorId) {
-                            self.posts.append(post)
-                        }
-                    } catch {
-                        print(error)
+        let docRef = VMEndpoint.user.ref.document(getUserID())
+        firestoreService.getDocument(docRef) { [weak self] (user: User?) in
+            guard let self = self else { return }
+            self.user = user
+
+            let postQuery = VMEndpoint.post.ref.order(by: "time", descending: true)
+            self.firestoreService.getDocuments(postQuery) { [weak self] (posts: [Post]) in
+                guard let self = self else { return }
+                self.posts = [] // 清空資料，從其他頁面跳回來時不會重複取資料
+                self.myPosts = []
+                for post in posts {
+                    if post.authorId == getUserID() { // 如果post中的authorId是等於現在登入的使用者ID
+                        self.myPosts.append(post)
+                    }
+                    guard let user = self.user else { return }
+                    if !user.blockId.contains(post.authorId) {
+                        self.posts.append(post)
+                    }
+
+                    self.group.enter()
+                    let docRef = VMEndpoint.user.ref.document(post.authorId)
+                    self.firestoreService.getDocument(docRef) { (user: User?) in
+                        self.authorDict[post.authorId] = user
+                        self.group.leave()
                     }
                 }
-                
-                DispatchQueue.main.async {
-                    self.tableView.endHeaderRefreshing()
+                self.group.notify(queue: DispatchQueue.main) {
                     self.tableView.reloadData()
+                    self.tableView.endHeaderRefreshing()
                 }
-            }
-        }
-    }
-    
-    func getUserData(userId: String) {
-        dataBase.collection("User").document(userId).getDocument(as: User.self) { result in
-            switch result {
-            case .success(let user):
-                print(user)
-                self.user = user
-            case .failure(let error):
-                print(error)
             }
         }
     }
     
     @IBAction func changePost(_ sender: UISegmentedControl) {
+        guard let currentPage = ChangePage(rawValue: sender.selectedSegmentIndex) else { return }
+        self.currentPage = currentPage
         tableView.reloadData() // 點選時重新load資料
     }
     
@@ -198,9 +185,7 @@ class PostViewController: UIViewController {
         guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
         else { fatalError("ERROR") }
         
-        guard let changePages = ChangePage(rawValue: self.changePage.selectedSegmentIndex)
-        else { fatalError("ERROR") }
-        switch changePages {
+        switch currentPage {
         case .all:
             GoogleMapListController.shared.fetchPlaceDetail(placeId: posts[indexpath.row].placeId) { detailResponse in
                 guard let detailResponse = detailResponse else { fatalError("ERROR") }
@@ -221,14 +206,9 @@ class PostViewController: UIViewController {
 // MARK: - UITableViewDelegate & UITableViewDataSource
 extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     
-    enum ChangePage: Int {
-        case all, mine
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let changePages = ChangePage(rawValue: self.changePage.selectedSegmentIndex)
-        else { fatalError("ERROR") }
-        switch changePages {
+        
+        switch currentPage {
         case .all:
             return posts.count
         case .mine:
@@ -242,9 +222,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             for: indexPath) as? PostTableViewCell else { fatalError("Could not creat Cell.") }
         cell.delegate = self // 註delegate
         
-        guard let changePages = ChangePage(rawValue: self.changePage.selectedSegmentIndex)
-        else { fatalError("ERROR") }
-        switch changePages {
+        switch currentPage {
         case .all:
             cell.setupPullDownButton(userID: posts[indexPath.row].authorId )
             cell.setupButton(likes: posts[indexPath.row].likes, userId: getUserID())
@@ -252,24 +230,19 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             cell.setupStackView(mediaURL: posts[indexPath.row].mediaURL)
             
-            dataBase.collection("User").document(posts[indexPath.row].authorId).getDocument(as: User.self) { result in
-                switch result {
-                case .success(let user):
-                    print(user)
-                    self.user = user
-                    cell.setupPost(
-                        name: user.name,
-                        image: user.userPhotoURL,
-                        content: self.posts[indexPath.row].content,
-                        comments: self.posts[indexPath.row].comments,
-                        timeStamp: self.posts[indexPath.row].time,
-                        postId: self.posts[indexPath.row].postId,
-                        location: self.posts[indexPath.row].location
-                    )
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            guard let allAuthor = authorDict[posts[indexPath.row].authorId]
+            else { fatalError("ERROR")}
+            
+                cell.setupPost(
+                    name: allAuthor.name,
+                    image: allAuthor.userPhotoURL,
+                    content: self.posts[indexPath.row].content,
+                    comments: self.posts[indexPath.row].comments,
+                    timeStamp: self.posts[indexPath.row].time,
+                    postId: self.posts[indexPath.row].postId,
+                    location: self.posts[indexPath.row].location
+                )
+            
             cell.locationButton.addTarget(self, action: #selector(goToDetailVC), for: .touchUpInside)
             
         case .mine:
@@ -279,24 +252,18 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell.commentButton.addTarget(self, action: #selector(goToCommentPage), for: .touchUpInside)
             cell.setupStackView(mediaURL: myPosts[indexPath.row].mediaURL)
             
-            dataBase.collection("User").document(myPosts[indexPath.row].authorId).getDocument(as: User.self) { result in
-                switch result {
-                case .success(let user):
-                    print(user)
-                    self.user = user
-                    cell.setupPost(
-                        name: user.name,
-                        image: user.userPhotoURL,
-                        content: self.myPosts[indexPath.row].content,
-                        comments: self.myPosts[indexPath.row].comments,
-                        timeStamp: self.myPosts[indexPath.row].time,
-                        postId: self.myPosts[indexPath.row].postId,
-                        location: self.myPosts[indexPath.row].location
-                    )
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            guard let author = authorDict[myPosts[indexPath.row].authorId]
+            else { fatalError("ERROR") }
+            
+                cell.setupPost(
+                    name: author.name,
+                    image: author.userPhotoURL,
+                    content: self.myPosts[indexPath.row].content,
+                    comments: self.myPosts[indexPath.row].comments,
+                    timeStamp: self.myPosts[indexPath.row].time,
+                    postId: self.myPosts[indexPath.row].postId,
+                    location: self.myPosts[indexPath.row].location
+                )
             cell.locationButton.addTarget(self, action: #selector(goToDetailVC), for: .touchUpInside)
         }
         return cell
@@ -325,24 +292,28 @@ extension PostViewController: PostTableViewCellDelegate {
         
         let controller = UIAlertController(title: "確定刪除貼文嗎？", message: "你將不會再看到已刪除的貼文", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
-            if self.changePage.selectedSegmentIndex == 0 {
-                self.dataBase.collection("Post").document(self.posts[indexPath.row].postId).delete()
-                let deletePostId = self.dataBase.collection("User").document(getUserID())
-                deletePostId.updateData([
-                    "postIds": FieldValue.arrayRemove([self.posts[indexPath.row].postId])
-                ])
+            
+            switch self.currentPage {
+            case .all:
+                let docRef = VMEndpoint.user.ref.document(getUserID())
+                self.firestoreService.arrayRemove(docRef, field: "postIds", value: self.posts[indexPath.row].postId)
+                
+                let postDocRef = VMEndpoint.post.ref.document(self.posts[indexPath.row].postId)
+                self.firestoreService.delete(postDocRef)
+                
                 guard let postIndex = self.myPosts.firstIndex(where: { $0.postId == self.posts[indexPath.row].postId }) else { return }
                 self.myPosts.remove(at: postIndex)
                 self.posts.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
                 
                 CustomFunc.customAlert(title: "已刪除貼文", message: "", vc: self, actionHandler: nil)
-            } else {
-                self.dataBase.collection("Post").document(self.myPosts[indexPath.row].postId).delete()
-                let deletePostId = self.dataBase.collection("User").document(getUserID())
-                deletePostId.updateData([
-                    "postIds": FieldValue.arrayRemove([self.myPosts[indexPath.row].postId])
-                ])
+            case .mine:
+                let docRef = VMEndpoint.user.ref.document(getUserID())
+                self.firestoreService.arrayRemove(docRef, field: "postIds", value: self.myPosts[indexPath.row].postId)
+                
+                let postDocRef = VMEndpoint.post.ref.document(self.myPosts[indexPath.row].postId)
+                self.firestoreService.delete(postDocRef)
+                
                 guard let postIndex = self.posts.firstIndex(where: { $0.postId == self.myPosts[indexPath.row].postId }) else { return }
                 self.posts.remove(at: postIndex)
                 self.myPosts.remove(at: indexPath.row)
@@ -362,49 +333,46 @@ extension PostViewController: PostTableViewCellDelegate {
         
         let controller = UIAlertController(title: "確定檢舉這則貼文嗎？", message: "你的檢舉將會匿名", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
-            if self.changePage.selectedSegmentIndex == 0 {
-                let document = self.dataBase.collection("Report").document()
-                
+            switch self.currentPage {
+            case .all:
                 let report = Report(
                     userId: getUserID(),
                     postId: self.posts[indexPath.row].postId,
                     time: Timestamp(date: Date())
                 )
+                let docRef = VMEndpoint.report.ref.document()
+                self.firestoreService.setData(report, at: docRef)
                 CustomFunc.customAlert(title: "已檢舉完成", message: "謝謝你的意見", vc: self, actionHandler: nil)
-                do {
-                    try document.setData(from: report)
-                } catch {
-                    print("ERROR")
+            case .mine:
+                return
+            }
+        }
+        controller.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true)
+    }
+        
+        func blockPeople(_ cell: PostTableViewCell) {
+            guard let indexPath = tableView.indexPath(for: cell) else { fatalError("ERROR") }
+            
+            let controller = UIAlertController(title: "確定封鎖該使用者嗎？", message: "你將不會再看到該使用者的貼文", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
+                switch self.currentPage {
+                case .all:
+                    let docRef = VMEndpoint.user.ref.document(getUserID())
+                    let authorId = self.posts[indexPath.row].authorId
+                    self.firestoreService.arrayUnion(docRef, field: "blockId", value: authorId)
+ 
+                    self.getPostData()
+                    CustomFunc.customAlert(title: "已封鎖該使用者", message: "你將不會再看到該使用者的貼文", vc: self, actionHandler: nil)
+                case .mine:
+                    return
                 }
             }
+            controller.addAction(okAction)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            controller.addAction(cancelAction)
+            present(controller, animated: true)
         }
-        controller.addAction(okAction)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        present(controller, animated: true)
     }
-    
-    func blockPeople(_ cell: PostTableViewCell) {
-        guard let indexPath = tableView.indexPath(for: cell) else { fatalError("ERROR") }
-        
-        let controller = UIAlertController(title: "確定封鎖該使用者嗎？", message: "你將不會再看到該使用者的貼文", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
-            if self.changePage.selectedSegmentIndex == 0 {
-                let document = self.dataBase.collection("User").document(getUserID())
-                let authorId = self.posts[indexPath.row].authorId
-                
-                document.updateData([
-                    "blockId": FieldValue.arrayUnion([authorId]) // 存入封鎖人的id
-                ])
-                
-                self.getUserData(userId: getUserID())
-                self.getPostData()
-                CustomFunc.customAlert(title: "已封鎖該使用者", message: "你將不會再看到該使用者的貼文", vc: self, actionHandler: nil)
-            }
-        }
-        controller.addAction(okAction)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        present(controller, animated: true)
-    }
-}

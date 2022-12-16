@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 import SPAlert
 
 class DetailViewController: UIViewController {
@@ -22,7 +20,7 @@ class DetailViewController: UIViewController {
     
     // MARK: - Properties
     var infoResult: InfoResult?
-    let dataBase = Firestore.firestore()
+    let firestoreService = FirestoreService.shared
     var didTapButton = false
     
     // MARK: - viewDidLoad
@@ -33,16 +31,15 @@ class DetailViewController: UIViewController {
     
     // MARK: - function
     @objc func saveRestaurantId(_ sender: UIButton) {
-        let document = dataBase.collection("User").document(getUserID())
+        
+        let docRef = VMEndpoint.user.ref.document(getUserID())
         let placeId = infoResult?.placeId as! String
 
         if didTapButton {
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
             sender.tintColor = .systemOrange
             
-            document.updateData([
-                "savedRestaurants": FieldValue.arrayRemove([placeId]) // 刪掉餐廳的id
-            ])
+            firestoreService.arrayRemove(docRef, field: "savedRestaurants", value: placeId)
             
             let alertView = SPAlertView(title: "Remove from save", preset: .done)
             alertView.duration = 0.5
@@ -51,9 +48,7 @@ class DetailViewController: UIViewController {
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             sender.tintColor = .systemPink
             
-            document.updateData([
-                "savedRestaurants": FieldValue.arrayUnion([placeId]) // 存入餐廳的id
-            ])
+            firestoreService.arrayUnion(docRef, field: "savedRestaurants", value: placeId)
             
             let alertView = SPAlertView(title: "Add to save", preset: .heart)
             alertView.duration = 0.5
@@ -61,7 +56,6 @@ class DetailViewController: UIViewController {
         }
         didTapButton.toggle()
     }
-    
     
     @objc func showSignInVC() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -136,15 +130,15 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             if getUserID().isEmpty {
                 cell.saveButton.addTarget(self, action: #selector(showSignInVC), for: .touchUpInside)
             } else {
-                dataBase.collection("User").document(getUserID()).addSnapshotListener { snapshot, error in
-                    guard let snapshot = snapshot else { return }
-                    guard let user = try? snapshot.data(as: User.self) else { return }
-                    
+                
+                let docRef = VMEndpoint.user.ref.document(getUserID())
+                firestoreService.listen(docRef) { [weak self] (user: User?) in
+                    guard let self = self else { return }
+                    guard let user = user else { return }
                     cell.setupButton(savedRestaurants: user.savedRestaurants, placeId: self.infoResult!.placeId)
                 }
                 cell.saveButton.addTarget(self, action: #selector(saveRestaurantId), for: .touchUpInside)
             }
-            
             cell.layoutCell(
                 name: infoResult.name,
                 address: infoResult.formattedAddress,

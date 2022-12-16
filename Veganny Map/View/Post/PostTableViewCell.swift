@@ -38,8 +38,8 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var pullDownButton: UIButton!
     
     // MARK: - Properties
-    weak var delegate: PostTableViewCellDelegate?
-    let dataBase = Firestore.firestore()
+    weak var delegate: PostTableViewCellDelegate?    
+    let firestoreService = FirestoreService.shared
     
     // MARK: - awakeFromNib & prepareForReuse
     override func awakeFromNib() {
@@ -135,10 +135,11 @@ class PostTableViewCell: UITableViewCell {
             numberOfCommentButton.text = "\(comments.count)"
         }
         
-        dataBase.collection("Post").document(postId).addSnapshotListener { snapshot, error in
-            guard let snapshot = snapshot else { return }
-            guard let post = try? snapshot.data(as: Post.self) else { return }
-            
+        let docRef = VMEndpoint.post.ref.document(postId)
+        firestoreService.listen(docRef) { [weak self] (post: Post?) in
+            guard let self = self else { return }
+            guard let post = post else { return }
+
             if post.likes.isEmpty {
                 self.numberOfLikeLabel.isHidden = true
             } else {

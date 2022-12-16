@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 class SaveViewController: UIViewController {
     
@@ -30,7 +28,7 @@ class SaveViewController: UIViewController {
     }
     
     // MARK: - Properties
-    let dataBase = Firestore.firestore()
+    let firestoreService = FirestoreService.shared
     var user: User?
     var detail = [DetailResponse]()
     var searching = false
@@ -52,14 +50,11 @@ class SaveViewController: UIViewController {
     
     // MARK: - Function
     func getPlaceIdData() {
-        dataBase.collection("User").document(getUserID()).getDocument(as: User.self) { result in
-            switch result {
-            case .success(let user):
-                self.user = user
-                self.fetchPlaceId()
-            case .failure(let error):
-                print(error)
-            }
+        let docRef = VMEndpoint.user.ref.document(getUserID())
+        firestoreService.getDocument(docRef) { [weak self] (user: User?) in
+            guard let self = self else { return }
+            self.user = user
+            self.fetchPlaceId()
         }
     }
     

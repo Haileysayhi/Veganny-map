@@ -7,7 +7,6 @@
 
 import UIKit
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 import FirebaseStorage
 import SPAlert
 import PhotosUI
@@ -46,7 +45,7 @@ class PublishViewController: UIViewController {
     // MARK: - Properties
     var configuration = PHPickerConfiguration()
     let storage = Storage.storage().reference()
-    let dataBase = Firestore.firestore()
+    let firestoreService = FirestoreService.shared
     var urlString = [String]()
     var placeId = ""
     
@@ -104,11 +103,11 @@ class PublishViewController: UIViewController {
     }
     
     func addData() {
-        let document = dataBase.collection("Post").document()
         
+        let docRef = VMEndpoint.post.ref.document()
         let post = Post(
             authorId: getUserID(),
-            postId: document.documentID,
+            postId: docRef.documentID,
             content: contentTextView.text,
             mediaType: MediaType.photo.rawValue,
             mediaURL: self.urlString,
@@ -118,16 +117,10 @@ class PublishViewController: UIViewController {
             location: locationLabel.text ?? "",
             placeId: placeId
         )
-        do {
-            try document.setData(from: post)
-        } catch {
-            print("ERROR")
-        }
-        
-        let addPostId = dataBase.collection("User").document(getUserID())
-        addPostId.updateData([
-            "postIds": FieldValue.arrayUnion([document.documentID])
-        ])
+        firestoreService.setData(post, at: docRef)
+
+        let userRef = VMEndpoint.user.ref.document(getUserID())
+        firestoreService.arrayUnion(userRef, field: "postIds", value: docRef.documentID)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

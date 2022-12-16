@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 import FirebaseAuth
 
 class BlockListViewController: UIViewController {
@@ -18,14 +16,14 @@ class BlockListViewController: UIViewController {
             tableView.delegate = self
             tableView.dataSource = self
             tableView.addRefreshHeader(refreshingBlock: { [weak self] in
-                self?.getUserData(userId: getUserID())
+                self?.getUserData()
             })
         }
     }
     // MARK: - Properties
     var user: User?
     var blockUser: User?
-    let dataBase = Firestore.firestore()
+    let firestoreService = FirestoreService.shared
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -36,20 +34,18 @@ class BlockListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getUserData(userId: getUserID())
+        getUserData()
     }
+    
     // MARK: - Function
-    func getUserData(userId: String) {
-        dataBase.collection("User").document(userId).getDocument(as: User.self) { result in
-            switch result {
-            case .success(let user):
-                self.user = user
-                DispatchQueue.main.async {
-                    self.tableView.endHeaderRefreshing()
-                    self.tableView.reloadData()
-                }
-            case .failure(let error):
-                print(error)
+    func getUserData() {
+        let docRef = VMEndpoint.user.ref.document(getUserID())
+        firestoreService.getDocument(docRef) { [weak self] (user: User?) in
+            guard let self = self else { return }
+            self.user = user
+            DispatchQueue.main.async {
+                self.tableView.endHeaderRefreshing()
+                self.tableView.reloadData()
             }
         }
     }
@@ -58,11 +54,9 @@ class BlockListViewController: UIViewController {
         let point = sender.convert(CGPoint.zero, to: tableView) // 找出button的座標
         guard let indexpath = tableView.indexPathForRow(at: point) else { return } // 座標轉換成 indexpath
         
-        let document = dataBase.collection("User").document(getUserID())
         let blockUserId = user?.blockId[indexpath.row]
-        document.updateData([
-            "blockId": FieldValue.arrayRemove([blockUserId]) // 解除封鎖人的id
-        ])
+        let docRef = VMEndpoint.user.ref.document(getUserID())
+        firestoreService.arrayRemove(docRef, field: "blockId", value: blockUserId)
         
         user?.blockId.remove(at: indexpath.row)
         tableView.deleteRows(at: [indexpath], with: .fade)
@@ -82,18 +76,18 @@ extension BlockListViewController: UITableViewDataSource, UITableViewDelegate {
         
         guard let user = self.user else { fatalError("ERROR") }
         
-        dataBase.collection("User").document(user.blockId[indexPath.row]).getDocument(as: User.self) { result in
-            switch result {
-            case .success(let user):
-                self.blockUser = user
-                cell.layoutCell(
-                    image: user.userPhotoURL,
-                    name: user.name
-                )
-                cell.unblockButton.addTarget(self, action: #selector(self.removeFromBlockList), for: .touchUpInside)
-            case .failure(let error):
-                print(error)
-            }
+        let docRef = VMEndpoint.user.ref.document(user.blockId[indexPath.row])
+        
+        firestoreService.getDocument(docRef) { [weak self] (user: User?) in
+            guard let self = self else { return }
+            guard let user = user else { return }
+            
+            self.blockUser = user
+            cell.layoutCell(
+                image: user.userPhotoURL,
+                name: user.name
+            )
+            cell.unblockButton.addTarget(self, action: #selector(self.removeFromBlockList), for: .touchUpInside)
         }
         return cell
     }

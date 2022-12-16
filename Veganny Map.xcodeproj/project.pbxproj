@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9AA29B7418E4474B76273911 /* Pods_Veganny_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D9CDEC786808BA4B9EA007 /* Pods_Veganny_Map.framework */; };
+		D210BDCC2948587A00DE7BE5 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D210BDCB2948587A00DE7BE5 /* FirestoreService.swift */; };
 		D211BCBF293319C800423065 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D211BCBE293319C800423065 /* UIColor+Extension.swift */; };
 		D2161C682941DB7E00F1F5B0 /* VegannyMapSlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2161C672941DB7E00F1F5B0 /* VegannyMapSlowTests.swift */; };
 		D242FDA929135CE200C56DCE /* RestaurantCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242FDA829135CE200C56DCE /* RestaurantCollectionViewCell.swift */; };
@@ -71,6 +72,7 @@
 		0F65300785C72F81C38D5308 /* Pods-Veganny Map.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Veganny Map.release.xcconfig"; path = "Target Support Files/Pods-Veganny Map/Pods-Veganny Map.release.xcconfig"; sourceTree = "<group>"; };
 		7154E386B18B67A32248E8D7 /* Pods-Veganny Map.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Veganny Map.debug.xcconfig"; path = "Target Support Files/Pods-Veganny Map/Pods-Veganny Map.debug.xcconfig"; sourceTree = "<group>"; };
 		98D9CDEC786808BA4B9EA007 /* Pods_Veganny_Map.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Veganny_Map.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D210BDCB2948587A00DE7BE5 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		D211BCBE293319C800423065 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		D2161C652941DB7E00F1F5B0 /* Veganny MapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Veganny MapTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2161C672941DB7E00F1F5B0 /* VegannyMapSlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegannyMapSlowTests.swift; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 		D2A0677C290F966600988C56 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D210BDCB2948587A00DE7BE5 /* FirestoreService.swift */,
 				D2A0677D290F96CF00988C56 /* PlaceSearch.swift */,
 				D2A0677F290F970700988C56 /* PlaceDetails.swift */,
 				D26F258A2918E11C00A8CF1B /* User.swift */,
@@ -651,6 +654,7 @@
 				D242FDB12913E21E00C56DCE /* PhotoTableViewCell.swift in Sources */,
 				D26F2591291A364B00A8CF1B /* KingFisherWrapper.swift in Sources */,
 				D242FDBA2913E46700C56DCE /* PhotoCollectionViewCell.swift in Sources */,
+				D210BDCC2948587A00DE7BE5 /* FirestoreService.swift in Sources */,
 				D2A0678429113BEE00988C56 /* RestaurantViewController.swift in Sources */,
 				D211BCBF293319C800423065 /* UIColor+Extension.swift in Sources */,
 				D2A0677E290F96CF00988C56 /* PlaceSearch.swift in Sources */,

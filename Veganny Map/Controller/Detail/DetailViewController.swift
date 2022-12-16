@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 import SPAlert
 
 class DetailViewController: UIViewController {
@@ -22,10 +20,7 @@ class DetailViewController: UIViewController {
     
     // MARK: - Properties
     var infoResult: InfoResult?
-    let dataBase = Firestore.firestore()
-    
     let firestoreService = FirestoreService.shared
-    
     var didTapButton = false
     
     // MARK: - viewDidLoad
@@ -61,7 +56,6 @@ class DetailViewController: UIViewController {
         }
         didTapButton.toggle()
     }
-    
     
     @objc func showSignInVC() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -136,15 +130,15 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             if getUserID().isEmpty {
                 cell.saveButton.addTarget(self, action: #selector(showSignInVC), for: .touchUpInside)
             } else {
-                dataBase.collection("User").document(getUserID()).addSnapshotListener { snapshot, error in
-                    guard let snapshot = snapshot else { return }
-                    guard let user = try? snapshot.data(as: User.self) else { return }
-                    
+                
+                let docRef = VMEndpoint.user.ref.document(getUserID())
+                firestoreService.listen(docRef) { [weak self] (user: User?) in
+                    guard let self = self else { return }
+                    guard let user = user else { return }
                     cell.setupButton(savedRestaurants: user.savedRestaurants, placeId: self.infoResult!.placeId)
                 }
                 cell.saveButton.addTarget(self, action: #selector(saveRestaurantId), for: .touchUpInside)
             }
-            
             cell.layoutCell(
                 name: infoResult.name,
                 address: infoResult.formattedAddress,

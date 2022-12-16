@@ -25,10 +25,7 @@ class CommentViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     
     // MARK: - Properties
-    let dataBase = Firestore.firestore()
-    
     let firestoreService = FirestoreService.shared
-    
     var postId = "" // 接postVC傳過來的資料
     var comments = [Comment]()
     var user: User?
@@ -37,9 +34,10 @@ class CommentViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataBase.collection("Post").document(postId).addSnapshotListener { snapshot, error in
-            guard let snapshot = snapshot else { return }
-            guard let post = try? snapshot.data(as: Post.self) else { return }
+        let docRef = VMEndpoint.post.ref.document(postId)
+        firestoreService.listen(docRef) { [weak self] (post: Post?) in
+            guard let self = self else { return }
+            guard let post = post else { return }
             self.comments = post.comments
             self.tableView.reloadData()
         }

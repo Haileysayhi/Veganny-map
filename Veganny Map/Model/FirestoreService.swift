@@ -34,28 +34,6 @@ class FirestoreService {
 
     // MARK: - Methods
 
-//    func listenToUserList(_ userList: UserList, completion: @escaping ([User]) -> Void) {
-//        var endpoint: VMEndpoint
-//        switch userList {
-//        case .friendList:
-//            endpoint = .myFriendList
-//        case .invitationList:
-//            endpoint = .myInvitationList
-//        }
-//
-//        listen(endpoint.ref) { (friends: [Friend]) in
-//            guard !friends.isEmpty else {
-//                completion([])
-//                return
-//            }
-//
-//            let query = FSEndpoint.users.ref.whereField("id", in: friends.map(\.id))
-//            getDocuments(query) { (users: [User]) in
-//                completion(users)
-//            }
-//        }
-//    }
-
     func getDocument<T: Decodable>(_ docRef: DocumentReference, completion: @escaping (T?) -> Void) {
         docRef.getDocument { snapshot, error in
             completion(self.parseDocument(snapshot: snapshot, error: error))
@@ -69,9 +47,9 @@ class FirestoreService {
         }
     }
 
-    func listen<T: Decodable>(_ query: Query, listener: @escaping ([T]) -> Void) {
-        query.addSnapshotListener { snapshot, error in
-            listener(self.parseDocuments(snapshot: snapshot, error: error))
+    func listen<T: Decodable>(_ docRef: DocumentReference, listener: @escaping (T?) -> Void) {
+        docRef.addSnapshotListener { snapshot, error in
+            listener(self.parseDocument(snapshot: snapshot, error: error))
         }
     }
 

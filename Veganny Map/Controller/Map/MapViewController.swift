@@ -53,12 +53,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
         clusterManager.setMapDelegate(self) // Register self to listen to GMSMapViewDelegate events.
     }
     
-    // MARK: - viewDidAppear
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        getData()
-    }
-    
     // MARK: - Function
     func setupSearchButton(button: UIButton) {
         button.setTitle("search this area", for: .normal)
@@ -166,6 +160,7 @@ extension MapViewController: CLLocationManagerDelegate {
             print("目前位置為\n經度為\(location.coordinate.longitude)\n緯度為\(location.coordinate.latitude)")
             self.userLocation = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
             UserDefaults.standard.set(self.userLocation, forKey: "userLocation")
+            getData()
         }
     }
     

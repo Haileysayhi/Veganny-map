@@ -308,16 +308,21 @@ extension SignInViewController {
             let docRef = VMEndpoint.user.ref.document(getUserID())
             self.firestoreService.getDocument(docRef) { [weak self] (user: User?) in
                 guard let self = self else { return }
-                let userData = User(
-                    name: fullName,
-                    userPhotoURL: "",
-                    userId: getUserID(),
-                    email: email,
-                    postIds: [],
-                    savedRestaurants: [],
-                    blockId: []
-                )
-                self.firestoreService.setData(userData, at: docRef)
+                
+                if user == nil {
+                    let userData = User(
+                        name: fullName,
+                        userPhotoURL: "",
+                        userId: getUserID(),
+                        email: email,
+                        postIds: [],
+                        savedRestaurants: [],
+                        blockId: []
+                    )
+                    self.firestoreService.setData(userData, at: docRef)
+                } else {
+                    return
+                }
             }
         }
     }

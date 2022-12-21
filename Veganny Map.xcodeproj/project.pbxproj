@@ -859,7 +859,7 @@
 				DEVELOPMENT_TEAM = B683C2644L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Veganny Map/Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "This lets you share photos.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera will be used to take pictures so that you can store them in Veganny Map.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "You'll get info about places near you and imporved search results when you turn on Location Service for Maps.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows Veganny Map to share photos from your library.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -873,7 +873,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.6;
+				MARKETING_VERSION = 1.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Hailey.Veganny-Map";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -894,7 +894,7 @@
 				DEVELOPMENT_TEAM = B683C2644L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Veganny Map/Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "This lets you share photos.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera will be used to take pictures so that you can store them in Veganny Map.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "You'll get info about places near you and imporved search results when you turn on Location Service for Maps.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows Veganny Map to share photos from your library.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -908,7 +908,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.6;
+				MARKETING_VERSION = 1.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Hailey.Veganny-Map";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

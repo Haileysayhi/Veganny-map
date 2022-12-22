@@ -175,15 +175,21 @@ extension MapViewController: CLLocationManagerDelegate {
             mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 400, right: 0)
             
         case .denied:
-            let alertController = UIAlertController(
-                title: "定位權限已關閉",
-                message: "如要變更權限，請至 設定 > 隱私權 > 定位服務 開啟",
+            guard let settingsAppURL = URL(string: UIApplication.openSettingsURLString) else { return }
+            let alert = UIAlertController(
+                title: "Map works best with Location Services turned on.",
+                message: "Improved search results when you turn on Location Services for Veganny Map.",
                 preferredStyle: .alert
             )
-            let okAction = UIAlertAction(title: "確認", style: .default, handler: nil)
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
-            
+            let allowAction = UIAlertAction(
+                title: "Turn On in Setting",
+                style: .cancel) { _ in
+                    UIApplication.shared.open(settingsAppURL, options: [:], completionHandler: nil)
+            }
+            alert.addAction(UIAlertAction(title: "Keep Location Services Off", style: .default))
+            alert.addAction(allowAction)
+
+            present(alert, animated: true)
         default:
             break
         }

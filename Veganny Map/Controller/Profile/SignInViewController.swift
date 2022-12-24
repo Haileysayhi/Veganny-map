@@ -30,18 +30,25 @@ class SignInViewController: UIViewController {
         self.checkAppleIDCredentialState(userID: appleUserID ?? "")
         setupAnimationView()
         
+        let privacyLable = UILabel()
+        view.addSubview(privacyLable)
+        privacyLable.translatesAutoresizingMaskIntoConstraints = false
+        privacyLable.font = UIFont.systemFont(ofSize: 10)
+        privacyLable.text = "註冊等同於接受"
+        privacyLable.textColor = .black
+        
         let privacyButton = UIButton()
-        privacyButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
-        privacyButton.tintColor = .systemOrange
-        privacyButton.layer.cornerRadius = 15
+        privacyButton.setTitle("隱私權政策", for: .normal)
+        privacyButton.titleLabel?.font = .systemFont(ofSize: 10.0)
+        privacyButton.setTitleColor(.blue, for: .normal)
         privacyButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(privacyButton)
         
         NSLayoutConstraint.activate([
-            privacyButton.widthAnchor.constraint(equalToConstant: 50),
-            privacyButton.heightAnchor.constraint(equalToConstant: 50),
-            privacyButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
-            privacyButton.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor, constant: 10)
+            privacyLable.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor, constant: 50),
+            privacyLable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            privacyButton.centerXAnchor.constraint(equalTo: privacyLable.centerXAnchor),
+            privacyButton.topAnchor.constraint(equalTo: privacyLable.bottomAnchor),
         ])
         privacyButton.addTarget(self, action: #selector(privacyPolicy), for: .touchUpInside)
     }

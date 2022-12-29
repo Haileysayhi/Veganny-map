@@ -13,6 +13,7 @@ import Lottie
 import KeychainSwift
 import SafariServices
 
+// swiftlint:disable line_length
 class SignInViewController: UIViewController {
     
     // MARK: - Properties
@@ -21,7 +22,8 @@ class SignInViewController: UIViewController {
     var animationView: AnimationView!
     let firestoreService = FirestoreService.shared
     let keychain = KeychainSwift()
-    
+    let privacyButton = UIButton()
+
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +39,6 @@ class SignInViewController: UIViewController {
         privacyLable.text = "註冊等同於接受"
         privacyLable.textColor = .black
         
-        let privacyButton = UIButton()
         privacyButton.setTitle("隱私權政策", for: .normal)
         privacyButton.titleLabel?.font = .systemFont(ofSize: 10.0)
         privacyButton.setTitleColor(.blue, for: .normal)
@@ -55,10 +56,10 @@ class SignInViewController: UIViewController {
     
     // MARK: - Function
     @objc func privacyPolicy() {
-        if let url = URL(string: "https://www.privacypolicies.com/live/551f2624-e971-4107-84da-175188788ebb") {
-            let vc = SFSafariViewController(url: url)
-            present(vc, animated: true)
-        }
+                if let url = URL(string: "https://www.privacypolicies.com/live/551f2624-e971-4107-84da-175188788ebb") {
+                    let vc = SFSafariViewController(url: url)
+                    present(vc, animated: true)
+                }
     }
     
     func setupAnimationView() {
@@ -129,17 +130,26 @@ class SignInViewController: UIViewController {
     }
     
     @objc func signInWithApple() {
-        let nonce = randomNonceString()
-        currentNonce = nonce
-        let appleIDProvider = ASAuthorizationAppleIDProvider() // 建立取得使用者資訊的請求 82~84
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        request.nonce = sha256(nonce)
         
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.presentationContextProvider = self
-        authorizationController.performRequests()
+        let controller = UIAlertController(title: "隱私權政策提示", message: "我們非常重視您的隱私和個人訊息保護，也感謝您對我們的信任。在使用Veganny Map前請認真閱讀\"隱私權政策\"的全部內容。如您同意，請點擊同意，開始接受我們的服務。", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "同意", style: .default) { _ in
+
+            let nonce = self.randomNonceString()
+            self.currentNonce = nonce
+            let appleIDProvider = ASAuthorizationAppleIDProvider() // 建立取得使用者資訊的請求 82~84
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            request.nonce = self.sha256(nonce)
+
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.presentationContextProvider = self
+            authorizationController.performRequests()
+        }
+        controller.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        controller.addAction(cancelAction)
+        present(controller, animated: true)
     }
     
     private func randomNonceString(length: Int = 32) -> String {

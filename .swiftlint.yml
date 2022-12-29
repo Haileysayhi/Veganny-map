@@ -11,6 +11,7 @@ disabled_rules:
   - orphaned_doc_comment
   - todo
   - unused_capture_list
+  - line_length
 
 opt_in_rules:
   - array_init
@@ -87,10 +88,10 @@ identifier_name:
 indentation_width:
   indentation_width: 4
 
-line_length:
-  ignores_urls: true
-  ignores_function_declarations: true
-  ignores_comments: true
+#line_length:
+#  ignores_urls: true
+#  ignores_function_declarations: true
+#  ignores_comments: true
 
 multiline_arguments:
   first_argument_location: next_line

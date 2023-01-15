@@ -6,8 +6,13 @@
 
 <p align="center">
     <img src="https://img.shields.io/badge/platform-iOS-green">
-    <img src="https://img.shields.io/badge/release-v1.0.4-orange">
+    <img src="https://img.shields.io/badge/release-v1.1.1-orange">
     <img src="https://img.shields.io/badge/license-MIT-green">
+</p>
+
+<p align="center">
+    <a href="https://apps.apple.com/tw/app/veganny-map/id6444237517">
+    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"></a>
 </p>
 
 ## About
@@ -61,7 +66,12 @@ This’s an app for people who want to find vegan restaurants. With this app, yo
 - [SPAlert](https://github.com/ivanvorobei/SPAlert)
 
 ## Version
->1.0.4
+>1.1.1
+
+## Release Notes
+Version  | Date      | Note
+:-------:|-----------|--------------------------------
+1.1.1    |2022/12/29 | First released on App Store.
 
 ## Requirements
 >Xcode 13 or later

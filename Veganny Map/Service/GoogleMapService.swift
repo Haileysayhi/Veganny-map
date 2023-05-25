@@ -1,5 +1,5 @@
 //
-//  GoogleMapListController.swift
+//  GoogleMapService.swift
 //  Veganny Map
 //
 //  Created by Hailey on 2022/10/31.
@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class GoogleMapListController {
+class GoogleMapService {
     static let key = "AIzaSyCE3u5KCT169xXdo96QsrlyO6emFgyJYKo"
-    static var shared = GoogleMapListController()
+    static var shared = GoogleMapService()
     
     // Place Search - NearbySearch
     /*  location: 經緯度
@@ -21,7 +21,7 @@ class GoogleMapListController {
      key：個人的api key */
     
     func fetchNearbySearch(location: String, keyword: String, radius: Int, completion: @escaping (ListResponse?) -> Void) {
-        if let url = URL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(location)&radius=\(radius)&keyword=\(keyword)&language=zh-TW&key=\(GoogleMapListController.key)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
+        if let url = URL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(location)&radius=\(radius)&keyword=\(keyword)&language=zh-TW&key=\(GoogleMapService.key)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data,
                    let response = response as? HTTPURLResponse,
@@ -46,7 +46,7 @@ class GoogleMapListController {
     
     // Place Details - Place Details Requests
     func fetchPlaceDetail(placeId: String, completion: @escaping (DetailResponse?) -> Void) {
-        if let url = URL(string: "https://maps.googleapis.com/maps/api/place/details/json?place_id=\(placeId)&language=zh-TW&key=\(GoogleMapListController.key)") {
+        if let url = URL(string: "https://maps.googleapis.com/maps/api/place/details/json?place_id=\(placeId)&language=zh-TW&key=\(GoogleMapService.key)") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data,
                    let response = response as? HTTPURLResponse,
@@ -89,7 +89,7 @@ class GoogleMapListController {
     
     // Place Photos - Place Photo requests
     func fetchPhotos(photoReference: String, completion: @escaping (UIImage?) -> Void) {
-        if let url = URL(string: "https://maps.googleapis.com/maps/api/place/photo?photo_reference=\(photoReference)&maxwidth=1600&key=\(GoogleMapListController.key)"){
+        if let url = URL(string: "https://maps.googleapis.com/maps/api/place/photo?photo_reference=\(photoReference)&maxwidth=1600&key=\(GoogleMapService.key)"){
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data,
                    let response = response as? HTTPURLResponse,

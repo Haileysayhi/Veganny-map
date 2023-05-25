@@ -63,7 +63,7 @@ class SaveViewController: UIViewController {
         guard let user = user else { return }
         self.detail = [] // 清空資料，從其他頁面跳回來時不會重複取資料
         for placeId in user.savedRestaurants {
-            GoogleMapListController.shared.fetchPlaceDetail(placeId: placeId) { detailResponse in
+            GoogleMapService.shared.fetchPlaceDetail(placeId: placeId) { detailResponse in
                 guard let detailResponse = detailResponse else { return }
                 self.detail.append(detailResponse)
                 DispatchQueue.main.async {

@@ -41,7 +41,7 @@ class PhotoTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
         else { fatalError("Could not create Cell.") }
         
         cell.photoIngView.image = nil
-        GoogleMapListController.shared.fetchPhotos(
+        GoogleMapService.shared.fetchPhotos(
             photoReference: photos[indexPath.row].photoReference) {
                 image in DispatchQueue.main.async {
                     cell.photoIngView.image = image

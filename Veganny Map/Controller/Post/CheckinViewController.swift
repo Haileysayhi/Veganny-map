@@ -13,7 +13,7 @@ class CheckinViewController: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - Properties
     var listResponse: ListResponse?
-    let listController = GoogleMapListController()
+    let listController = GoogleMapService()
     var userLocation = UserDefaults.standard.object(forKey: "userLocation") as? String
     var name: ((String) -> ())? // 傳餐廳名字
     var placeId: ((String) -> ())? // 傳餐廳id
@@ -38,7 +38,7 @@ class CheckinViewController: UIViewController, CLLocationManagerDelegate {
     
     func getRestaurantData() {
         guard let userLocation = self.userLocation else { fatalError("ERROR")}
-        GoogleMapListController.shared.fetchNearbySearch(location: userLocation, keyword: "restaurant", radius: 30000) { listresponse in
+        GoogleMapService.shared.fetchNearbySearch(location: userLocation, keyword: "restaurant", radius: 30000) { listresponse in
             self.listResponse = listresponse
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -84,7 +84,7 @@ extension CheckinViewController: UISearchBarDelegate {
             getRestaurantData()
         } else {
             guard let userLocation = self.userLocation else { fatalError("ERROR")}
-            GoogleMapListController.shared.fetchNearbySearch(location: userLocation, keyword: searchText, radius: 30000) { listresponse in
+            GoogleMapService.shared.fetchNearbySearch(location: userLocation, keyword: searchText, radius: 30000) { listresponse in
                 self.listResponse = listresponse
                 DispatchQueue.main.async {
                     self.tableView.reloadData()

@@ -38,9 +38,9 @@
 		D29F59FC29160BEE00513A63 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D29F59FA29160BEE00513A63 /* PostTableViewCell.xib */; };
 		D29F59FE29160C6300513A63 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29F59FD29160C6300513A63 /* PostViewController.swift */; };
 		D29F5A01291627A400513A63 /* PublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29F5A00291627A400513A63 /* PublishViewController.swift */; };
-		D2A0677E290F96CF00988C56 /* PlaceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0677D290F96CF00988C56 /* PlaceSearch.swift */; };
-		D2A06780290F970700988C56 /* PlaceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0677F290F970700988C56 /* PlaceDetails.swift */; };
-		D2A06782290FCD6A00988C56 /* GoogleMapListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A06781290FCD6A00988C56 /* GoogleMapListController.swift */; };
+		D2A0677E290F96CF00988C56 /* PlaceSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0677D290F96CF00988C56 /* PlaceSearchModel.swift */; };
+		D2A06780290F970700988C56 /* PlaceDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0677F290F970700988C56 /* PlaceDetailsModel.swift */; };
+		D2A06782290FCD6A00988C56 /* GoogleMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A06781290FCD6A00988C56 /* GoogleMapService.swift */; };
 		D2A0678429113BEE00988C56 /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0678329113BEE00988C56 /* RestaurantViewController.swift */; };
 		D2A0678629113CCE00988C56 /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0678529113CCE00988C56 /* RestaurantTableViewCell.swift */; };
 		D2A6131C2923381F0095AED2 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A6131B2923381F0095AED2 /* SignInViewController.swift */; };
@@ -105,9 +105,9 @@
 		D29F59FA29160BEE00513A63 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 		D29F59FD29160C6300513A63 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		D29F5A00291627A400513A63 /* PublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewController.swift; sourceTree = "<group>"; };
-		D2A0677D290F96CF00988C56 /* PlaceSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearch.swift; sourceTree = "<group>"; };
-		D2A0677F290F970700988C56 /* PlaceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetails.swift; sourceTree = "<group>"; };
-		D2A06781290FCD6A00988C56 /* GoogleMapListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapListController.swift; sourceTree = "<group>"; };
+		D2A0677D290F96CF00988C56 /* PlaceSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchModel.swift; sourceTree = "<group>"; };
+		D2A0677F290F970700988C56 /* PlaceDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailsModel.swift; sourceTree = "<group>"; };
+		D2A06781290FCD6A00988C56 /* GoogleMapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapService.swift; sourceTree = "<group>"; };
 		D2A0678329113BEE00988C56 /* RestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
 		D2A0678529113CCE00988C56 /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		D2A6131A292335BD0095AED2 /* Veganny Map.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Veganny Map.entitlements"; sourceTree = "<group>"; };
@@ -165,7 +165,6 @@
 		D242FDAA29135D7000C56DCE /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				D2A06781290FCD6A00988C56 /* GoogleMapListController.swift */,
 				D28A5BEB290BE379005F5D50 /* MapViewController.swift */,
 			);
 			path = Map;
@@ -235,6 +234,15 @@
 			path = Comment;
 			sourceTree = "<group>";
 		};
+		D279C5FD2A1F5EF600F3C977 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				D210BDCB2948587A00DE7BE5 /* FirestoreService.swift */,
+				D2A06781290FCD6A00988C56 /* GoogleMapService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		D284239B291B92BC001E336F /* Post */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,7 +281,8 @@
 				D28A5BFB290D1616005F5D50 /* Resource */,
 				D2D180E9291F854000661B4C /* Extension */,
 				D26F258F291A363700A8CF1B /* Third Party Wrapper */,
-				D2A0677C290F966600988C56 /* Model */,
+				D279C5FD2A1F5EF600F3C977 /* Service */,
+				D2A0677C290F966600988C56 /* Models */,
 				D28A5BFD290D16A0005F5D50 /* View */,
 				D28A5BFC290D1632005F5D50 /* Controller */,
 				D28A5BE7290BE379005F5D50 /* AppDelegate.swift */,
@@ -348,16 +357,15 @@
 			path = Post;
 			sourceTree = "<group>";
 		};
-		D2A0677C290F966600988C56 /* Model */ = {
+		D2A0677C290F966600988C56 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D210BDCB2948587A00DE7BE5 /* FirestoreService.swift */,
-				D2A0677D290F96CF00988C56 /* PlaceSearch.swift */,
-				D2A0677F290F970700988C56 /* PlaceDetails.swift */,
+				D2A0677D290F96CF00988C56 /* PlaceSearchModel.swift */,
+				D2A0677F290F970700988C56 /* PlaceDetailsModel.swift */,
 				D26F258A2918E11C00A8CF1B /* User.swift */,
 				D290F873292F61940031D84F /* JWTid.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		D2D180E9291F854000661B4C /* Extension */ = {
@@ -633,7 +641,7 @@
 				D2C5ABDE292C608C0066CA93 /* ReviewDetailViewController.swift in Sources */,
 				D26F2596291AAB7700A8CF1B /* CommentTableViewCell.swift in Sources */,
 				D29F59FB29160BEE00513A63 /* PostTableViewCell.swift in Sources */,
-				D2A06780290F970700988C56 /* PlaceDetails.swift in Sources */,
+				D2A06780290F970700988C56 /* PlaceDetailsModel.swift in Sources */,
 				D290F871292F22930031D84F /* BlockListTableViewCell.swift in Sources */,
 				D2B21DE729275B8F00592FBA /* CheckinTableViewCell.swift in Sources */,
 				D242FDA929135CE200C56DCE /* RestaurantCollectionViewCell.swift in Sources */,
@@ -657,8 +665,8 @@
 				D210BDCC2948587A00DE7BE5 /* FirestoreService.swift in Sources */,
 				D2A0678429113BEE00988C56 /* RestaurantViewController.swift in Sources */,
 				D211BCBF293319C800423065 /* UIColor+Extension.swift in Sources */,
-				D2A0677E290F96CF00988C56 /* PlaceSearch.swift in Sources */,
-				D2A06782290FCD6A00988C56 /* GoogleMapListController.swift in Sources */,
+				D2A0677E290F96CF00988C56 /* PlaceSearchModel.swift in Sources */,
+				D2A06782290FCD6A00988C56 /* GoogleMapService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

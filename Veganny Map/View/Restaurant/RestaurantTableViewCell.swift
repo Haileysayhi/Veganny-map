@@ -27,7 +27,7 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     func layoutCell(result: ItemResult) {
         self.itemResult = result
        let item = result.placeId
-        GoogleMapListController.shared.fetchPlaceDetail(placeId: item) { detailResponse in
+        GoogleMapService.shared.fetchPlaceDetail(placeId: item) { detailResponse in
             self.detail = detailResponse
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -53,7 +53,7 @@ class RestaurantTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
         else { fatalError("Could not create Cell.") }
         
         cell.restaurantImgView.image = nil
-        GoogleMapListController.shared.fetchPhotos(photoReference: detail?.result.photos[indexPath.row].photoReference ?? "") { image in
+        GoogleMapService.shared.fetchPhotos(photoReference: detail?.result.photos[indexPath.row].photoReference ?? "") { image in
             DispatchQueue.main.async {
                 cell.restaurantImgView.image = image
                 cell.restaurantImgView.contentMode = .scaleAspectFill

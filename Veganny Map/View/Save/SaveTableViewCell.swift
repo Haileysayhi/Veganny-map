@@ -20,7 +20,7 @@ class SaveTableViewCell: UITableViewCell {
     
     // MARK: - Function
     func layoutCell(photoReference: String, name: String, address: String) {
-        GoogleMapListController.shared.fetchPhotos(photoReference: photoReference) { image in
+        GoogleMapService.shared.fetchPhotos(photoReference: photoReference) { image in
             DispatchQueue.main.async {
             self.nameLabel.text = name
             self.photoImgView.image = (image ?? UIImage(named: "placeholder"))!

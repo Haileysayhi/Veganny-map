@@ -47,7 +47,7 @@ class ReviewTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         else { fatalError("Could not create Cell.") }
         
         
-        GoogleMapListController.shared.getPhoto(url: reviews[indexPath.row].profilePhotoURL) { image in
+        GoogleMapService.shared.getPhoto(url: reviews[indexPath.row].profilePhotoURL) { image in
             DispatchQueue.main.async {
                 cell.profileImgView.image = image
             }

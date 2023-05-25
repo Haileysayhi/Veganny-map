@@ -187,14 +187,14 @@ class PostViewController: UIViewController {
         
         switch currentPage {
         case .all:
-            GoogleMapListController.shared.fetchPlaceDetail(placeId: posts[indexpath.row].placeId) { detailResponse in
+            GoogleMapService.shared.fetchPlaceDetail(placeId: posts[indexpath.row].placeId) { detailResponse in
                 guard let detailResponse = detailResponse else { fatalError("ERROR") }
                 tableVC.infoResult = detailResponse.result
                 self.present(tableVC, animated: true)
             }
             
         case .mine:
-            GoogleMapListController.shared.fetchPlaceDetail(placeId: myPosts[indexpath.row].placeId) { detailResponse in
+            GoogleMapService.shared.fetchPlaceDetail(placeId: myPosts[indexpath.row].placeId) { detailResponse in
                 guard let detailResponse = detailResponse else { fatalError("ERROR") }
                 tableVC.infoResult = detailResponse.result
                 self.present(tableVC, animated: true)

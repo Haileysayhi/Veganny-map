@@ -45,7 +45,7 @@ class ReviewDetailViewController: UIViewController {
         dateLabel.text = dateFormatter.string(from: review.time)
         contentLabel.text = review.text
         updateStar(rate: review.rating)
-        GoogleMapListController.shared.getPhoto(url: review.profilePhotoURL) { image in
+        GoogleMapService.shared.getPhoto(url: review.profilePhotoURL) { image in
             DispatchQueue.main.async {
                 self.profileImgView.image = image
             }

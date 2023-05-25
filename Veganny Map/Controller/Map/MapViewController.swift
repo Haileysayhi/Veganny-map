@@ -75,7 +75,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
     @objc func search() {
         self.searchAreaButton.isHidden = true
         self.mapView.clear()
-        GoogleMapListController.shared.fetchNearbySearch(location: self.moveLocation, keyword: "vegan", radius: 3000) { listresponse in
+        GoogleMapService.shared.fetchNearbySearch(location: self.moveLocation, keyword: "vegan", radius: 3000) { listresponse in
             self.listResponse = listresponse
             self.delegate.manager(self, didGet: listresponse!.results)
             listresponse?.results.forEach({ result in
@@ -95,7 +95,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, FloatingPanelCont
     }
     
     func getData() {
-        GoogleMapListController.shared.fetchNearbySearch(location: self.userLocation, keyword: "vegan", radius: 3000) { listresponse in
+        GoogleMapService.shared.fetchNearbySearch(location: self.userLocation, keyword: "vegan", radius: 3000) { listresponse in
             self.listResponse = listresponse
             print("==位置:\(self.userLocation)")
             print("==Listresponse:\(listresponse)")
@@ -210,7 +210,7 @@ extension MapViewController: GMUClusterManagerDelegate {
             guard let tableVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController,
                   let placeId = placeId
             else { fatalError("ERROR") }
-            GoogleMapListController.shared.fetchPlaceDetail(placeId: placeId) { detailResponse in
+            GoogleMapService.shared.fetchPlaceDetail(placeId: placeId) { detailResponse in
 
                 guard let detailResponse = detailResponse else { fatalError("ERROR") }
                 tableVC.infoResult = detailResponse.result

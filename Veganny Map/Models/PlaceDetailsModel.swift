@@ -1,5 +1,5 @@
 //
-//  PlaceDetails.swift
+//  PlaceDetailsModel.swift
 //  Veganny Map
 //
 //  Created by Hailey on 2022/10/31.

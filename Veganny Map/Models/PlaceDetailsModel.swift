@@ -12,7 +12,6 @@ struct DetailResponse: Codable {
 }
 
 struct InfoResult: Codable {
-    
     var placeId: String
     var name: String
     var photos: [PhotosResults]
@@ -23,7 +22,6 @@ struct InfoResult: Codable {
     var formattedAddress: String
     
     enum CodingKeys: String, CodingKey {
-        
         case placeId = "place_id"
         case name
         case photos
@@ -64,7 +62,7 @@ struct Reviews: Codable {
 struct CurrentOpeningHours: Codable {
     let openNow: Bool
     let weekdayText: [String]
-
+    
     enum CodingKeys: String, CodingKey {
         case openNow = "open_now"
         case weekdayText = "weekday_text"

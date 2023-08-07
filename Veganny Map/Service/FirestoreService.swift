@@ -40,7 +40,6 @@ class FirestoreService {
         }
     }
 
-
     func getDocuments<T: Decodable>(_ query: Query, completion: @escaping ([T]) -> Void) {
         query.getDocuments { snapshot, error in
             completion(self.parseDocuments(snapshot: snapshot, error: error))

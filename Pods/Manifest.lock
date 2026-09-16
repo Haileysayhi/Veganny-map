@@ -823,7 +823,7 @@ PODS:
   - IQKeyboardManagerSwift (6.5.10)
   - JGProgressHUD (2.2)
   - KeychainSwift (20.0.0)
-  - Kingfisher (7.3.2)
+  - Kingfisher (7.6.2)
   - KituraContracts (1.2.1):
     - LoggerAPI (~> 1.7)
   - leveldb-library (1.22.1)
@@ -918,7 +918,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - JGProgressHUD
   - KeychainSwift (~> 20.0)
-  - Kingfisher
+  - Kingfisher (= 7.6.2)
   - lottie-ios
   - MaterialComponents/Buttons
   - MDFInternationalization
@@ -1013,7 +1013,7 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   KeychainSwift: 0ce6a4d13f7228054d1a71bb1b500448fb2ab837
-  Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
+  Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
   KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
@@ -1030,6 +1030,6 @@ SPEC CHECKSUMS:
   SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: 39c3628ceeed7f4d0f8a26909f889e5aecda990e
+PODFILE CHECKSUM: fa62632091da3793143a4d5f6fc3bf45610f1bfc
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.16.2
